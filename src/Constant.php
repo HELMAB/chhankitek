@@ -22,7 +22,7 @@ class Constant
         $this->solarMonths = [];
         $months = explode("_", "មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ");
         foreach ($months as $month) {
-            array_push($this->solarMonths, $months);
+            array_push($this->solarMonths, $month);
         }
 
         $this->animalYears = [];
