@@ -1,6 +1,11 @@
 # Chhankitek for Laravel
 
-Cambodians use two types of calendars: the international calendar for civil purposes and the traditional calendar for religious purposes. Although called Chhankitek, which means lunar calendar, Khmer traditional calendar is a lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar.
+Cambodians use two types of calendars: the international 
+calendar for civil purposes and the traditional
+calendar for religious purposes. Although called Chhankitek,
+which means lunar calendar, Khmer traditional calendar is a 
+lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar [see more](http://www.cam-cc.org/calendar/).
+
 ## Installation
 
 You can install the package via composer:
