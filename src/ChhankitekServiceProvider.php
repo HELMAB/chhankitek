@@ -1,6 +1,6 @@
 <?php
 
-namespace Chhankitek\Chhankitek;
+namespace Asorasoft\Chhankitek;
 
 use Illuminate\Support\ServiceProvider;
 

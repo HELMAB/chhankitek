@@ -1,17 +1,12 @@
-# Very short description of the package
+# Chhankitek for Laravel
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/chhankitek/chhankitek.svg?style=flat-square)](https://packagist.org/packages/chhankitek/chhankitek)
-[![Total Downloads](https://img.shields.io/packagist/dt/chhankitek/chhankitek.svg?style=flat-square)](https://packagist.org/packages/chhankitek/chhankitek)
-![GitHub Actions](https://github.com/chhankitek/chhankitek/actions/workflows/main.yml/badge.svg)
-
-This is where your description should go. Try and limit it to a paragraph or two, and maybe throw in a mention of what PSRs you support to avoid any confusion with users and contributors.
-
+Cambodians use two types of calendars: the international calendar for civil purposes and the traditional calendar for religious purposes. Although called Chhankitek, which means lunar calendar, Khmer traditional calendar is a lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar.
 ## Installation
 
 You can install the package via composer:
 
 ```bash
-composer require chhankitek/chhankitek
+composer require asorasoft/chhankitek
 ```
 
 ## Usage
@@ -40,7 +35,7 @@ If you discover any security related issues, please email mabhelitc@gmail.com in
 
 ## Credits
 
--   [Mab Hel](https://github.com/chhankitek)
+-   [Mab Hel](https://github.com/asorasoft)
 -   [All Contributors](../../contributors)
 
 ## License

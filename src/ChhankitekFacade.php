@@ -1,11 +1,11 @@
 <?php
 
-namespace Chhankitek\Chhankitek;
+namespace Asorasoft\Chhankitek;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Chhankitek\Chhankitek\Skeleton\SkeletonClass
+ * @see \Asorasoft\Chhankitek\Skeleton\SkeletonClass
  */
 class ChhankitekFacade extends Facade
 {
