@@ -2,296 +2,416 @@
 
 namespace Asorasoft\Chhankitek;
 
+use Exception;
+use Illuminate\Support\Carbon;
+
 /**
  * Class Chhankitek
  * @package Asorasoft\Chhankitek
  */
 class Chhankitek
 {
-    public $bodithey;
-    public $avoman;
-    public $aharkun;
-    public $kromthupul;
-    public $aharkunmod;
-    public $boditheyLeap;
-    public $protetinLeap;
-    public $numberOfDaysInKhmerMonth;
-    public $numberOfDaysInKhmerYear;
-    public $numberOfDaysInGregorianYear;
-    public $bEYear; // BE year
-    public $maybeBEYear;
-    public $mohaSakarajYear;
-    public $jolakSakarajYear;
-    public $khmerLunarDay;
-    public $animalYear;
-    public $constant;
+    public $lunarMonths;
+    public $solarMonths;
+    public $moonStatuses;
+    public $animalYears;
+    public $eraYears;
 
     public function __construct()
     {
-        $this->constant = new Constant();
+        $config = new Constant();
+        $this->lunarMonths = $config->lunarMonths;
+        $this->solarMonths = $config->solarMonths;
+        $this->moonStatuses = $config->moonStatuses;
+        $this->animalYears = $config->animalYears;
+        $this->eraYears = $config->eraYears;
     }
 
     /**
-     * @return mixed
+     * Maximum number of day in Khmer Month
+     * @param $beMonth
+     * @param $beYear
+     * @return int
      */
-    public function getBodithey()
+    public function getNumberOfDayInKhmerMonth($beMonth, $beYear)
     {
-        return $this->bodithey;
+        if ($beMonth === $this->lunarMonths['ជេស្ឋ'] && $this->isKhmerLeapDay($beYear)) {
+            return 30;
+        }
+
+        if ($beMonth === $this->lunarMonths['បឋមាសាឍ'] || $beMonth === $this->lunarMonths['ទុតិយាសាឍ']) {
+            return 30;
+        }
+
+        // មិគសិរ : 29 , បុស្ស : 30 , មាឃ : 29 .. 30 .. 29 ..30 .....
+        return $beMonth % 2 === 0 ? 29 : 30;
     }
 
     /**
-     * @param mixed $bodithey
+     * A year with an extra day is called Chhantrea Thimeas (ចន្ទ្រាធិមាស) or Adhikavereak (អធិកវារៈ).
+     * This year has 355 days.
+     * @param int $beYear
+     * @return bool
      */
-    public function setBodithey($bodithey): void
+    public function isKhmerLeapDay(int $beYear)
     {
-        $this->bodithey = $bodithey;
+        return $this->getProtetinLeap($beYear) === 2;
     }
 
     /**
-     * @return mixed
+     * bodithey leap can be both leap-day and leap-month but following the khmer calendar rule
+     * they can't be together on the same year, so leap day must be delayed to next year
+     * return 0:regular, 1:leap month, 2:leap day (no leap month and day together)
+     * @param $beYear
+     * @return int
      */
-    public function getAvoman()
+    public function getProtetinLeap($beYear)
     {
-        return $this->avoman;
+        $b = $this->getBoditheyLeap($beYear);
+        if ($b === 3) {
+            return 1;
+        }
+        if ($b === 2 || $b === 1) {
+            return $b;
+        }
+        // case of previous year is 3
+        if ($this->getBoditheyLeap($beYear - 1) === 3) {
+            return 2;
+        }
+        // normal case
+        return 0;
     }
 
     /**
-     * @param mixed $avoman
+     * Regular if year has 30 day
+     * leap month if year has 13 months
+     * leap day if Jesth month of the year has 1 extra day
+     * leap day and month: both of them
+     * return 0:regular, 1:leap month, 2:leap day, 3:leap day and month
+     * @param int $beYear
+     * @return int
      */
-    public function setAvoman($avoman): void
+    public function getBoditheyLeap(int $beYear)
     {
-        $this->avoman = $avoman;
+        $result = 0;
+        $avoman = $this->getAvoman($beYear);
+        $bodithey = $this->getBodithey($beYear);
+
+        // check bodithey leap month
+        $boditheyLeap = 0;
+        if ($bodithey >= 25 || $bodithey <= 5) {
+            $boditheyLeap = 1;
+        }
+        // check for avoman leap-day based on gregorian leap
+        $avomanLeap = 0;
+        if ($this->isKhmerSolarLeap($beYear)) {
+            if ($avoman <= 126)
+                $avomanLeap = 1;
+        } else {
+            if ($avoman <= 137) {
+                // check for avoman case 137/0, 137 must be normal year (p.26)
+                if ($this->getAvoman($beYear + 1) === 0) {
+                    $avomanLeap = 0;
+                } else {
+                    $avomanLeap = 1;
+                }
+            }
+        }
+
+        // case of 25/5 consecutively
+        // only bodithey 5 can be leap-month, so set bodithey 25 to none
+        if ($bodithey === 25) {
+            $nextBodithey = $this->getBodithey($beYear + 1);
+            if ($nextBodithey === 5) {
+                $boditheyLeap = 0;
+            }
+        }
+
+        // case of 24/6 consecutively, 24 must be leap-month
+        if ($bodithey == 24) {
+            $nextBodithey = $this->getBodithey($beYear + 1);
+            if ($nextBodithey == 6) {
+                $boditheyLeap = 1;
+            }
+        }
+
+        // format leap result (0:regular, 1:month, 2:day, 3:both)
+        if ($boditheyLeap === 1 && $avomanLeap === 1) {
+            $result = 3;
+        } else if ($boditheyLeap === 1) {
+            $result = 1;
+        } else if ($avomanLeap === 1) {
+            $result = 2;
+        } else {
+            $result = 0;
+        }
+
+        return $result;
     }
 
     /**
-     * @return mixed
+     * Avoman: អាវមាន
+     * Avoman determines if a given year is a leap-day year.
+     * Given a year in Buddhist Era as denoted as adYear. Return (0 - 691)
+     * @param int $beYear
+     * @return int
      */
-    public function getAharkun()
+    public function getAvoman(int $beYear)
     {
-        return $this->aharkun;
+        $ahk = $this->getAharkun($beYear);
+        $avm = (11 * $ahk + 25) % 692;
+        return $avm;
     }
 
     /**
-     * @param mixed $aharkun
+     * Aharkun: អាហារគុណ ឬ ហារគុណ
+     * Aharkun is used for Avoman and Bodithey calculation below.
+     * Given adYear as a target year in Buddhist Era
+     * @param int $beYear
+     * @return int
      */
-    public function setAharkun($aharkun): void
+    public function getAharkun(int $beYear)
     {
-        $this->aharkun = $aharkun;
+        $t = $beYear * 292207 + 499;
+        return floor($t / 800) + 4;
     }
 
     /**
-     * @return mixed
+     * Bodithey: បូតិថី
+     * Bodithey determines if a given beYear is a leap-month year.
+     * Given year target year in Buddhist Era. Return (0-29)
+     * @param int $beYear
+     * @return int
      */
-    public function getKromthupul()
+    public function getBodithey(int $beYear)
     {
-        return $this->kromthupul;
+        $ahk = $this->getAharkun($beYear);
+        $avml = floor((11 * $ahk + 25) / 692);
+        $m = $avml + $ahk + 29;
+        return ($m % 30);
     }
 
     /**
-     * @param mixed $kromthupul
+     * @param int $beYear
+     * @return int
      */
-    public function setKromthupul($kromthupul): void
+    public function isKhmerSolarLeap(int $beYear)
     {
-        $this->kromthupul = $kromthupul;
+        $krom = $this->kromthupul($beYear);
+        if ($krom <= 207) {
+            return 1;
+        } else {
+            return 0;
+        }
     }
 
     /**
-     * @return mixed
+     * Kromathupul
+     * @param int $beYear
+     * @return int
      */
-    public function getAharkunmod()
+    public function kromthupul(int $beYear)
     {
-        return $this->aharkunmod;
+        $ah = $this->getAharkunMod($beYear);
+        $krom = 800 - $ah;
+        return $krom;
     }
 
     /**
-     * @param mixed $aharkunmod
+     * @param int $beYear
+     * @return int
      */
-    public function setAharkunmod($aharkunmod): void
+    public function getAharkunMod(int $beYear)
     {
-        $this->aharkunmod = $aharkunmod;
+        $t = $beYear * 292207 + 499;
+        $ahkmod = $t % 800;
+        return $ahkmod;
     }
 
     /**
-     * @return mixed
+     * Get number of day in Khmer year
+     * @param int $beYear
+     * @return int
      */
-    public function getBoditheyLeap()
+    public function getNumerOfDayInKhmerYear(int $beYear)
     {
-        return $this->boditheyLeap;
+        if ($this->isKhmerLeapMonth($beYear)) {
+            return 384;
+        } else if ($this->isKhmerLeapDay($beYear)) {
+            return 355;
+        } else {
+            return 354;
+        }
     }
 
     /**
-     * @param mixed $boditheyLeap
+     * A year with an extra month is called Adhikameas (អធិកមាស).
+     * This year has 384 days.
+     * @param int $beYear
+     * @return bool
      */
-    public function setBoditheyLeap($boditheyLeap): void
+    public function isKhmerLeapMonth(int $beYear)
     {
-        $this->boditheyLeap = $boditheyLeap;
+        return $this->getProtetinLeap($beYear) === 1;
     }
 
     /**
-     * @return mixed
+     * Get number of day in Gregorian year
+     * @param int $adYear
+     * @return int
      */
-    public function getProtetinLeap()
+    public function getNumberOfDayInGregorianYear(int $adYear)
     {
-        return $this->protetinLeap;
+        if ($this->isGregorianLeap($adYear)) {
+            return 366;
+        } else {
+            return 365;
+        }
     }
 
     /**
-     * @param mixed $protetinLeap
+     * Gregorian Leap
+     * @param int $adYear
+     * @return bool
      */
-    public function setProtetinLeap($protetinLeap): void
+    public function isGregorianLeap(int $adYear)
     {
-        $this->protetinLeap = $protetinLeap;
+        if ($adYear % 4 === 0 && $adYear % 100 !== 0 || $adYear % 400 === 0) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     /**
-     * @return mixed
+     * Buddhist Era
+     * ថ្ងៃឆ្លងឆ្នាំ គឺ ១ រោច ខែពិសាខ
+     * http://news.sabay.com.kh/article/1039620
+     * @param Carbon $carbon
+     * @return int
+     * @throws Exception
      */
-    public function getNumberOfDaysInKhmerMonth()
+    public function getBEYear(Carbon $carbon)
     {
-        return $this->numberOfDaysInKhmerMonth;
+        if ($carbon->diff($this->getVisakhaBochea((int)$carbon->format('Y'))) > 0) {
+            return (int)$carbon->format('Y') + 544;
+        } else {
+            return (int)$carbon->format('Y') + 543;
+        }
     }
 
     /**
-     * @param mixed $numberOfDaysInKhmerMonth
+     * រកថ្ងៃវិសាខបូជា
+     * ថ្ងៃដាច់ឆ្នាំពុទ្ធសករាជ
+     * @param $gregorianYear
+     * @return \Carbon\Carbon|false
+     * @throws Exception
      */
-    public function setNumberOfDaysInKhmerMonth($numberOfDaysInKhmerMonth): void
+    public function getVisakhaBochea($gregorianYear)
     {
-        $this->numberOfDaysInKhmerMonth = $numberOfDaysInKhmerMonth;
+        $date = Carbon::createFromFormat('d/m/Y', "01/01/$gregorianYear");
+
+        for ($i = 0; $i < 365; $i++) {
+            $lunarDate = $this->findLunarDate($date);
+            if ($lunarDate['month'] == $this->lunarMonths['ពិសាខ'] && $lunarDate['day'] == 14) {
+                return $date;
+            }
+            $date->addDay();
+        }
+
+        throw new Exception('Cannot find Visakhabochea day. Please report this bug.');
     }
 
     /**
-     * @return mixed
+     * Due to recursive problem, I need to calculate the BE based on new year's day
+     * This won't be displayed on final result, it is used to find number of day in year,
+     * It won't affect the result because on ខែចេត្រ និង ខែពិសាខ, number of days is the same every year
+     * ពីព្រោះចូលឆ្នាំតែងតែចំខែចេត្រ ឬ ពិសាខ
+     * @param Carbon $date
+     * @return int
      */
-    public function getNumberOfDaysInKhmerYear()
+    public function getMaybeBEYear(Carbon $date)
     {
-        return $this->numberOfDaysInKhmerYear;
+        if ((int)$date->format('m') <= $this->solarMonths['មេសា'] + 1) {
+            return (int)$date->format('Y') + 543;
+        } else {
+            return (int)$date->format('Y') + 544;
+        }
     }
 
     /**
-     * @param mixed $numberOfDaysInKhmerYear
+     * Moha Sakaraj
+     * @param $adYear
+     * @return int
      */
-    public function setNumberOfDaysInKhmerYear($numberOfDaysInKhmerYear): void
+    public function getMohaSakarajYear($adYear)
     {
-        $this->numberOfDaysInKhmerYear = $numberOfDaysInKhmerYear;
+        return $adYear - 77;
     }
 
     /**
-     * @return mixed
+     * Jolak Sakaraj
+     * @param Carbon $date
+     * @return int
      */
-    public function getNumberOfDaysInGregorianYear()
+    public function getJolakSakarajYear(Carbon $date)
     {
-        return $this->numberOfDaysInGregorianYear;
+        $gregorianYear = (int)$date->format('Y');
+        $newYearMoment = $this->getKhNewYearMoment($gregorianYear);
+        if ($date->diff($newYearMoment) < 0) {
+            return $gregorianYear + 543 - 1182;
+        } else {
+            return $gregorianYear + 544 - 1182;;
+        }
     }
 
     /**
-     * @param mixed $numberOfDaysInGregorianYear
+     * ១កើត ៤កើត ២រោច ១៤រោច ...
+     * @param $day
+     * @return array
      */
-    public function setNumberOfDaysInGregorianYear($numberOfDaysInGregorianYear): void
+    public function getKhmerLunarDay($day)
     {
-        $this->numberOfDaysInGregorianYear = $numberOfDaysInGregorianYear;
+        return [
+            'count' => ($day % 15) + 1,
+            'moonStatus' => $day > 14 ? $this->moonStatuses['រោច'] : $this->moonStatuses['កើត']
+        ];
     }
 
     /**
-     * @return mixed
+     * Turn be year to animal year
+     * @param Carbon $date
+     * @return int
      */
-    public function getBEYear()
+    public function getAnimalYear(Carbon $date)
     {
-        return $this->bEYear;
+        $gregorianYear = (int)$date->format('Y');
+        $newYearMoment = $this->getKhNewYearMoment($gregorianYear);
+        if ($date->diff($newYearMoment) < 0) {
+            return ($gregorianYear + 543 + 4) % 12;
+        } else {
+            return ($gregorianYear + 544 + 4) % 12;
+        }
     }
 
-    /**
-     * @param mixed $bEYear
-     */
-    public function setBEYear($bEYear): void
+    public function formatKhmerDate(int $day, int $month, Carbon $date, string $format = null)
     {
-        $this->bEYear = $bEYear;
-    }
+        if (is_null($format)) {
+            $dayOfWeek = $date->dayOfWeek;
+            $moonDay = $this->getKhmerLunarDay($day);
+            $beYear = $this->getBEYear($date);
+            $animalYear = $this->getAnimalYear($date);
+            $eraYear = $this->getJolakSakarajYear($date) % 10;
 
-    /**
-     * @return mixed
-     */
-    public function getMaybeBEYear()
-    {
-        return $this->maybeBEYear;
-    }
-
-    /**
-     * @param mixed $maybeBEYear
-     */
-    public function setMaybeBEYear($maybeBEYear): void
-    {
-        $this->maybeBEYear = $maybeBEYear;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getMohaSakarajYear()
-    {
-        return $this->mohaSakarajYear;
-    }
-
-    /**
-     * @param mixed $mohaSakarajYear
-     */
-    public function setMohaSakarajYear($mohaSakarajYear): void
-    {
-        $this->mohaSakarajYear = $mohaSakarajYear;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getJolakSakarajYear()
-    {
-        return $this->jolakSakarajYear;
-    }
-
-    /**
-     * @param mixed $jolakSakarajYear
-     */
-    public function setJolakSakarajYear($jolakSakarajYear): void
-    {
-        $this->jolakSakarajYear = $jolakSakarajYear;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getKhmerLunarDay()
-    {
-        return $this->khmerLunarDay;
-    }
-
-    /**
-     * @param mixed $khmerLunarDay
-     */
-    public function setKhmerLunarDay($khmerLunarDay): void
-    {
-        $this->khmerLunarDay = $khmerLunarDay;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function getAnimalYear()
-    {
-        return $this->animalYear;
-    }
-
-    /**
-     * @param mixed $animalYear
-     */
-    public function setAnimalYear($animalYear): void
-    {
-        $this->animalYear = $animalYear;
-    }
-
-    /**
-     * @return Constant
-     */
-    public function getConstant(): Constant
-    {
-        return $this->constant;
+            return [
+                $dayOfWeek,
+                $moonDay['count'],
+                $this->moonStatuses[$moonDay['moonStatus']],
+                $this->lunarMonths[$month],
+                $this->animalYears[$animalYear],
+                $this->eraYears[$eraYear],
+                $beYear
+            ];
+        }
     }
 }

@@ -15,29 +15,29 @@ class Constant
     {
         $this->lunarMonths = [];
         $months = explode("_", "មិគសិរ_បុស្ស_មាឃ_ផល្គុន_ចេត្រ_ពិសាខ_ជេស្ឋ_អាសាឍ_ស្រាពណ៍_ភទ្របទ_អស្សុជ_កក្ដិក_បឋមាសាឍ_ទុតិយាសាឍ");
-        foreach ($months as $month) {
-            array_push($this->lunarMonths, $month);
+        foreach ($months as $index => $month) {
+            $this->lunarMonths[$month] = $index;
         }
 
         $this->solarMonths = [];
         $months = explode("_", "មករា_កុម្ភៈ_មីនា_មេសា_ឧសភា_មិថុនា_កក្កដា_សីហា_កញ្ញា_តុលា_វិច្ឆិកា_ធ្នូ");
-        foreach ($months as $month) {
-            array_push($this->solarMonths, $month);
+        foreach ($months as $index => $month) {
+            $this->solarMonths[$month] = $index;
         }
 
         $this->animalYears = [];
         $years = explode("_", "ជូត_ឆ្លូវ_ខាល_ថោះ_រោង_ម្សាញ់_មមីរ_មមែ_វក_រកា_ច_កុរ");
-        foreach ($years as $year) {
-            array_push($this->animalYears, $year);
+        foreach ($years as $index => $year) {
+            $this->animalYears[$year] = $index;
         }
 
         $this->eraYears = [];
         $years = explode("_", "សំរឹទ្ធិស័ក_ឯកស័ក_ទោស័ក_ត្រីស័ក_ចត្វាស័ក_បញ្ចស័ក_ឆស័ក_សប្តស័ក_អដ្ឋស័ក_នព្វស័ក");
-        foreach ($years as $year) {
-            array_push($this->eraYears, $year);
+        foreach ($years as $index => $year) {
+            $this->eraYears[$year] = $index;
         }
 
-        $this->moonStatuses = ['កើត', 'រោជ'];
+        $this->moonStatuses = ['កើត' => 0, 'រោជ' => 1];
 
         $this->exceptionKhmerYear = [];
     }
