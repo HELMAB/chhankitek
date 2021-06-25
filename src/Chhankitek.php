@@ -24,6 +24,12 @@ class Chhankitek
     public $jolakSakarajYear;
     public $khmerLunarDay;
     public $animalYear;
+    public $constant;
+
+    public function __construct()
+    {
+        $this->constant = new Constant();
+    }
 
     /**
      * @return mixed
@@ -281,4 +287,11 @@ class Chhankitek
         $this->animalYear = $animalYear;
     }
 
+    /**
+     * @return Constant
+     */
+    public function getConstant(): Constant
+    {
+        return $this->constant;
+    }
 }
