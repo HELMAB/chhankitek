@@ -1,6 +1,6 @@
 {
     "name": "asorasoft/chhankitek",
-    "description": "Cambodians use two types of calendars: the international calendar for civil purposes and the traditional calendar for religious purposes. Although called Chhankitek, which means lunar calendar, Khmer traditional calendar is a lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar.",
+    "description": "Can display the Khmer calendar for different years",
     "keywords": [
         "asorasoft",
         "chhankitek"
@@ -16,7 +16,7 @@
         }
     ],
     "require": {
-        "php": "^7.4|^8.0",
+        "php": "^7.2|^7.4|^8.0",
         "illuminate/support": "^8.0"
     },
     "require-dev": {

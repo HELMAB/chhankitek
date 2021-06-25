@@ -5,7 +5,8 @@ namespace Asorasoft\Chhankitek;
 use Illuminate\Support\Facades\Facade;
 
 /**
- * @see \Asorasoft\Chhankitek\Skeleton\SkeletonClass
+ * Class ChhankitekFacade
+ * @package Asorasoft\Chhankitek
  */
 class ChhankitekFacade extends Facade
 {

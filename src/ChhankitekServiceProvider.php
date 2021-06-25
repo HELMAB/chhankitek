@@ -4,6 +4,10 @@ namespace Asorasoft\Chhankitek;
 
 use Illuminate\Support\ServiceProvider;
 
+/**
+ * Class ChhankitekServiceProvider
+ * @package Asorasoft\Chhankitek
+ */
 class ChhankitekServiceProvider extends ServiceProvider
 {
     /**
