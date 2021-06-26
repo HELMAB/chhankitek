@@ -3,6 +3,7 @@
 namespace Asorasoft\Chhankitek;
 
 use Asorasoft\Chhankitek\Exception\InvalidKhmerMonthException;
+use Asorasoft\Chhankitek\Exception\TimeOfNewYearException;
 use Asorasoft\Chhankitek\Exception\VisakhabocheaException;
 use Asorasoft\Chhankitek\Traits\HasKhmerNumberConversion;
 use Carbon\Carbon;
@@ -285,86 +286,30 @@ class Chhankitek
     }
 
     /**
-     * @param int $day
-     * @param int $month
-     * @param Carbon $date
-     * @param string|null $format
-     * @return array
-     * @throws Exception
+     * @param Carbon $target
+     * @return KhmerLunarDate
+     * @throws InvalidKhmerMonthException
      */
-    public function formatKhmerDate(int $day, int $month, Carbon $date, string $format = null)
+    public function khmerLunarDate(Carbon $target)
     {
-        if (is_null($format)) {
-            $dayOfWeek = $date->dayOfWeek;
-            $moonDay = $this->getKhmerLunarDay($day);
-            $beYear = $this->getBEYear($date);
-            $animalYear = $this->getAnimalYear($date);
-            $eraYear = $this->getJolakSakarajYear($date) % 10;
+        $lunar = $this->findLunarDate($target);
+        $khmerLunarDay = $this->getKhmerLunarDay($lunar->getDay());
+        $beYear = $this->getBEYear($target);
+        $lunarZodiac = $this->getAnimalYear($target);
+        $lunarEra = $this->getJolakSakarajYear($target) % 10;
 
-            dd([$this->moonStatuses, $moonDay]);
+        $lunarMonth = array_search($khmerLunarDay->getMoonStatus(), $this->moonStatuses);
+        $lunarDays = $this->convertToKhmerNumber($khmerLunarDay->getMoonCount());
+        $lunarDay = "$lunarDays $lunarMonth";
 
-            return [
-                $dayOfWeek,
-                $moonDay['count'],
-                $this->moonStatuses[$moonDay['moonStatus']],
-                $this->lunarMonths[$month],
-                $this->animalYears[$animalYear],
-                $this->eraYears[$eraYear],
-                $beYear
-            ];
-        }
-    }
-
-    /**
-     * ១កើត ៤កើត ២រោច ១៤រោច ...
-     * @param $day
-     * @return LunarDay
-     */
-    public function getKhmerLunarDay($day)
-    {
-        $moonCount = ($day % 15) + 1;
-        $moonStatus = $day > 14 ? $this->moonStatuses['រោច'] : $this->moonStatuses['កើត'];
-
-        return new LunarDay($moonCount, $moonStatus);
-    }
-
-    /**
-     * Buddhist Era
-     * ថ្ងៃឆ្លងឆ្នាំ គឺ ១ រោច ខែពិសាខ
-     * http://news.sabay.com.kh/article/1039620
-     * @param Carbon $carbon
-     * @return int
-     * @throws Exception
-     */
-    public function getBEYear(Carbon $carbon)
-    {
-        if ($carbon->diff($this->getVisakhaBochea((int)$carbon->format('Y')))->f > 0) {
-            return (int)$carbon->format('Y') + 544;
-        } else {
-            return (int)$carbon->format('Y') + 543;
-        }
-    }
-
-    /**
-     * រកថ្ងៃវិសាខបូជា
-     * ថ្ងៃដាច់ឆ្នាំពុទ្ធសករាជ
-     * @param $gregorianYear
-     * @return Carbon|false
-     * @throws Exception
-     */
-    public function getVisakhaBochea($gregorianYear)
-    {
-        $date = Carbon::createFromFormat('d/m/Y', "01/01/$gregorianYear");
-
-        for ($i = 0; $i < 365; $i++) {
-            $lunarDate = $this->findLunarDate($date);
-            if ($lunarDate->getMonth() == $this->lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
-                return $date;
-            }
-            $date->addDay();
-        }
-
-        throw new VisakhabocheaException('Cannot find Visakhabochea day.');
+        return new KhmerLunarDate(
+            array_search($target->dayOfWeek, $this->dayOfWeeks),
+            $lunarDay,
+            array_search($lunar->getMonth(), $this->lunarMonths),
+            array_search($lunarZodiac, $this->animalYears),
+            array_search($lunarEra, $this->eraYears),
+            $this->convertToKhmerNumber($beYear)
+        );
     }
 
     /**
@@ -502,6 +447,58 @@ class Chhankitek
     }
 
     /**
+     * ១កើត ៤កើត ២រោច ១៤រោច ...
+     * @param $day
+     * @return LunarDay
+     */
+    public function getKhmerLunarDay($day)
+    {
+        $moonCount = ($day % 15) + 1;
+        $moonStatus = $day > 14 ? $this->moonStatuses['រោច'] : $this->moonStatuses['កើត'];
+
+        return new LunarDay($moonCount, $moonStatus);
+    }
+
+    /**
+     * Buddhist Era
+     * ថ្ងៃឆ្លងឆ្នាំ គឺ ១ រោច ខែពិសាខ
+     * http://news.sabay.com.kh/article/1039620
+     * @param Carbon $carbon
+     * @return int
+     * @throws Exception
+     */
+    public function getBEYear(Carbon $carbon)
+    {
+        if ($carbon->diff($this->getVisakhaBochea((int)$carbon->format('Y')))->f > 0) {
+            return (int)$carbon->format('Y') + 544;
+        } else {
+            return (int)$carbon->format('Y') + 543;
+        }
+    }
+
+    /**
+     * រកថ្ងៃវិសាខបូជា
+     * ថ្ងៃដាច់ឆ្នាំពុទ្ធសករាជ
+     * @param $gregorianYear
+     * @return Carbon|false
+     * @throws Exception
+     */
+    public function getVisakhaBochea($gregorianYear)
+    {
+        $date = Carbon::createFromFormat('d/m/Y', "01/01/$gregorianYear");
+
+        for ($i = 0; $i < 365; $i++) {
+            $lunarDate = $this->findLunarDate($date);
+            if ($lunarDate->getMonth() == $this->lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
+                return $date;
+            }
+            $date->addDay();
+        }
+
+        throw new VisakhabocheaException('Cannot find Visakhabochea day.');
+    }
+
+    /**
      * Turn be year to animal year
      * @param Carbon $date
      * @return int
@@ -520,8 +517,9 @@ class Chhankitek
     /**
      * ថ្ងៃ ខែ ឆ្នាំ ម៉ោង និង នាទី ចូលឆ្នាំ
      * @param int $gregorianYear
-     * @throws Exception\TimeOfNewYearException
+     * @return Carbon|false
      * @throws InvalidKhmerMonthException
+     * @throws TimeOfNewYearException
      */
     public function getKhmerNewYearDateTime(int $gregorianYear)
     {
@@ -574,27 +572,5 @@ class Chhankitek
         } else {
             return $gregorianYear + 544 - 1182;
         }
-    }
-
-    public function khmerLunarDate(Carbon $target)
-    {
-        $lunar = $this->findLunarDate($target);
-        $khmerLunarDay = $this->getKhmerLunarDay($lunar->getDay());
-        $beYear = $this->getBEYear($target);
-        $lunarZodiac = $this->getAnimalYear($target);
-        $lunarEra = $this->getJolakSakarajYear($target) % 10;
-
-        $lunarMonth = array_search($khmerLunarDay->getMoonStatus(), $this->moonStatuses);
-        $lunarDays = $this->convertToKhmerNumber($khmerLunarDay->getMoonCount());
-        $lunarDay = "$lunarDays $lunarMonth";
-
-        return new KhmerLunarDate(
-            array_search($target->dayOfWeek, $this->dayOfWeeks),
-            $lunarDay,
-            array_search($lunar->getMonth(), $this->lunarMonths),
-            array_search($lunarZodiac, $this->animalYears),
-            array_search($lunarEra, $this->eraYears),
-            $this->convertToKhmerNumber($beYear)
-        );
     }
 }

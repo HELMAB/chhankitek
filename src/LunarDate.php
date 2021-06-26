@@ -12,9 +12,9 @@ class LunarDate
 
     /**
      * LunarDate constructor.
-     * @param $day
-     * @param $month
-     * @param $epochMoved
+     * @param int $day
+     * @param int $month
+     * @param Carbon $epochMoved
      */
     public function __construct(int $day, int $month, Carbon $epochMoved)
     {
