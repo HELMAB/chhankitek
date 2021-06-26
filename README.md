@@ -17,7 +17,12 @@ composer require asorasoft/chhankitek
 ## Usage
 
 ```php
-// Usage description here
+use Asorasoft\Chhankitek\Chhankitek;
+use Carbon\Carbon;
+
+$chhankitek = new Chhankitek();
+$now = Carbon::createFromDate(2021, 5, 19);
+return $chhankitek->khmerLunarDate($now)->toString(); // ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ### Testing

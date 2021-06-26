@@ -9,8 +9,13 @@ class Constant
     public $animalYears;
     public $eraYears;
     public $moonStatuses;
-    public $exceptionKhmerYear;
+    public $khNewYearMoments;
+    public $dayOfWeeks;
+    public $khmerNumbers;
 
+    /**
+     * Constant constructor.
+     */
     public function __construct()
     {
         $this->lunarMonths = [];
@@ -37,9 +42,35 @@ class Constant
             $this->eraYears[$year] = $index;
         }
 
-        $this->moonStatuses = ['កើត' => 0, 'រោជ' => 1];
+        $this->dayOfWeeks = [];
+        $dayOfWeeks = ["អាទិត្យ", "ច័ន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
+        foreach ($dayOfWeeks as $key => $day) {
+            $this->dayOfWeeks[$day] = $key;
+        }
 
-        $this->exceptionKhmerYear = [];
+        $this->khmerNumbers = [
+            '0' => '០',
+            '1' => '១',
+            '2' => '២',
+            '3' => '៣',
+            '4' => '៤',
+            '5' => '៥',
+            '6' => '៦',
+            '7' => '៧',
+            '8' => '៨',
+            '9' => '៩',
+        ];
+
+        $this->moonStatuses = ['កើត' => 0, 'រោច' => 1];
+
+        $this->khNewYearMoments = [
+            1879 => '12-04-1879 11:36',
+            2011 => '14-04-2011 13:12',
+            2012 => '14-04-2012 19:11',
+            2013 => '14-04-2013 02:12',
+            2014 => '14-04-2014 08:07',
+            2015 => '14-04-2015 14:02'
+        ];
     }
 
     /**
