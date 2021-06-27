@@ -112,12 +112,4 @@ class Constant
     {
         return $this->moonStatuses;
     }
-
-    /**
-     * @return array
-     */
-    public function getExceptionKhmerYear(): array
-    {
-        return $this->exceptionKhmerYear;
-    }
 }

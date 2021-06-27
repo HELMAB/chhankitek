@@ -8,9 +8,19 @@ class KhmerNewYearCalculation
 {
     public $info;
     public $jsYear;
+    public $has366day;
+    public $isAthikameas;
+    public $isChantreathimeas;
+    public $jesthHas30;
+    public $dayLerngSak;
+    public $lunarDateLerngSak;
+    public $newYearsDaySotins;
+    public $timeOfNewYear;
     public $khmerNewYear;
 
     /**
+     * KhmerNewYearCalculation constructor.
+     * @param int $jsYear
      * @throws TimeOfNewYearException
      */
     public function __construct(int $jsYear)
@@ -23,28 +33,28 @@ class KhmerNewYearCalculation
         $avaman = $this->info->getAvaman();
         $bodithey = $this->info->getBodithey();
 
-        $has366day = $this->getHas366day($jsYear);
-        $isAthikameas = $this->getIsAthikameas($jsYear);
-        $isChantreathimeas = $this->getIsChantreathimeas($jsYear);
-        $jesthHas30 = $this->jesthHas30($this->jsYear);
-        $dayLerngSak = $this->getDayLerngSak();
-        $lunarDateLerngSak = $this->getLunarDateLerngSak();
-        $newYearsDaySotins = $this->getNewYearDaySotins();
-        $timeOfNewYear = $this->getTimeOfNewYear($newYearsDaySotins);
+        $this->has366day = $this->getHas366day($jsYear);
+        $this->isAthikameas = $this->getIsAthikameas($jsYear);
+        $this->isChantreathimeas = $this->getIsChantreathimeas($jsYear);
+        $this->jesthHas30 = $this->jesthHas30();
+        $this->dayLerngSak = ($this->info->getHarkun() - 2) % 7; // រកមើលថាតើថ្ងៃឡើងស័កចំថ្ងៃអ្វី
+        $this->lunarDateLerngSak = $this->getLunarDateLerngSak();
+        $this->newYearsDaySotins = $this->getNewYearDaySotins();
+        $this->timeOfNewYear = $this->getTimeOfNewYear();
 
         $this->khmerNewYear = new KhmerNewYear(
             $harkun,
             $kromathopol,
             $avaman,
             $bodithey,
-            $has366day,
-            $isAthikameas,
-            $isChantreathimeas,
-            $jesthHas30,
-            $dayLerngSak,
-            $lunarDateLerngSak,
-            $newYearsDaySotins,
-            $timeOfNewYear
+            $this->has366day,
+            $this->isAthikameas,
+            $this->isChantreathimeas,
+            $this->jesthHas30,
+            $this->dayLerngSak,
+            $this->lunarDateLerngSak,
+            $this->newYearsDaySotins,
+            $this->timeOfNewYear
         );
     }
 
@@ -124,31 +134,24 @@ class KhmerNewYearCalculation
 
     /**
      * ឆែកមើលថាជាឆ្នាំដែលខែជេស្ឋមាន៣០ថ្ងៃឬទេ
-     * @param int $jsYear
      * @return bool
      */
-    public function jesthHas30(int $jsYear)
+    public function jesthHas30()
     {
-        $isAthikameas = $this->getIsAthikameas($jsYear);
-        $isChantreathimeas = $this->getIsChantreathimeas($jsYear);
-        $has30Days = $isChantreathimeas;
+        $tmp = $this->isChantreathimeas;
 
-        if ($isAthikameas && $isChantreathimeas) {
-            $has30Days = false;
+        if ($this->isAthikameas && $this->isChantreathimeas) {
+            $tmp = false;
         }
-        if (!$isChantreathimeas && $this->getIsAthikameas($jsYear - 1) && $this->getIsChantreathimeas($jsYear - 1)) {
-            $has30Days = true;
-        }
-        return $has30Days;
-    }
 
-    /**
-     * រកមើលថាតើថ្ងៃឡើងស័កចំថ្ងៃអ្វី
-     * @return int
-     */
-    public function getDayLerngSak()
-    {
-        return ($this->info->getHarkun() - 2) % 7;
+        $isAthikameasPrevious = $this->getIsAthikameas($this->jsYear - 1);
+        $isChantreathimeasPrevious = $this->getIsChantreathimeas($this->jsYear - 1);
+
+        if (!$this->isChantreathimeas && $isAthikameasPrevious && $isChantreathimeasPrevious) {
+            $tmp = true;
+        }
+
+        return $tmp;
     }
 
     /**
@@ -161,10 +164,14 @@ class KhmerNewYearCalculation
         $lunarMonths = $constant->lunarMonths;
 
         $bodithey = $this->info->getBodithey();
+        $isAthikameasPrevious = $this->getIsAthikameas($this->jsYear - 1);
+        $isChantreathimeasPrevious = $this->getIsChantreathimeas($this->jsYear - 1);
 
-        if ($this->getIsAthikameas($this->jsYear - 1) && $this->getIsChantreathimeas($this->jsYear - 1)) {
-            $bodithey = ($bodithey + 1) % 30;
+        if ($isAthikameasPrevious && $isChantreathimeasPrevious) {
+            $this->info->setBodithey(($bodithey + 1) % 30);
         }
+
+        $bodithey = $this->info->getBodithey();
         $day = $bodithey >= 6 ? $bodithey - 1 : $bodithey;
         $month = $bodithey >= 6 ? $lunarMonths['ចេត្រ'] : $lunarMonths['ពិសាខ'];
 
@@ -287,6 +294,22 @@ class KhmerNewYearCalculation
     }
 
     /**
+     * @param int $khan
+     * @param int $pouichalip
+     * @return Phol
+     */
+    public function getPhol(int $khan, int $pouichalip)
+    {
+        $val = $this->getChhayaSun($khan);
+        $q = (int)floor(($pouichalip * $val['multiplicity']) / 900);
+        $reasey = 0;
+        $angsar = (int)floor(($q + $val['chhaya']) / 60);
+        $libda = ($q + $val['chhaya']) % 60;
+
+        return new Phol($reasey, $angsar, $libda);
+    }
+
+    /**
      * @param $khan
      * @return int[]
      */
@@ -314,28 +337,12 @@ class KhmerNewYearCalculation
     }
 
     /**
-     * @param int $khan
-     * @param int $pouichalip
-     * @return Phol
-     */
-    public function getPhol(int $khan, int $pouichalip)
-    {
-        $val = $this->getChhayaSun($khan);
-        $q = (int)floor(($pouichalip * $val['multiplicity']) / 900);
-        $reasey = 0;
-        $angsar = (int)floor(($q + $val['chhaya']) / 60);
-        $libda = ($q + $val['chhaya']) % 60;
-
-        return new Phol($reasey, $angsar, $libda);
-    }
-
-    /**
      * @return TimeOfNewYear
      * @throws TimeOfNewYearException
      */
-    public function getTimeOfNewYear($newYearDaySotins)
+    public function getTimeOfNewYear()
     {
-        $sotinNewYear = array_values(array_filter($newYearDaySotins, function (NewYearDaySotins $sotin) {
+        $sotinNewYear = array_values(array_filter($this->newYearsDaySotins, function (NewYearDaySotins $sotin) {
             return $sotin->getAngsar() == 0;
         }));
 

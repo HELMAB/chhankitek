@@ -55,4 +55,12 @@ class YearInfo
     {
         return $this->bodithey;
     }
+
+    /**
+     * @param int $bodithey
+     */
+    public function setBodithey(int $bodithey): void
+    {
+        $this->bodithey = $bodithey;
+    }
 }

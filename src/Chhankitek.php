@@ -26,7 +26,14 @@ class Chhankitek
     public $dayOfWeeks;
     public $khmerNumbers;
 
-    public function __construct()
+    public $visakhaBochea;
+    public $target;
+    public $jsYear;
+    public $jsMonth;
+    public $jsDay;
+    public $beYear;
+
+    public function __construct(Carbon $target)
     {
         $config = new Constant();
         $this->lunarMonths = $config->lunarMonths;
@@ -37,6 +44,13 @@ class Chhankitek
         $this->khNewYearMoments = $config->khNewYearMoments;
         $this->dayOfWeeks = $config->dayOfWeeks;
         $this->khmerNumbers = $config->khmerNumbers;
+
+        $this->target = $target;
+        $this->jsYear = $target->year;
+        $this->jsMonth = $target->month;
+        $this->jsDay = $target->day;
+
+        $this->beYear = $this->getBEYear();
     }
 
     /**
@@ -289,11 +303,12 @@ class Chhankitek
      * @return KhmerLunarDate
      * @throws InvalidKhmerMonthException
      */
-    public function khmerLunarDate(Carbon $target)
+    public function khmerLunarDate()
     {
+        $target = $this->target;
         $lunar = $this->findLunarDate($target);
         $khmerLunarDay = $this->getKhmerLunarDay($lunar->getDay());
-        $beYear = $this->getBEYear($target);
+        $beYear = $this->beYear;
         $lunarZodiac = $this->getAnimalYear($target);
         $lunarEra = $this->getJolakSakarajYear($target) % 10;
 
@@ -367,8 +382,7 @@ class Chhankitek
             return 30;
         }
 
-        // មិគសិរ : 29 , បុស្ស : 30 , មាឃ : 29 .. 30 .. 29 ..30 .....
-        return $beMonth % 2 == 0 ? 29 : 30;
+        return $beMonth % 2 == 0 ? 29 : 30; // មិគសិរ : 29 , បុស្ស : 30 , មាឃ : 29 .. 30 .. 29 ..30 .....
     }
 
     /**
@@ -381,10 +395,10 @@ class Chhankitek
      */
     public function getMaybeBEYear(Carbon $date)
     {
-        if ((int)$date->format('m') <= $this->solarMonths['មេសា'] + 1) {
-            return (int)$date->format('Y') + 543;
+        if ($date->month <= $this->solarMonths['មេសា'] + 1) {
+            return $date->year + 543;
         } else {
-            return (int)$date->format('Y') + 544;
+            return $date->year + 544;
         }
     }
 
@@ -447,29 +461,33 @@ class Chhankitek
      * Buddhist Era
      * ថ្ងៃឆ្លងឆ្នាំ គឺ ១ រោច ខែពិសាខ
      * http://news.sabay.com.kh/article/1039620
-     * @param Carbon $carbon
      * @return int
      * @throws Exception
      */
-    public function getBEYear(Carbon $carbon)
+    public function getBEYear()
     {
-        if ($carbon->diffInMilliseconds($this->getVisakhaBochea((int)$carbon->format('Y'))) > 0) {
-            return (int)$carbon->format('Y') + 544;
+        $target = $this->target;
+        $jsYear = $this->jsYear;
+
+        $visakhaBochea = $this->getVisakhaBochea();
+
+        if ($target->diffInMilliseconds($visakhaBochea) > 0) {
+            return $jsYear + 544;
         } else {
-            return (int)$carbon->format('Y') + 543;
+            return $jsYear + 543;
         }
     }
 
     /**
      * រកថ្ងៃវិសាខបូជា
      * ថ្ងៃដាច់ឆ្នាំពុទ្ធសករាជ
-     * @param $gregorianYear
-     * @return Carbon|false
-     * @throws Exception
+     * @return Carbon|VisakhabocheaException
+     * @throws InvalidKhmerMonthException
+     * @throws VisakhabocheaException
      */
-    public function getVisakhaBochea($gregorianYear)
+    public function getVisakhaBochea()
     {
-        $date = Carbon::createFromFormat('d/m/Y', "1/1/$gregorianYear");
+        $date = Carbon::createFromFormat('d/m/Y', "1/1/$this->jsYear");
 
         for ($i = 0; $i < 365; $i++) {
             $lunarDate = $this->findLunarDate($date);
@@ -489,7 +507,7 @@ class Chhankitek
      */
     public function getAnimalYear(Carbon $date)
     {
-        $gregorianYear = (int)$date->format('Y');
+        $gregorianYear = $date->year;
         $newYearMoment = $this->getKhmerNewYearDateTime($gregorianYear);
         if ($date->diffInMilliseconds($newYearMoment) < 0) {
             return ($gregorianYear + 543 + 4) % 12;
@@ -510,22 +528,29 @@ class Chhankitek
         $jsYear = ($gregorianYear + 544) - 1182;
         $info = new KhmerNewYearCalculation($jsYear);
 
-        $newYearsDaySotins = $info->getNewYearDaySotins();
+        $newYearsDaySotins = $info->newYearsDaySotins;
         if ($newYearsDaySotins[0]->getAngsar() == 0) {
             $numberNewYearDay = 4;
         } else {
             $numberNewYearDay = 3;
         }
 
-        $timeOfNewYear = $info->getTimeOfNewYear($newYearsDaySotins);
+        $timeOfNewYear = $info->timeOfNewYear;
         $minutes = sprintf("%02d", $timeOfNewYear->getMinute());
         $hour = $timeOfNewYear->getHour();
 
         $epochLerngSak = Carbon::createFromFormat('Y-m-d H:i', "$gregorianYear-04-17 $hour:$minutes");
-        $lunarDate = $this->findLunarDate($epochLerngSak);
 
-        $diffFromEpoch = ((($lunarDate->getMonth() - 4) * 30) + $lunarDate->getDay()) -
-            ((($info->getLunarDateLerngSak()->getMonth() - 4) * 30) + $info->getLunarDateLerngSak()->getDay());
+        $lunarDate = $this->findLunarDate($epochLerngSak);
+        $lunarDay = $lunarDate->getDay();
+        $lunarMonth = $lunarDate->getMonth();
+
+        $lunarLerngSak = $info->lunarDateLerngSak;
+        $lunarLerngSakDay = $lunarLerngSak->getDay();
+        $lunarLerngSakMonth = $lunarLerngSak->getMonth();
+
+        $diffFromEpoch = ((($lunarMonth - 4) * 30) + $lunarDay) - ((($lunarLerngSakMonth - 4) * 30) + $lunarLerngSakDay);
+
         return $epochLerngSak->subDays($diffFromEpoch + $numberNewYearDay - 1);
     }
 
@@ -536,7 +561,7 @@ class Chhankitek
      */
     public function getJolakSakarajYear(Carbon $date)
     {
-        $gregorianYear = (int)$date->format('Y');
+        $gregorianYear = $date->year;
         $newYearMoment = $this->getKhmerNewYearDateTime($gregorianYear);
         if ($date->diffInMilliseconds($newYearMoment) < 0) {
             return $gregorianYear + 543 - 1182;
