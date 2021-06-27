@@ -4,35 +4,50 @@ namespace Asorasoft\Chhankitek;
 
 use Asorasoft\Chhankitek\Exception\TimeOfNewYearException;
 
-class KhmerNewYearCalculation
+class SoriyatraLerngSak
 {
-    public $info;
     public $jsYear;
+    public $info;
+    public $has366day;
+    public $isAthikameas;
+    public $isChantreathimeas;
+    public $jesthHas30;
+    public $dayLerngSak;
+    public $lunarDateLerngSak;
+    public $newYearsDaySotins;
+    public $timeOfNewYear;
     public $khmerNewYear;
 
     /**
-     * KhmerNewYearCalculation constructor.
-     * @param int $jsYear
+     * SoriyatraLerngSak constructor.
+     * @param $jsYear
      * @throws TimeOfNewYearException
      */
-    public function __construct(int $jsYear)
+    public function __construct($jsYear)
     {
         $this->jsYear = $jsYear;
         $this->info = $this->getInfo($jsYear);
-
+        $this->has366day = $this->getHas366day($jsYear);
+        $this->isAthikameas = $this->getIsAthikameas($jsYear);
+        $this->isChantreathimeas = $this->getIsChantreathimeas($jsYear);
+        $this->jesthHas30 = $this->jesthHas30();
+        $this->dayLerngSak = ($this->info->getHarkun() - 2) % 7;
+        $this->lunarDateLerngSak = $this->getLunarDateLerngSak();
+        $this->newYearsDaySotins = $this->getNewYearDaySotins();
+        $this->timeOfNewYear = $this->getTimeOfNewYear();
         $this->khmerNewYear = new KhmerNewYear(
             $this->info->getHarkun(),
             $this->info->getKromathopol(),
             $this->info->getAvaman(),
             $this->info->getBodithey(),
-            $this->getHas366day($jsYear),
-            $this->getIsAthikameas($jsYear),
-            $this->getIsChantreathimeas($jsYear),
-            $this->jesthHas30($jsYear),
-            $this->getDayLerngSak(),
-            $this->getLunarDateLerngSak(),
-            $this->getNewYearDaySotins(),
-            $this->getTimeOfNewYear()
+            $this->has366day,
+            $this->isAthikameas,
+            $this->isChantreathimeas,
+            $this->jesthHas30,
+            $this->dayLerngSak,
+            $this->lunarDateLerngSak,
+            $this->newYearsDaySotins,
+            $this->timeOfNewYear
         );
     }
 
@@ -116,18 +131,18 @@ class KhmerNewYearCalculation
      * @param int $jsYear
      * @return bool
      */
-    public function jesthHas30(int $jsYear)
+    public function jesthHas30()
     {
-        $tmp = $this->getIsChantreathimeas($jsYear);
+        $tmp = $this->isChantreathimeas;
 
-        if ($this->getIsAthikameas($jsYear) && $this->getIsChantreathimeas($jsYear)) {
+        if ($this->isAthikameas && $this->isChantreathimeas) {
             $tmp = false;
         }
 
         if (
-            !$this->getIsChantreathimeas($jsYear) &&
-            $this->getIsAthikameas($jsYear - 1) &&
-            $this->getIsChantreathimeas($jsYear - 1)
+            !$this->isChantreathimeas &&
+            $this->getIsAthikameas($this->jsYear - 1) &&
+            $this->getIsChantreathimeas($this->jsYear - 1)
         ) {
             $tmp = true;
         }
@@ -136,18 +151,7 @@ class KhmerNewYearCalculation
     }
 
     /**
-     * រកមើលថាតើថ្ងៃឡើងស័កចំថ្ងៃអ្វី
-     *
-     * @return int
-     */
-    public function getDayLerngSak()
-    {
-        return ($this->info->getHarkun() - 2) % 7;
-    }
-
-    /**
      * គណនារកថ្ងៃឡើងស័ក
-     * @TODO $bodithey need to modify or not?
      * @return LunarDateLerngSak
      */
     public function getLunarDateLerngSak()
@@ -156,32 +160,13 @@ class KhmerNewYearCalculation
         $bodithey = $this->info->getBodithey();
 
         if ($this->getIsAthikameas($this->jsYear - 1) && $this->getIsChantreathimeas($this->jsYear - 1)) {
-            $this->info->setBodithey(($bodithey + 1) % 30);
+            $bodithey = ($bodithey + 1) % 30;
         }
 
         return new LunarDateLerngSak(
             $bodithey >= 6 ? $bodithey - 1 : $bodithey,
             $bodithey >= 6 ? $lunarMonths['ចេត្រ'] : $lunarMonths['ពិសាខ']
         );
-    }
-
-    /**
-     * ចំនួនថ្ងៃវ័នបត
-     * @return NewYearDaySotins[]
-     */
-    public function getNewYearDaySotins()
-    {
-        $sotins = $this->getHas366day($this->jsYear - 1) ? [363, 364, 365, 366] : [362, 363, 364, 365]; // សុទិន
-        return array_map(function ($sotin) {
-            $sunInfo = $this->getSunInfo($sotin);
-
-            $reasey = (int)floor($sunInfo->getSunInaugurationAsLibda() / (30 * 60));
-            // អង្សាស្មើសូន្យ គីជាថ្ងៃចូលឆ្នាំ, មួយ ឬ ពីរ ថ្ងៃបន្ទាប់ជាថ្ងៃវ័នបត ហើយ ថ្ងៃចុងក្រោយគីឡើងស័ក
-            $angsar = (int)floor(($sunInfo->getSunInaugurationAsLibda() % (30 * 60)) / (60));
-            $libda = $sunInfo->getSunInaugurationAsLibda() % 60;
-
-            return new NewYearDaySotins($sotin, $reasey, $angsar, $libda);
-        }, $sotins);
     }
 
     /**
@@ -320,13 +305,31 @@ class KhmerNewYearCalculation
     }
 
     /**
+     * ចំនួនថ្ងៃវ័នបត
+     * @return NewYearDaySotins[]
+     */
+    public function getNewYearDaySotins()
+    {
+        $sotins = $this->getHas366day($this->jsYear - 1) ? [363, 364, 365, 366] : [362, 363, 364, 365]; // សុទិន
+        return array_map(function ($sotin) {
+            $sunInfo = $this->getSunInfo($sotin);
+
+            $reasey = (int)floor($sunInfo->getSunInaugurationAsLibda() / (30 * 60));
+            // អង្សាស្មើសូន្យ គីជាថ្ងៃចូលឆ្នាំ, មួយ ឬ ពីរ ថ្ងៃបន្ទាប់ជាថ្ងៃវ័នបត ហើយ ថ្ងៃចុងក្រោយគីឡើងស័ក
+            $angsar = (int)floor(($sunInfo->getSunInaugurationAsLibda() % (30 * 60)) / (60));
+            $libda = $sunInfo->getSunInaugurationAsLibda() % 60;
+
+            return new NewYearDaySotins($sotin, $reasey, $angsar, $libda);
+        }, $sotins);
+    }
+
+    /**
      * @return TimeOfNewYear
      * @throws TimeOfNewYearException
      */
     public function getTimeOfNewYear()
     {
-        $newYearDaySotins = $this->getNewYearDaySotins();
-        $sotinNewYear = array_values(array_filter($newYearDaySotins, function (NewYearDaySotins $sotin) {
+        $sotinNewYear = array_values(array_filter($this->newYearsDaySotins, function (NewYearDaySotins $sotin) {
             return $sotin->getAngsar() == 0;
         }));
 
