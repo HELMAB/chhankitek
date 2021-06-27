@@ -18,19 +18,33 @@ class KhmerNewYearCalculation
         $this->jsYear = $jsYear;
         $this->info = $this->getInfo($jsYear);
 
+        $harkun = $this->info->getHarkun();
+        $kromathopol = $this->info->getKromathopol();
+        $avaman = $this->info->getAvaman();
+        $bodithey = $this->info->getBodithey();
+
+        $has366day = $this->getHas366day($jsYear);
+        $isAthikameas = $this->getIsAthikameas($jsYear);
+        $isChantreathimeas = $this->getIsChantreathimeas($jsYear);
+        $jesthHas30 = $this->jesthHas30($this->jsYear);
+        $dayLerngSak = $this->getDayLerngSak();
+        $lunarDateLerngSak = $this->getLunarDateLerngSak();
+        $newYearsDaySotins = $this->getNewYearDaySotins();
+        $timeOfNewYear = $this->getTimeOfNewYear($newYearsDaySotins);
+
         $this->khmerNewYear = new KhmerNewYear(
-            $this->info->getHarkun(),
-            $this->info->getKromathopol(),
-            $this->info->getAvaman(),
-            $this->info->getBodithey(),
-            $this->getHas366day($jsYear),
-            $this->getIsAthikameas($jsYear),
-            $this->getIsChantreathimeas($jsYear),
-            $this->jesthHas30($this->jsYear),
-            $this->getDayLerngSak(),
-            $this->getLunarDateLerngSak(),
-            $this->getNewYearDaySotins(),
-            $this->getNewYearTime()
+            $harkun,
+            $kromathopol,
+            $avaman,
+            $bodithey,
+            $has366day,
+            $isAthikameas,
+            $isChantreathimeas,
+            $jesthHas30,
+            $dayLerngSak,
+            $lunarDateLerngSak,
+            $newYearsDaySotins,
+            $timeOfNewYear
         );
     }
 
@@ -72,11 +86,12 @@ class KhmerNewYearCalculation
     {
         $infoOfYear = $this->getInfo($jsYear);
         $infoOfNextYear = $this->getInfo($jsYear + 1);
-        return (!($infoOfYear->getBodithey() === 25 && $infoOfNextYear->getBodithey() === 5) &&
+
+        return (!($infoOfYear->getBodithey() == 25 && $infoOfNextYear->getBodithey() == 5) &&
             ($infoOfYear->getBodithey() > 24 ||
                 $infoOfYear->getBodithey() < 6 ||
-                ($infoOfYear->getBodithey() === 24 &&
-                    $infoOfNextYear->getBodithey() === 6
+                ($infoOfYear->getBodithey() == 24 &&
+                    $infoOfNextYear->getBodithey() == 6
                 )
             )
         );
@@ -93,13 +108,14 @@ class KhmerNewYearCalculation
         $infoOfNextYear = $this->getInfo($jsYear + 1);
         $infoOfPreviousYear = $this->getInfo($jsYear - 1);
         $has366day = $this->getHas366day($jsYear);
+
         return (($has366day && $infoOfYear->getAvaman() < 127) ||
-            (!($infoOfYear->getAvaman() === 137 &&
-                    $infoOfNextYear->getAvaman() === 0) &&
+            (!($infoOfYear->getAvaman() == 137 &&
+                    $infoOfNextYear->getAvaman() == 0) &&
                 ((!$has366day &&
                         $infoOfYear->getAvaman() < 138) ||
-                    ($infoOfPreviousYear->getAvaman() === 137 &&
-                        $infoOfYear->getAvaman() === 0
+                    ($infoOfPreviousYear->getAvaman() == 137 &&
+                        $infoOfYear->getAvaman() == 0
                     )
                 )
             )
@@ -201,7 +217,8 @@ class KhmerNewYearCalculation
 
         $phol = $this->getPhol($khan, $pouichalip);
 
-        $pholAsLibda = (30 * 60 * $phol->getReasey()) + (60 * $phol->getAngsar()) + $phol->getAngsar();
+        $pholAsLibda = (30 * 60 * $phol->getReasey()) + (60 * $phol->getAngsar()) + $phol->getLibda();
+
         if ($kaen <= 5) {
             // សម្ពោធព្រះអាទិត្យ
             $sunInaugurationAsLibda = $sunAverageAsLibda - $pholAsLibda;
@@ -269,9 +286,12 @@ class KhmerNewYearCalculation
         return new LastLeftOver($reasey, $angsar, $libda);
     }
 
-    public function getPhol(int $khan, int $pouichalip)
+    /**
+     * @param $khan
+     * @return int[]
+     */
+    public function getChhayaSun($khan)
     {
-        $multiplicity = 0;
         $multiplicities = [35, 32, 27, 22, 13, 5];
         $chhayas = [0, 35, 67, 94, 116, 129];
 
@@ -282,49 +302,51 @@ class KhmerNewYearCalculation
             case 3:
             case 4:
             case 5:
-                $multiplicity = $multiplicities[$khan];
-                $chhaya = $chhayas[$khan];
-                break;
+                return [
+                    'multiplicity' => $multiplicities[$khan],
+                    'chhaya' => $chhayas[$khan]
+                ];
             default:
-                $chhaya = 134;
-                break;
+                return [
+                    'chhaya' => 134
+                ];
         }
+    }
 
-        $q = (int)floor(($pouichalip * $multiplicity) / 900);
-
+    /**
+     * @param int $khan
+     * @param int $pouichalip
+     * @return Phol
+     */
+    public function getPhol(int $khan, int $pouichalip)
+    {
+        $val = $this->getChhayaSun($khan);
+        $q = (int)floor(($pouichalip * $val['multiplicity']) / 900);
         $reasey = 0;
-        $angsar = (int)floor(($q + $chhaya) / 60);
-        $libda = ($q + $chhaya) % 60;
+        $angsar = (int)floor(($q + $val['chhaya']) / 60);
+        $libda = ($q + $val['chhaya']) % 60;
 
         return new Phol($reasey, $angsar, $libda);
     }
 
     /**
-     * @return NewYearTime
+     * @return TimeOfNewYear
      * @throws TimeOfNewYearException
      */
-    public function getNewYearTime()
+    public function getTimeOfNewYear($newYearDaySotins)
     {
-        $sotinNewYear = array_filter($this->getNewYearDaySotins(), function (NewYearDaySotins $sotin) {
+        $sotinNewYear = array_values(array_filter($newYearDaySotins, function (NewYearDaySotins $sotin) {
             return $sotin->getAngsar() == 0;
-        });
+        }));
 
         if (is_array($sotinNewYear) && count($sotinNewYear) == 1) {
-            $libda = $sotinNewYear[1]->getLibda();
+            $libda = $sotinNewYear[0]->getLibda();
             $minutes = (24 * 60) - ($libda * 24);
             $hour = (int)floor($minutes / 60);
             $minutes = $minutes % 60;
-            return new NewYearTime($hour, $minutes);
+            return new TimeOfNewYear($hour, $minutes);
         } else {
             throw new TimeOfNewYearException("Wrong calculation on new years hour. No sotin with angsar = 0");
         }
-    }
-
-    /**
-     * @return KhmerNewYear
-     */
-    public function getKhmerNewYear(): KhmerNewYear
-    {
-        return $this->khmerNewYear;
     }
 }

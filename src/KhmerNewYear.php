@@ -29,7 +29,7 @@ class KhmerNewYear
         int $dayLerngSak,
         LunarDateLerngSak $lunarDateLerngSak,
         array $newYearsDaySotins,
-        NewYearTime $timeOfNewYear
+        TimeOfNewYear $timeOfNewYear
     )
     {
         $this->harkun = $harkun;
@@ -135,9 +135,9 @@ class KhmerNewYear
     }
 
     /**
-     * @return NewYearTime
+     * @return TimeOfNewYear
      */
-    public function getTimeOfNewYear(): NewYearTime
+    public function getTimeOfNewYear(): TimeOfNewYear
     {
         return $this->timeOfNewYear;
     }

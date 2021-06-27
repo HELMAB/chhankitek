@@ -2,7 +2,7 @@
 
 namespace Asorasoft\Chhankitek;
 
-class NewYearTime
+class TimeOfNewYear
 {
     private $hour;
     private $minute;
