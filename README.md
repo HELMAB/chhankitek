@@ -17,12 +17,11 @@ composer require asorasoft/chhankitek
 ## Usage
 
 ```php
-use Asorasoft\Chhankitek\Chhankitek;
-use Carbon\Carbon;
+// In Laravel controller, use this trait
+use HasChhankitek;
 
-$chhankitek = new Chhankitek(Carbon::now());
-$khmerLunarDate = $chhankitek->khmerLunarDate();
-
+// start call chhankitek method
+$khmerLunarDate = $this->chhankiteck(Carbon\Carbon::now());
 $khmerLunarDate->toString(); // ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
@@ -65,3 +64,11 @@ If you discover any security related issues, please email mabhelitc@gmail.com in
 ## License
 
 The MIT License (MIT). Please see [License File](LICENSE.md) for more information.
+
+## Authors and acknowledgment
+
+This library might not exist without hardwork of these people:
+1. Base on algorithm of `Mr.Phylypo Tum` from [Cam-CC](https://www.cam-cc.org/calendar/)
+2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Java`
+3. [Khmer New Year Time Calculation](http://www.dahlina.com/education/khmer_new_year_time.html)
+4. [MetheaX/khmer-chhankitek-calendar](https://github.com/MetheaX/khmer-chhankitek-calendar)
