@@ -9,6 +9,6 @@ trait HasChhankitek
 {
     public function chhankiteck(Carbon $target)
     {
-        return (new Chhankitek())->khmerLunarDate($target);
+        return (new Chhankitek($target))->formatKhmerDate;
     }
 }
