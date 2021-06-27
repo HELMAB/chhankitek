@@ -72,5 +72,5 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 This library might not exist without hardwork of these people:
 1. Base on algorithm of `Mr.Phylypo Tum` from [Cam-CC](https://www.cam-cc.org/calendar/)
-2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Java`
+2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Laravel Package`
 3. [Khmer New Year Time Calculation](http://www.dahlina.com/education/khmer_new_year_time.html)
