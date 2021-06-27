@@ -23,8 +23,7 @@ use Carbon\Carbon;
 $chhankitek = new Chhankitek(Carbon::createFromDate(2021, 6, 26));
 $khmerLunarDate = $chhankitek->khmerLunarDate();
 
-// ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
-return $khmerLunarDate->toString();
+$khmerLunarDate->toString(); // ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ## Available methods
