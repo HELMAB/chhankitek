@@ -22,12 +22,17 @@ use HasChhankitek;
 
 // start call chhankitek method
 $formatKhmerDate = $this->chhankiteck(Carbon\Carbon::now());
-$formatKhmerDate->toString(); // ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+$formatKhmerDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ## Available methods
 
 ```php
+// In Laravel controller, use this trait
+use HasChhankitek;
+
+$formatKhmerDate = $this->chhankiteck(Carbon\Carbon::now());
+
 $formatKhmerDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
 $formatKhmerDate->getLunarDay(); // ១កើត, ២កើត...
 $formatKhmerDate->getLunarMonth(); // ចេត្រ...
