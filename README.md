@@ -20,11 +20,24 @@ composer require asorasoft/chhankitek
 use Asorasoft\Chhankitek\Chhankitek;
 use Carbon\Carbon;
 
-$chhankitek = new Chhankitek();
-$now = Carbon::createFromDate(2021, 5, 19);
+$chhankitek = new Chhankitek(Carbon::createFromDate(2021, 6, 26));
+$khmerLunarDate = $chhankitek->khmerLunarDate();
 
 // ថ្ងៃពុធ ៨ កើត ខែជេស្ឋ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
-return $chhankitek->khmerLunarDate($now)->toString();
+return $khmerLunarDate->toString();
+```
+
+## Available methods
+
+To get any properties such as `dayOfWeek`, `lunarDay`, `lunarMonth`, `lunarZondiac`, `lunarEra` and `lunarYear`.
+
+```php
+$khmerLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
+$khmerLunarDate->getLunarDay(); // ១កើត, ២កើត...
+$khmerLunarDate->getLunarMonth(); // ចេត្រ...
+$khmerLunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ...
+$khmerLunarDate->getLunarEra(); // ត្រីស័ក...
+$khmerLunarDate->getLunarYear(); // ត្រីស័ក...
 ```
 
 ### Testing
