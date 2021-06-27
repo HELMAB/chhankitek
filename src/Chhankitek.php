@@ -279,6 +279,18 @@ class Chhankitek
         $khmerMonth = $lunarMonths['បុស្ស'];
         $khmerDay = 0; // 0 - 29 ១កើត ... ១៥កើត ១រោច ...១៤រោច (១៥រោច)
 
+        // Find nearest year epoch
+        $differentFromEpoch = $target->diffInMilliseconds($epochDateTime);
+        if ($differentFromEpoch > 0) {
+            while ($target->diffInDays($epochDateTime) > $this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime->copy()->addYear()))) {
+                $epochDateTime->addDays($this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime->copy()->addYear())));
+            }
+        } else {
+            do {
+                $epochDateTime->subDays($this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime)));
+            } while ($epochDateTime->diffInDays($target) > 0);
+        }
+
         // Move epoch month
         while ($target->diffInDays($epochDateTime) > $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime))) {
             $epochDateTime->addDays($this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime)));
@@ -299,6 +311,22 @@ class Chhankitek
         $epochDateTime->addDays($target->diffInDays($epochDateTime));
 
         return new LunarDate($khmerDay, $khmerMonth, $epochDateTime);
+    }
+
+    /**
+     * Get number of day in Khmer year
+     * @param int $beYear
+     * @return int
+     */
+    public function getNumberOfDayInKhmerYear(int $beYear)
+    {
+        if ($this->isKhmerLeapMonth($beYear)) {
+            return 384;
+        } else if ($this->isKhmerLeapDay($beYear)) {
+            return 355;
+        } else {
+            return 354;
+        }
     }
 
     /**
