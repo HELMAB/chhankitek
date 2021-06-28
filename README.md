@@ -37,6 +37,12 @@ $toLunarDate->getLunarEra(); // ត្រីស័ក...
 $toLunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
 ```
 
+Or we can use `toLunarDate` helper function.
+
+```php 
+toLunarDate(Carbon::now())->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+```
+
 ### Testing
 
 ```bash
