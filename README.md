@@ -1,10 +1,6 @@
 # Chhankitek for Laravel
 
-Cambodians use two types of calendars: the international 
-calendar for civil purposes and the traditional
-calendar for religious purposes. Although called Chhankitek,
-which means lunar calendar, Khmer traditional calendar is a 
-lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar [see more](http://www.cam-cc.org/calendar/).
+Convert from AD (Anno Domini) to Lunar (Chhankitek) format [see more](http://www.cam-cc.org/calendar/).
 
 ## Installation
 
@@ -21,8 +17,8 @@ composer require asorasoft/chhankitek
 use HasChhankitek;
 
 // start call chhankitek method
-$formatKhmerDate = $this->chhankiteck(Carbon\Carbon::now());
-$formatKhmerDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+$toLunarDate = $this->chhankiteck(Carbon::now());
+$toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ## Available methods
@@ -31,14 +27,14 @@ $formatKhmerDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខ�
 // In Laravel controller, use this trait
 use HasChhankitek;
 
-$formatKhmerDate = $this->chhankiteck(Carbon\Carbon::now());
+$toLunarDate = $this->chhankiteck(Carbon::now());
 
-$formatKhmerDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
-$formatKhmerDate->getLunarDay(); // ១កើត, ២កើត...
-$formatKhmerDate->getLunarMonth(); // ចេត្រ...
-$formatKhmerDate->getLunarZodiac(); // ជូត, ឆ្លូវ...
-$formatKhmerDate->getLunarEra(); // ត្រីស័ក...
-$formatKhmerDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
+$toLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
+$toLunarDate->getLunarDay(); // ១កើត, ២កើត...
+$toLunarDate->getLunarMonth(); // ចេត្រ...
+$toLunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ...
+$toLunarDate->getLunarEra(); // ត្រីស័ក...
+$toLunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
 ```
 
 ### Testing
@@ -72,5 +68,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 This library might not exist without hardwork of these people:
 1. Base on algorithm of `Mr.Phylypo Tum` from [Cam-CC](https://www.cam-cc.org/calendar/)
-2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Laravel Package`
+2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Java`
 3. [Khmer New Year Time Calculation](http://www.dahlina.com/education/khmer_new_year_time.html)
+4. [MetheaX/khmer-chhankitek-calendar](https://github.com/MetheaX/khmer-chhankitek-calendar) by `MetheaX` into `Laravel Package`

@@ -24,8 +24,5 @@ class ChhankitekServiceProvider extends ServiceProvider
     public function register()
     {
         // Register the main class to use with the facade
-        $this->app->singleton('chhankitek', function () {
-            return new Chhankitek;
-        });
     }
 }
