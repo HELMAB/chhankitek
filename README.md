@@ -41,6 +41,12 @@ $formatKhmerDate->getLunarEra(); // ត្រីស័ក...
 $formatKhmerDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
 ```
 
+Or we can use with `toLunarDate` helper function
+
+```php
+toLunarDate(Carbon::now())->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+```
+
 ### Testing
 
 ```bash
@@ -72,5 +78,6 @@ The MIT License (MIT). Please see [License File](LICENSE.md) for more informatio
 
 This library might not exist without hardwork of these people:
 1. Base on algorithm of `Mr.Phylypo Tum` from [Cam-CC](https://www.cam-cc.org/calendar/)
-2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Laravel Package`
+2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Java`
 3. [Khmer New Year Time Calculation](http://www.dahlina.com/education/khmer_new_year_time.html)
+4. [MetheaX/khmer-chhankitek-calendar](https://github.com/MetheaX/khmer-chhankitek-calendar) by `MetheaX` to `Laravel Package`
