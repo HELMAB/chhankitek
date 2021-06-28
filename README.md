@@ -1,6 +1,6 @@
 # Chhankitek for Laravel
 
-Convert from AD (Anno Domini) to Lunar (Chhankitek) format. [see more](http://www.cam-cc.org/calendar/).
+Convert from AD (Anno Domini) to Lunar (Chhankitek) format [see more](http://www.cam-cc.org/calendar/).
 
 ## Installation
 
@@ -17,7 +17,7 @@ composer require asorasoft/chhankitek
 use HasChhankitek;
 
 // start call chhankitek method
-$toLunarDate = $this->chhankiteck(Carbon\Carbon::now());
+$toLunarDate = $this->chhankiteck(Carbon::now());
 $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
@@ -27,7 +27,7 @@ $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែប
 // In Laravel controller, use this trait
 use HasChhankitek;
 
-$toLunarDate = $this->chhankiteck(Carbon\Carbon::now());
+$toLunarDate = $this->chhankiteck(Carbon::now());
 
 $toLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
 $toLunarDate->getLunarDay(); // ១កើត, ២កើត...
@@ -35,12 +35,6 @@ $toLunarDate->getLunarMonth(); // ចេត្រ...
 $toLunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ...
 $toLunarDate->getLunarEra(); // ត្រីស័ក...
 $toLunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
-```
-
-Or we can use with `toLunarDate` helper function
-
-```php
-toLunarDate(Carbon::now())->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ### Testing
