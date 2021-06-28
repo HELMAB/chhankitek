@@ -1,6 +1,6 @@
 {
     "name": "asorasoft/chhankitek",
-    "description": "Can display the Khmer calendar for different years",
+    "description": "Convert from AD (Anno Domini) to Lunar (Chhankitek) format.",
     "keywords": [
         "asorasoft",
         "chhankitek"

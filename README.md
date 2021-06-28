@@ -1,10 +1,6 @@
 # Chhankitek for Laravel
 
-Cambodians use two types of calendars: the international 
-calendar for civil purposes and the traditional
-calendar for religious purposes. Although called Chhankitek,
-which means lunar calendar, Khmer traditional calendar is a 
-lunisolar calendar similar to some of the Hindu calendars and the Chinese calendar [see more](http://www.cam-cc.org/calendar/).
+Convert from AD (Anno Domini) to Lunar (Chhankitek) format. [see more](http://www.cam-cc.org/calendar/).
 
 ## Installation
 
@@ -80,4 +76,4 @@ This library might not exist without hardwork of these people:
 1. Base on algorithm of `Mr.Phylypo Tum` from [Cam-CC](https://www.cam-cc.org/calendar/)
 2. Porting from [momentkh](https://github.com/ThyrithSor/momentkh) by `ThyrithSor` into `Java`
 3. [Khmer New Year Time Calculation](http://www.dahlina.com/education/khmer_new_year_time.html)
-4. [MetheaX/khmer-chhankitek-calendar](https://github.com/MetheaX/khmer-chhankitek-calendar) by `MetheaX` to `Laravel Package`
+4. [MetheaX/khmer-chhankitek-calendar](https://github.com/MetheaX/khmer-chhankitek-calendar) by `MetheaX` into `Laravel Package`
