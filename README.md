@@ -43,6 +43,13 @@ Or we can use `toLunarDate` helper function.
 toLunarDate(Carbon::now())->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
+With specific date
+
+```php
+$date = \Carbon\Carbon::createFromFormat('d/m/Y', '29/6/2021');
+toLunarDate($date)->toString();
+```
+
 ### Testing
 
 ```bash
