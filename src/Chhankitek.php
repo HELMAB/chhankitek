@@ -23,12 +23,16 @@ class Chhankitek
 
     /**
      * Chhankitek constructor.
-     * @param $target
+     * @param Carbon $target
+     * @throws InvalidKhmerMonthException
+     * @throws TimeOfNewYearException
      */
-    public function __construct($target)
+    public function __construct(Carbon $target)
     {
-        $this->target = $target;
-        $this->formatKhmerDate = $this->khmerLunarDate($target);
+        $this->target = Carbon::createFromFormat('d/m/Y', $target->format('d/m/Y'));
+        $this->target->setTimezone('Asia/Phnom_Penh');
+
+        $this->formatKhmerDate = $this->khmerLunarDate($this->target);
         $this->khNewYearDateTime = $this->getKhmerNewYearDateTime($this->target->year);
     }
 
@@ -417,8 +421,6 @@ class Chhankitek
         $beYear = $this->getBEYear($target);
         $animalYear = $this->getAnimalYear($target);
         $eraYear = $this->getJolakSakarajYear($target) % 10;
-
-        // dd([$dayOfWeek, $moonDay, $beYear, $animalYear, $eraYear]);
 
         $lunarMonth = array_search($moonDay->getMoonStatus(), $constant->moonStatuses);
         $lunarDays = $this->convertToKhmerNumber($moonDay->getMoonCount());
