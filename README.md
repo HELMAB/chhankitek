@@ -61,6 +61,10 @@ Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
 If you discover any security related issues, please email mabhelitc@gmail.com instead of using the issue tracker.
 
+## Support
+
+If you like this package and want to support me, you can [buy me a coffee ☕](https://www.buymeacoffee.com/helmab)
+
 ## Credits
 
 -   [Mab Hel](https://github.com/asorasoft)
