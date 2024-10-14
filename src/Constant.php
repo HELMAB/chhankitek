@@ -43,7 +43,7 @@ class Constant
         }
 
         $this->dayOfWeeks = [];
-        $dayOfWeeks = ["អាទិត្យ", "ច័ន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
+        $dayOfWeeks = ["អាទិត្យ", "ចន្ទ", "អង្គារ", "ពុធ", "ព្រហស្បតិ៍", "សុក្រ", "សៅរ៍"];
         foreach ($dayOfWeeks as $key => $day) {
             $this->dayOfWeeks[$day] = $key;
         }
