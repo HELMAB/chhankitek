@@ -470,8 +470,8 @@ class Chhankitek
             case $lunarMonths['ភទ្របទ']:
                 return $lunarMonths['អស្សុជ'];
             case $lunarMonths['អស្សុជ']:
-                return $lunarMonths['កក្ដិក'];
-            case $lunarMonths['កក្ដិក']:
+                return $lunarMonths['កត្តិក'];
+            case $lunarMonths['កត្តិក']:
                 return $lunarMonths['មិគសិរ'];
             case $lunarMonths['បឋមាសាឍ']:
                 return $lunarMonths['ទុតិយាសាឍ'];
