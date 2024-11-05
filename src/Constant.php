@@ -19,7 +19,7 @@ class Constant
     public function __construct()
     {
         $this->lunarMonths = [];
-        $months = explode("_", "មិគសិរ_បុស្ស_មាឃ_ផល្គុន_ចេត្រ_ពិសាខ_ជេស្ឋ_អាសាឍ_ស្រាពណ៍_ភទ្របទ_អស្សុជ_កក្ដិក_បឋមាសាឍ_ទុតិយាសាឍ");
+        $months = explode("_", "មិគសិរ_បុស្ស_មាឃ_ផល្គុន_ចេត្រ_ពិសាខ_ជេស្ឋ_អាសាឍ_ស្រាពណ៍_ភទ្របទ_អស្សុជ_កត្តិក_បឋមាសាឍ_ទុតិយាសាឍ");
         foreach ($months as $index => $month) {
             $this->lunarMonths[$month] = $index;
         }
