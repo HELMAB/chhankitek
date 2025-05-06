@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
-class TimeOfNewYear
+final class TimeOfNewYear
 {
     private $hour;
+
     private $minute;
 
     /**
      * NewYearTime constructor.
-     * @param int $hour
-     * @param int $minute
      */
     public function __construct(int $hour, int $minute)
     {
@@ -18,17 +19,11 @@ class TimeOfNewYear
         $this->minute = $minute;
     }
 
-    /**
-     * @return int
-     */
     public function getHour(): int
     {
         return $this->hour;
     }
 
-    /**
-     * @return int
-     */
     public function getMinute(): int
     {
         return $this->minute;

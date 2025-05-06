@@ -1,48 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 
-class LunarDate
+final class LunarDate
 {
-    private $day;
-    private $month;
-    private $epochMoved;
+    private int $day;
 
-    /**
-     * LunarDate constructor.
-     * @param int $day
-     * @param int $month
-     * @param Carbon $epochMoved
-     */
-    public function __construct(int $day, int $month, Carbon $epochMoved)
+    private int $month;
+
+    private CarbonImmutable $epochMoved;
+
+    public function __construct(int $day, int $month, CarbonImmutable $epochMoved)
     {
         $this->day = $day;
         $this->month = $month;
         $this->epochMoved = $epochMoved;
     }
 
-    /**
-     * @return int
-     */
     public function getDay(): int
     {
         return $this->day;
     }
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;
     }
 
-    /**
-     * @return Carbon
-     */
-    public function getEpochMoved(): Carbon
+    public function getEpochMoved(): CarbonImmutable
     {
         return $this->epochMoved;
     }

@@ -1,36 +1,37 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
-class KhmerNewYear
+final class KhmerNewYear
 {
     private $harkun;
+
     private $kromathopol;
+
     private $avaman;
+
     private $bodithey;
+
     private $has366day;
+
     private $isAthikameas;
+
     private $isChantreathimeas;
+
     private $jesthHas30;
+
     private $dayLerngSak;
+
     private $lunarDateLerngSak;
+
     private $newYearsDaySotins;
+
     private $timeOfNewYear;
 
     /**
      * KhmerNewYear constructor.
-     * @param int $harkun
-     * @param int $kromathopol
-     * @param int $avaman
-     * @param int $bodithey
-     * @param bool $has366day
-     * @param bool $isAthikameas
-     * @param bool $isChantreathimeas
-     * @param bool $jesthHas30
-     * @param int $dayLerngSak
-     * @param LunarDateLerngSak $lunarDateLerngSak
-     * @param array $newYearsDaySotins
-     * @param TimeOfNewYear $timeOfNewYear
      */
     public function __construct(
         int $harkun,
@@ -45,8 +46,7 @@ class KhmerNewYear
         LunarDateLerngSak $lunarDateLerngSak,
         array $newYearsDaySotins,
         TimeOfNewYear $timeOfNewYear
-    )
-    {
+    ) {
         $this->harkun = $harkun;
         $this->kromathopol = $kromathopol;
         $this->avaman = $avaman;
@@ -61,33 +61,21 @@ class KhmerNewYear
         $this->timeOfNewYear = $timeOfNewYear;
     }
 
-    /**
-     * @return int
-     */
     public function getHarkun(): int
     {
         return $this->harkun;
     }
 
-    /**
-     * @return int
-     */
     public function getKromathopol(): int
     {
         return $this->kromathopol;
     }
 
-    /**
-     * @return int
-     */
     public function getAvaman(): int
     {
         return $this->avaman;
     }
 
-    /**
-     * @return int
-     */
     public function getBodithey(): int
     {
         return $this->bodithey;
@@ -95,7 +83,6 @@ class KhmerNewYear
 
     /**
      * សុរិយគតិខ្មែរ
-     * @return bool
      */
     public function isHas366day(): bool
     {
@@ -104,7 +91,6 @@ class KhmerNewYear
 
     /**
      * 13 months
-     * @return bool
      */
     public function isAthikameas(): bool
     {
@@ -113,7 +99,6 @@ class KhmerNewYear
 
     /**
      * 30ថ្ងៃនៅខែជេស្ឋ
-     * @return bool
      */
     public function isChantreathimeas(): bool
     {
@@ -122,7 +107,6 @@ class KhmerNewYear
 
     /**
      * ខែជេស្ឋមាន៣០ថ្ងៃ
-     * @return bool
      */
     public function isJesthHas30(): bool
     {
@@ -131,7 +115,6 @@ class KhmerNewYear
 
     /**
      * ថ្ងៃឡើងស័ក ច័ន្ទ អង្គារ ...
-     * @return int
      */
     public function getDayLerngSak(): int
     {
@@ -140,7 +123,6 @@ class KhmerNewYear
 
     /**
      * ថ្ងៃទី ខែ ឡើងស័ក
-     * @return LunarDateLerngSak
      */
     public function getLunarDateLerngSak(): LunarDateLerngSak
     {
@@ -149,7 +131,6 @@ class KhmerNewYear
 
     /**
      * សុទិនសម្រាប់គណនាថ្ងៃចូលឆ្នាំ ថ្ងៃវ័នបត និង ថ្ងៃឡើងស័ក
-     * @return array
      */
     public function getNewYearsDaySotins(): array
     {
@@ -158,7 +139,6 @@ class KhmerNewYear
 
     /**
      * ម៉ោងទេវតាចុះ
-     * @return TimeOfNewYear
      */
     public function getTimeOfNewYear(): TimeOfNewYear
     {

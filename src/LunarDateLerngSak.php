@@ -1,16 +1,17 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
-class LunarDateLerngSak
+final class LunarDateLerngSak
 {
     private $day;
+
     private $month;
 
     /**
      * LunarDateLerngSak constructor.
-     * @param int $day
-     * @param int $month
      */
     public function __construct(int $day, int $month)
     {
@@ -18,17 +19,11 @@ class LunarDateLerngSak
         $this->month = $month;
     }
 
-    /**
-     * @return int
-     */
     public function getDay(): int
     {
         return $this->day;
     }
 
-    /**
-     * @return int
-     */
     public function getMonth(): int
     {
         return $this->month;

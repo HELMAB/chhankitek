@@ -1,16 +1,20 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
-class LunarDay
+final class LunarDay
 {
-    private $moonCount;
-    private $moonStatus;
+    private int $moonCount;
+
+    private int $moonStatus;
 
     /**
      * LunarDay constructor.
-     * @param int $moonCount
-     * @param int $moonStatus
+     *
+     * @param  int  $moonCount  The day within the moon phase (1–15)
+     * @param  int  $moonStatus  Enum-like index for either កើត or រោច
      */
     public function __construct(int $moonCount, int $moonStatus)
     {
@@ -19,17 +23,17 @@ class LunarDay
     }
 
     /**
-     * @return mixed
+     * Get the moon day number within the phase.
      */
-    public function getMoonCount()
+    public function getMoonCount(): int
     {
         return $this->moonCount;
     }
 
     /**
-     * @return mixed
+     * Get the moon status (e.g., កើត = 0, រោច = 1).
      */
-    public function getMoonStatus()
+    public function getMoonStatus(): int
     {
         return $this->moonStatus;
     }
