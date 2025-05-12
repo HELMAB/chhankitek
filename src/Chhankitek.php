@@ -304,7 +304,7 @@ class Chhankitek
         for ($i = 0; $i < 365; $i++) {
             $lunarDate = $this->findLunarDate($date);
             if ($lunarDate->getMonth() == $lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
-                return $date;
+                return $lunarDate->getEpochMoved();
             }
             $date->addDay();
         }
