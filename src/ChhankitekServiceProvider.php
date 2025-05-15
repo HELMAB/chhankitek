@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
 use Illuminate\Support\ServiceProvider;
 
 /**
  * Class ChhankitekServiceProvider
- * @package Asorasoft\Chhankitek
  */
-class ChhankitekServiceProvider extends ServiceProvider
+final class ChhankitekServiceProvider extends ServiceProvider
 {
     /**
      * Bootstrap the application services.

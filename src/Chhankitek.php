@@ -1,37 +1,40 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
 use Asorasoft\Chhankitek\Exception\InvalidKhmerMonthException;
 use Asorasoft\Chhankitek\Exception\TimeOfNewYearException;
 use Asorasoft\Chhankitek\Exception\VisakhabocheaException;
 use Asorasoft\Chhankitek\Traits\HasKhmerNumberConversion;
-use Carbon\Carbon;
+use Carbon\CarbonImmutable;
 use Exception;
+use InvalidArgumentException;
+use RuntimeException;
 
 /**
  * Class Chhankitek
- * @package Asorasoft\Chhankitek
  */
-class Chhankitek
+final class Chhankitek
 {
     use HasKhmerNumberConversion;
 
-    public $target;
-    public $formatKhmerDate;
-    public $khNewYearDateTime;
+    public CarbonImmutable $target;
 
-    /**
-     * Chhankitek constructor.
-     * @param Carbon $target
-     * @throws InvalidKhmerMonthException
-     * @throws TimeOfNewYearException
-     */
-    public function __construct(Carbon $target)
+    public mixed $formatKhmerDate;
+
+    public CarbonImmutable $khNewYearDateTime;
+
+    public function __construct(CarbonImmutable $target)
     {
-        $this->target = Carbon::createFromFormat('d/m/Y', $target->format('d/m/Y'));
-        $this->target->setTimezone('Asia/Phnom_Penh');
+        $formatted = CarbonImmutable::createFromFormat('d/m/Y', $target->format('d/m/Y'));
 
+        if (! $formatted instanceof CarbonImmutable) {
+            throw new InvalidArgumentException('Failed to create CarbonImmutable from given date.');
+        }
+
+        $this->target = $formatted->setTimezone('Asia/Phnom_Penh');
         $this->formatKhmerDate = $this->khmerLunarDate($this->target);
         $this->khNewYearDateTime = $this->getKhmerNewYearDateTime($this->target->year);
     }
@@ -40,347 +43,410 @@ class Chhankitek
      * Bodithey: បូតិថី
      * Bodithey determines if a given beYear is a leap-month year.
      * Given year target year in Buddhist Era. Return (0-29)
-     * @param int $beYear
-     * @return int
      */
-    public function getBodithey(int $beYear)
+    public function getBodithey(int $beYear): int
     {
         $ahk = $this->getAharkun($beYear);
-        $avml = (int)(floor((11 * $ahk + 25) / 692));
+        $avml = (int) (floor((11 * $ahk + 25) / 692));
         $m = $avml + $ahk + 29;
-        return ($m % 30);
+
+        return $m % 30;
     }
 
     /**
      * Avoman: អាវមាន
      * Avoman determines if a given year is a leap-day year.
      * Given a year in Buddhist Era as denoted as adYear. Return (0 - 691)
-     * @param int $beYear
-     * @return int
      */
-    public function getAvoman(int $beYear)
+    public function getAvoman(int $beYear): int
     {
         $ahk = $this->getAharkun($beYear);
         $avm = (11 * $ahk + 25) % 692;
+
         return $avm;
     }
 
     /**
-     * Aharkun: អាហារគុណ ឬ ហារគុណ
-     * Aharkun is used for Avoman and Bodithey calculation below.
-     * Given adYear as a target year in Buddhist Era
-     * @param int $beYear
-     * @return int
+     * Calculate Aharkun (អាហារគុណ ឬ ហារគុណ) for a given Buddhist Era (BE) year.
+     *
+     * Aharkun is a critical value in the Khmer lunar calendar, used to determine
+     * leap months (Bodithey) and leap days (Avoman). It is based on traditional
+     * Khmer astronomical constants.
+     *
+     * Calculation:
+     *   Aharkun = floor((BE * 292207 + 499) / 800) + 4
+     *
+     * @param  int  $beYear  Buddhist Era year (e.g., 2569)
+     * @return int The calculated Aharkun value
      */
-    public function getAharkun(int $beYear)
+    public function getAharkun(int $beYear): int
     {
-        $t = ($beYear * 292207) + 499;
-        return (int)floor($t / 800) + 4;
+        $solarMonthsSinceEpoch = ($beYear * 292207) + 499;
+        $baseAharkun = (int) floor($solarMonthsSinceEpoch / 800);
+
+        return $baseAharkun + 4;
     }
 
     /**
-     * Kromathupul
-     * @param int $beYear
-     * @return int
+     * Calculate the Kromathupul (ក្រមធុបុល) value for a given Buddhist Era (BE) year.
+     *
+     * Kromathupul is used to determine whether a Khmer solar year is a leap year.
+     * It is calculated by subtracting the Aharkun modulus (remainder when divided by 800) from 800.
+     *
+     * @param  int  $beYear  The Buddhist Era year to evaluate
+     * @return int The resulting Kromathupul value
      */
-    public function kromthupul(int $beYear)
+    public function kromthupul(int $beYear): int
     {
-        $ah = $this->getAharkunMod($beYear);
-        $krom = 800 - $ah;
-        return $krom;
+        $aharkunMod = $this->getAharkunMod($beYear);
+
+        return 800 - $aharkunMod;
     }
 
     /**
-     * @param int $beYear
-     * @return int
+     * Determine whether the given Khmer solar year is a leap year.
+     *
+     * A Khmer solar year is considered a leap year if the calculated Kromathupul
+     * value is less than or equal to 207.
+     *
+     * @param  int  $beYear  The Buddhist Era year to check
+     * @return bool True if it's a solar leap year, false otherwise
      */
-    public function isKhmerSolarLeap(int $beYear)
+    public function isKhmerSolarLeap(int $beYear): bool
     {
-        $krom = $this->kromthupul($beYear);
-        if ($krom <= 207) {
-            return 1;
-        } else {
-            return 0;
-        }
+        return $this->kromthupul($beYear) <= 207;
     }
 
     /**
-     * @param int $beYear
-     * @return int
+     * Calculate the Aharkun modulus value for a given Buddhist Era (BE) year.
+     *
+     * This value is used in Khmer calendar calculations to derive Kromathupul and assess
+     * leap year conditions in the solar calendar. It is calculated as:
+     *
+     *     (BE * 292207 + 499) % 800
+     *
+     * @param  int  $beYear  Buddhist Era year
+     * @return int The calculated Aharkun modulus value
      */
-    public function getAharkunMod(int $beYear)
+    public function getAharkunMod(int $beYear): int
     {
-        $t = ($beYear * 292207) + 499;
-        return $t % 800;
+        return (($beYear * 292207) + 499) % 800;
     }
 
     /**
-     * Regular if year has 30 day
-     * leap month if year has 13 months
-     * leap day if Jesth month of the year has 1 extra day
-     * leap day and month: both of them
-     * return 0:regular, 1:leap month, 2:leap day, 3:leap day and month
-     * @param int $beYear
-     * @return int
+     * Determine the leap status of a given Khmer Buddhist Era (BE) year.
+     *
+     * A Khmer lunar year can be:
+     * - Regular year: 12 months, 354 days
+     * - Leap month year: 13 months (adds បឋមាសាឍ)
+     * - Leap day year: extra day in month of ជេស្ឋ (making it 30 days)
+     * - Both: in rare cases, rules define one component to be applied, not both simultaneously
+     *
+     * Returns:
+     *  - 0: Regular year
+     *  - 1: Leap month only
+     *  - 2: Leap day only
+     *  - 3: Leap month and day (intermediate result; handled in getProtetinLeap)
+     *
+     * @param  int  $beYear  Buddhist Era year
      */
-    public function getBoditheyLeap(int $beYear)
+    public function getBoditheyLeap(int $beYear): int
     {
         $avoman = $this->getAvoman($beYear);
         $bodithey = $this->getBodithey($beYear);
 
-        // check bodithey leap month
-        $boditheyLeap = 0;
-        if ($bodithey >= 25 || $bodithey <= 5) {
+        $boditheyLeap = ($bodithey >= 25 || $bodithey <= 5) ? 1 : 0;
+
+        $avomanLeap = 0;
+        if ($this->isKhmerSolarLeap($beYear)) {
+            if ($avoman <= 126) {
+                $avomanLeap = 1;
+            }
+        } else {
+            if ($avoman <= 137) {
+                // Ensure 137 is not the start of a leap sequence
+                $avomanLeap = ($this->getAvoman($beYear + 1) !== 0) ? 1 : 0;
+            }
+        }
+
+        // Handle exception: consecutive 25/5 — only allow 5 as leap
+        if ($bodithey === 25 && $this->getBodithey($beYear + 1) === 5) {
+            $boditheyLeap = 0;
+        }
+
+        // Handle exception: consecutive 24/6 — enforce leap month for 24
+        if ($bodithey === 24 && $this->getBodithey($beYear + 1) === 6) {
             $boditheyLeap = 1;
         }
 
-        // check for avoman leap-day based on gregorian leap
-        $avomanLeap = 0;
-        if ($this->isKhmerSolarLeap($beYear) == 1) {
-            if ($avoman <= 126)
-                $avomanLeap = 1;
-        } else {
-            if ($avoman <= 137) {
-                // check for avoman case 137/0, 137 must be normal year (p.26)
-                if ($this->getAvoman($beYear + 1) == 0) {
-                    $avomanLeap = 0;
-                } else {
-                    $avomanLeap = 1;
-                }
-            }
-        }
-
-        // case of 25/5 consecutively
-        // only bodithey 5 can be leap-month, so set bodithey 25 to none
-        if ($bodithey == 25) {
-            $nextBodithey = $this->getBodithey($beYear + 1);
-            if ($nextBodithey == 5) {
-                $boditheyLeap = 0;
-            }
-        }
-
-        // case of 24/6 consecutively, 24 must be leap-month
-        if ($bodithey == 24) {
-            $nextBodithey = $this->getBodithey($beYear + 1);
-            if ($nextBodithey == 6) {
-                $boditheyLeap = 1;
-            }
-        }
-
-        // format leap result (0:regular, 1:month, 2:day, 3:both)
-        if ($boditheyLeap == 1 && $avomanLeap == 1) {
-            $result = 3;
-        } else if ($boditheyLeap == 1) {
-            $result = 1;
-        } else if ($avomanLeap == 1) {
-            $result = 2;
-        } else {
-            $result = 0;
-        }
-
-        return $result;
+        return match (true) {
+            $boditheyLeap === 1 && $avomanLeap === 1 => 3,
+            $boditheyLeap === 1 => 1,
+            $avomanLeap === 1 => 2,
+            default => 0,
+        };
     }
 
     /**
-     * bodithey leap can be both leap-day and leap-month but following the khmer calendar rule
-     * they can't be together on the same year, so leap day must be delayed to next year
-     * return 0:regular, 1:leap month, 2:leap day (no leap month and day together)
-     * @param $beYear
-     * @return int
+     * Determine the protetin leap status for a given Khmer Buddhist Era (BE) year.
+     *
+     * Khmer calendar rules do not allow both leap-month and leap-day in the same year.
+     * If both conditions occur, only the leap-month applies in the current year,
+     * and the leap-day is deferred to the following year.
+     *
+     * Returns:
+     *  - 0: Regular year
+     *  - 1: Leap month
+     *  - 2: Leap day (only, or deferred from previous year with both)
      */
-    public function getProtetinLeap($beYear)
+    public function getProtetinLeap(int $beYear): int
     {
-        $b = $this->getBoditheyLeap($beYear);
-        if ($b == 3) {
-            return 1;
-        }
-        if ($b == 2 || $b == 1) {
-            return $b;
-        }
-        // case of previous year is 3
-        if ($this->getBoditheyLeap($beYear - 1) == 3) {
-            return 2;
-        }
-        // normal case
-        return 0;
+        $leapType = $this->getBoditheyLeap($beYear);
+
+        return match (true) {
+            $leapType === 3 => 1, // Prioritize leap month if both present
+            $leapType === 2, $leapType === 1 => $leapType,
+            $this->getBoditheyLeap($beYear - 1) === 3 => 2, // Deferred leap-day
+            default => 0,
+        };
     }
 
     /**
-     * Maximum number of day in Khmer Month
-     * @param $beMonth
-     * @param $beYear
-     * @return int
+     * Get the maximum number of days in a given Khmer lunar month for a specific BE year.
+     *
+     * Rules:
+     * - If the month is "Jyeshtha" (ជេស្ឋ) and it's a leap-day year, it has 30 days.
+     * - If the month is either "Adhikameas 1" (បឋមាសាឍ) or "Adhikameas 2" (ទុតិយាសាឍ), it has 30 days.
+     * - Otherwise, months alternate: odd months have 30 days, even months have 29.
+     *
+     * @param  int  $beMonth  Khmer month index
+     * @param  int  $beYear  Buddhist Era year
+     * @return int Number of days in the month
      */
-    public function getNumberOfDayInKhmerMonth($beMonth, $beYear)
+    public function getNumberOfDayInKhmerMonth(int $beMonth, int $beYear): int
     {
-        $lunarMonths = (new Constant())->lunarMonths;
+        $lunarMonths = (new Constant())->getLunarMonths();
 
-        if ($beMonth == $lunarMonths['ជេស្ឋ'] && $this->isKhmerLeapDay($beYear)) {
+        if ($beMonth === $lunarMonths['ជេស្ឋ'] && $this->isKhmerLeapDay($beYear)) {
             return 30;
         }
 
-        if ($beMonth == $lunarMonths['បឋមាសាឍ'] || $beMonth == $lunarMonths['ទុតិយាសាឍ']) {
+        if (
+            $beMonth === $lunarMonths['បឋមាសាឍ'] ||
+            $beMonth === $lunarMonths['ទុតិយាសាឍ']
+        ) {
             return 30;
         }
 
-        return $beMonth % 2 == 0 ? 29 : 30; // មិគសិរ : 29 , បុស្ស : 30 , មាឃ : 29 .. 30 .. 29 ..30 .....
+        // Even-numbered months have 29 days; odd-numbered months have 30
+        return $beMonth % 2 === 0 ? 29 : 30;
     }
 
     /**
-     * Get number of day in Khmer year
-     * @param int $beYear
-     * @return int
+     * Get the total number of days in a Khmer lunar year.
+     *
+     * - Regular years have 354 days.
+     * - Leap-day years (Chhantrea Thimeas) have 355 days.
+     * - Leap-month years (Adhikameas) have 384 days.
+     *
+     * @param  int  $beYear  Buddhist Era year
+     * @return int Total number of days in the year
      */
-    public function getNumberOfDayInKhmerYear(int $beYear)
+    public function getNumberOfDayInKhmerYear(int $beYear): int
     {
         if ($this->isKhmerLeapMonth($beYear)) {
             return 384;
-        } else if ($this->isKhmerLeapDay($beYear)) {
+        }
+
+        if ($this->isKhmerLeapDay($beYear)) {
             return 355;
-        } else {
-            return 354;
         }
+
+        return 354;
     }
 
     /**
-     * Get number of day in Gregorian year
-     * @param $adYear
-     * @return int
+     * Get the total number of days in a Gregorian year.
+     *
+     * Leap years have 366 days, while common years have 365 days.
+     *
+     * @param  int  $adYear  Gregorian year
+     * @return int Total number of days in the year
      */
-    public function getNumberOfDayInGregorianYear($adYear)
+    public function getNumberOfDayInGregorianYear(int $adYear): int
     {
-        if ($this->isGregorianLeap($adYear)) {
-            return 366;
-        } else {
-            return 365;
-        }
+        return $this->isGregorianLeap($adYear) ? 366 : 365;
     }
 
     /**
-     * A year with an extra month is called Adhikameas (អធិកមាស).
-     * This year has 384 days.
-     * @param int $beYear
-     * @return bool
+     * Determine if the given Buddhist Era (BE) year is a leap month year (Adhikameas).
+     *
+     * A leap month year has an additional lunar month and totals 384 days.
+     *
+     * @param  int  $beYear  Buddhist Era year
+     * @return bool True if the year includes an extra month, otherwise false
      */
-    public function isKhmerLeapMonth(int $beYear)
+    public function isKhmerLeapMonth(int $beYear): bool
     {
-        return $this->getProtetinLeap($beYear) == 1;
+        return $this->getProtetinLeap($beYear) === 1;
     }
 
     /**
-     * A year with an extra day is called Chhantrea Thimeas (ចន្ទ្រាធិមាស) or Adhikavereak (អធិកវារៈ).
-     * This year has 355 days.
-     * @param int $beYear
-     * @return bool
+     * Determine if the given Buddhist Era (BE) year is a leap day year.
+     *
+     * A leap day year, known as Chhantrea Thimeas (ចន្ទ្រាធិមាស) or Adhikavereak (អធិកវារៈ),
+     * has one extra lunar day and totals 355 days.
+     *
+     * @param  int  $beYear  Buddhist Era year
+     * @return bool True if the year includes an extra day, otherwise false
      */
-    public function isKhmerLeapDay(int $beYear)
+    public function isKhmerLeapDay(int $beYear): bool
     {
-        return $this->getProtetinLeap($beYear) == 2;
+        return $this->getProtetinLeap($beYear) === 2;
     }
 
     /**
-     * Gregorian Leap
-     * @param int $adYear
-     * @return bool
+     * Determine if a given Gregorian year is a leap year.
+     *
+     * A Gregorian leap year occurs:
+     * - Every 4 years,
+     * - Except years that are divisible by 100,
+     * - Unless they are also divisible by 400.
+     *
+     * @param  int  $adYear  Gregorian year
+     * @return bool True if leap year, false otherwise
      */
-    public function isGregorianLeap(int $adYear)
+    public function isGregorianLeap(int $adYear): bool
     {
-        return $adYear % 4 == 0 && $adYear % 100 != 0 || $adYear % 400 == 0;
+        return ($adYear % 4 === 0 && $adYear % 100 !== 0) || ($adYear % 400 === 0);
     }
 
     /**
      * រកថ្ងៃវិសាខបូជា
      * ថ្ងៃដាច់ឆ្នាំពុទ្ធសករាជ
-     * @param int $gregorianYear
-     * @return Carbon|VisakhabocheaException
+     *
+     * Finds Visakha Bochea day, which falls on the 14th waxing moon of the month of ពិសាខ.
+     *
+     * @param  int  $gregorianYear  The Gregorian year to search within
+     * @return CarbonImmutable The date of Visakha Bochea in the given year
+     *
      * @throws InvalidKhmerMonthException
      * @throws VisakhabocheaException
      */
-    public function getVisakhaBochea(int $gregorianYear)
+    public function getVisakhaBochea(int $gregorianYear): CarbonImmutable
     {
         $lunarMonths = (new Constant())->lunarMonths;
-        $date = Carbon::createFromFormat('d/m/Y', "1/1/$gregorianYear");
+        $date = CarbonImmutable::createFromFormat('d/m/Y', "1/1/{$gregorianYear}")
+            ->setTimezone('Asia/Phnom_Penh');
 
         for ($i = 0; $i < 365; $i++) {
             $lunarDate = $this->findLunarDate($date);
             if ($lunarDate->getMonth() == $lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
                 return $lunarDate->getEpochMoved();
             }
-            $date->addDay();
+
+            $date = $date->addDay();
         }
 
         throw new VisakhabocheaException('Cannot find Visakhabochea day.');
     }
 
     /**
-     * Buddhist Era
-     * ថ្ងៃឆ្លងឆ្នាំ គឺ ១ រោច ខែពិសាខ
-     * http://news.sabay.com.kh/article/1039620
-     * @return int
-     * @throws Exception
+     * Calculate the Buddhist Era (BE) year for a given Gregorian date.
+     *
+     * The BE year changes after Visakha Bochea day, which is the 14th waxing moon of the month of ពិសាខ.
+     * If the given date is after Visakha Bochea, the BE year is incremented.
+     *
+     * @param  CarbonImmutable  $target  The date to evaluate
+     * @return int The corresponding Buddhist Era year
+     *
+     * @throws InvalidKhmerMonthException
+     * @throws VisakhabocheaException
      */
-    public function getBEYear(Carbon $target)
+    public function getBEYear(CarbonImmutable $target): int
     {
-        if (($this->getVisakhaBochea($target->year))->diffInMilliseconds($target, false) > 0) {
+        $visakha = $this->getVisakhaBochea($target->year);
+
+        if ($visakha->diffInMilliseconds($target, false) > 0) {
             return $target->year + 544;
-        } else {
-            return $target->year + 543;
         }
+
+        return $target->year + 543;
     }
 
     /**
-     * Due to recursive problem, I need to calculate the BE based on new year's day
-     * This won't be displayed on final result, it is used to find number of day in year,
-     * It won't affect the result because on ខែចេត្រ និង ខែពិសាខ, number of days is the same every year
-     * ពីព្រោះចូលឆ្នាំតែងតែចំខែចេត្រ ឬ ពិសាខ
-     * @param Carbon $date
-     * @return int
+     * Estimate the Buddhist Era (BE) year from a Gregorian date.
+     *
+     * This method is used internally to resolve recursive issues during Khmer date calculation.
+     * It provides an approximate BE year for determining the number of days in a Khmer year,
+     * especially around the Khmer New Year, which typically falls in either March or April.
+     *
+     * @param  CarbonImmutable  $date  The Gregorian date to evaluate
+     * @return int Estimated BE year
      */
-    public function getMaybeBEYear(Carbon $date)
+    public function getMaybeBEYear(CarbonImmutable $date): int
     {
-        $constant = new Constant();
+        $solarMonths = (new Constant())->getSolarMonths();
 
-        if ($date->month <= $constant->solarMonths['មេសា'] + 1) {
+        // If the date is before or around April (month 4), it's considered part of the current BE year.
+        if ($date->month <= $solarMonths['មេសា'] + 1) {
             return $date->year + 543;
-        } else {
-            return $date->year + 544;
         }
+
+        // Otherwise, the BE year is incremented
+        return $date->year + 544;
     }
 
     /**
-     * Moha Sakaraj
-     * @param $adYear
-     * @return int
+     * Convert Gregorian year to Moha Sakaraj year.
+     *
+     * Moha Sakaraj (មហាសករាជ) is a traditional calendar system used in Southeast Asia.
+     * This function converts a Gregorian year to its corresponding Moha Sakaraj year.
+     *
+     * Formula: Moha Sakaraj = AD Year - 77
+     *
+     * @param  int  $adYear  Gregorian year (Anno Domini)
+     * @return int Moha Sakaraj year
      */
-    public function getMohaSakarajYear($adYear)
+    public function getMohaSakarajYear(int $adYear): int
     {
         return $adYear - 77;
     }
 
     /**
-     * Jolak Sakaraj
-     * @param Carbon $date
-     * @return int
+     * Calculate Jolak Sakaraj (ចុល្លសករាជ) year based on Khmer New Year cutoff.
+     *
+     * Jolak Sakaraj is another traditional Southeast Asian era. Its value depends on whether
+     * the given date is before or after Khmer New Year.
+     *
+     * @return int Jolak Sakaraj year
      */
-    public function getJolakSakarajYear(Carbon $date)
+    public function getJolakSakarajYear(CarbonImmutable $date): int
     {
         $gregorianYear = $date->year;
         $newYearMoment = $this->getKhmerNewYearDateTime($gregorianYear);
-        if ($newYearMoment->diffInMilliseconds($date, false) < 0) {
-            return $gregorianYear + 543 - 1182;
-        } else {
-            return $gregorianYear + 544 - 1182;
+
+        if (! $newYearMoment instanceof CarbonImmutable) {
+            throw new RuntimeException('Invalid new year moment returned.');
         }
+
+        return $newYearMoment->diffInMilliseconds($date, false) < 0
+            ? $gregorianYear + 543 - 1182
+            : $gregorianYear + 544 - 1182;
     }
 
     /**
-     * ១កើត ៤កើត ២រោច ១៤រោច ...
-     * @param $day
-     * @return LunarDay
+     * Get Khmer lunar day representation (e.g. ១ កើត, ១៤ រោច).
+     *
+     * This function splits the lunar day into two halves:
+     *   - កើត (waxing moon) for day 1–15
+     *   - រោច (waning moon) for day 16–30
+     *
+     * @param  int  $day  Day number in the lunar cycle (1–30)
      */
-    public function getKhmerLunarDay($day)
+    public function getKhmerLunarDay(int $day): LunarDay
     {
-        $moonStatuses = (new Constant())->moonStatuses;
+        $moonStatuses = (new Constant())->getMoonStatuses();
 
         return new LunarDay(
             ($day % 15) + 1,
@@ -389,169 +455,213 @@ class Chhankitek
     }
 
     /**
-     * Turn be year to animal year
-     * @param Carbon $date
-     * @return int
+     * Get the animal year index from the given date based on Khmer zodiac cycle.
+     *
+     * The Khmer zodiac is a 12-year cycle, and each year corresponds to a specific animal.
+     * This method determines the animal index based on whether the date occurs before
+     * or after the Khmer New Year (which usually falls in April).
+     *
+     * @param  CarbonImmutable  $date  The target date
+     * @return int The animal year index (0–11), where 0 = Rat, 1 = Ox, ..., 11 = Pig
      */
-    public function getAnimalYear(Carbon $date)
+    public function getAnimalYear(CarbonImmutable $date): int
     {
         $gregorianYear = $date->year;
         $newYearDateTime = $this->getKhmerNewYearDateTime($gregorianYear);
-        if ($newYearDateTime->diffInMilliseconds($date, false) < 0) {
-            return ($gregorianYear + 543 + 4) % 12;
-        } else {
-            return ($gregorianYear + 544 + 4) % 12;
-        }
+
+        $beYear = $newYearDateTime->diffInMilliseconds($date, false) < 0
+            ? $gregorianYear + 543
+            : $gregorianYear + 544;
+
+        return ($beYear + 4) % 12;
     }
 
     /**
-     * @param Carbon $target
-     * @return KhmerLunarDate
+     * Generate the Khmer Lunar Date representation from a given Gregorian date.
+     *
+     * This method calculates the lunar day (១កើត, ១រោច, etc.), Khmer month,
+     * day of the week, animal year, and era year based on traditional Khmer calendar rules.
+     * It safely maps internal indexes to Khmer values and ensures strict typing
+     * compatibility for PHPStan level max.
+     *
+     * @param  CarbonImmutable  $target  The input date in the Gregorian calendar.
+     * @return KhmerLunarDate The fully computed Khmer lunar date object.
+     *
      * @throws InvalidKhmerMonthException
+     * @throws VisakhabocheaException
      */
-    public function khmerLunarDate(Carbon $target)
+    public function khmerLunarDate(CarbonImmutable $target): KhmerLunarDate
     {
         $constant = new Constant();
 
         $current = $target->copy();
         $lunar = $this->findLunarDate($current);
 
-        $dayOfWeek = $target->dayOfWeek;
+        // $dayOfWeekIndex = $constant->dayOfWeeks[$target->format('l')] ?? null;
+        $dayOfWeekIndex = $target->dayOfWeek;
+        $dayOfWeekName = array_search($dayOfWeekIndex, $constant->dayOfWeeks, true);
+        if ($dayOfWeekName === false) {
+            throw new RuntimeException("Invalid day of week index: $dayOfWeekIndex");
+        }
         $moonDay = $this->getKhmerLunarDay($lunar->getDay());
         $beYear = $this->getBEYear($target);
-        $animalYear = $this->getAnimalYear($target);
-        $eraYear = $this->getJolakSakarajYear($target) % 10;
+        $animalYearIndex = $this->getAnimalYear($target);
+        $eraYearIndex = $this->getJolakSakarajYear($target) % 10;
 
-        $lunarMonth = array_search($moonDay->getMoonStatus(), $constant->moonStatuses);
-        $lunarDays = $this->convertToKhmerNumber($moonDay->getMoonCount());
-        $lunarDay = "$lunarDays $lunarMonth";
+        $lunarMonthKey = array_search($moonDay->getMoonStatus(), $constant->moonStatuses, true);
+        $animalYearKey = array_search($animalYearIndex, $constant->animalYears, true);
+        $eraYearKey = array_search($eraYearIndex, $constant->eraYears, true);
+        $khmerMonthKey = array_search($lunar->getMonth(), $constant->lunarMonths, true);
+
+        if (
+            $dayOfWeekIndex === null ||
+            $lunarMonthKey === false ||
+            $khmerMonthKey === false ||
+            $animalYearKey === false ||
+            $eraYearKey === false
+        ) {
+            throw new RuntimeException('Invalid Khmer lunar date components.');
+        }
+
+        $lunarDay = $this->convertToKhmerNumber($moonDay->getMoonCount()).' '.$lunarMonthKey;
+
+        $khmerNewYearDate = $this->getKhmerNewYearDateTime($target->year);
 
         return new KhmerLunarDate(
-            array_search($dayOfWeek, $constant->dayOfWeeks),
+            $dayOfWeekName,
             $lunarDay,
-            array_search($lunar->getMonth(), $constant->lunarMonths),
-            array_search($animalYear, $constant->animalYears),
-            array_search($eraYear, $constant->eraYears),
+            $khmerMonthKey,
+            $animalYearKey,
+            $eraYearKey,
             $this->convertToKhmerNumber($beYear)
         );
     }
 
     /**
-     * Next month of the month
-     */
-    public function nextMonthOf($khmerMonth, $BEYear)
-    {
-        $lunarMonths = (new Constant())->lunarMonths;
-
-        switch ($khmerMonth) {
-            case $lunarMonths['មិគសិរ']:
-                return $lunarMonths['បុស្ស'];
-            case $lunarMonths['បុស្ស']:
-                return $lunarMonths['មាឃ'];
-            case $lunarMonths['មាឃ']:
-                return $lunarMonths['ផល្គុន'];
-            case $lunarMonths['ផល្គុន']:
-                return $lunarMonths['ចេត្រ'];
-            case $lunarMonths['ចេត្រ']:
-                return $lunarMonths['ពិសាខ'];
-            case $lunarMonths['ពិសាខ']:
-                return $lunarMonths['ជេស្ឋ'];
-            case $lunarMonths['ជេស្ឋ']:
-                if ($this->isKhmerLeapMonth($BEYear)) {
-                    return $lunarMonths['បឋមាសាឍ'];
-                } else {
-                    return $lunarMonths['អាសាឍ'];
-                }
-            case $lunarMonths['ទុតិយាសាឍ']:
-            case $lunarMonths['អាសាឍ']:
-                return $lunarMonths['ស្រាពណ៍'];
-            case $lunarMonths['ស្រាពណ៍']:
-                return $lunarMonths['ភទ្របទ'];
-            case $lunarMonths['ភទ្របទ']:
-                return $lunarMonths['អស្សុជ'];
-            case $lunarMonths['អស្សុជ']:
-                return $lunarMonths['កត្តិក'];
-            case $lunarMonths['កត្តិក']:
-                return $lunarMonths['មិគសិរ'];
-            case $lunarMonths['បឋមាសាឍ']:
-                return $lunarMonths['ទុតិយាសាឍ'];
-            default:
-                throw new InvalidKhmerMonthException('Invalid khmer month');
-        }
-    }
-
-    /**
-     * Calculate date to Khmer date
-     * @param Carbon $target
-     * @return LunarDate
+     * Get the next Khmer lunar month index based on the current month and BE year.
+     *
+     * @param  int  $khmerMonth  The current Khmer month index
+     * @param  int  $BEYear  The Buddhist Era year
+     * @return int The next month index
+     *
      * @throws InvalidKhmerMonthException
      */
-    public function findLunarDate(Carbon $target)
+    public function nextMonthOf(int $khmerMonth, int $BEYear): int
     {
-        $lunarMonths = (new Constant())->lunarMonths;
-        // Epoch Date: January 1, 1900
-        $epochDateTime = Carbon::createFromFormat('d/m/Y', '1/1/1900');
-        $khmerMonth = $lunarMonths['បុស្ស'];
-        $khmerDay = 0; // 0 - 29 ១កើត ... ១៥កើត ១រោច ...១៤រោច (១៥រោច)
+        $lunarMonths = (new Constant())->getLunarMonths();
 
-        // Find nearest year epoch
-        $differentFromEpoch = $target->diffInMilliseconds($epochDateTime);
-        if ($differentFromEpoch > 0) {
-            while ($target->diffInDays($epochDateTime) > $this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime->copy()->addYear()))) {
-                $epochDateTime->addDays($this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime->copy()->addYear())));
-            }
-        } else {
-            do {
-                $epochDateTime->subDays($this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime)));
-            } while ($epochDateTime->diffInDays($target) > 0);
-        }
+        // Store month keys for readability
+        $MK = $lunarMonths;
 
-        // Move epoch month
-        while ($target->diffInDays($epochDateTime) > $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime))) {
-            $epochDateTime->addDays($this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime)));
-            $khmerMonth = $this->nextMonthOf($khmerMonth, $this->getMaybeBEYear($epochDateTime));
-        }
-
-        $khmerDay += (int)floor($target->diffInDays($epochDateTime));
-
-        /**
-         * Fix result display 15 រោច ខែ ជេស្ឋ នៅថ្ងៃ ១ កើតខែបឋមាសាធ
-         * ករណី ខែជេស្ឋមានតែ ២៩ ថ្ងៃ តែលទ្ធផលបង្ហាញ ១៥រោច ខែជេស្ឋ
-         */
-        $totalDaysOfTheMonth = $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($target));
-        if ($totalDaysOfTheMonth <= $khmerDay) {
-            $khmerDay = $khmerDay % $totalDaysOfTheMonth;
-            $khmerMonth = $this->nextMonthOf($khmerMonth, $this->getMaybeBEYear($epochDateTime));
-        }
-        $epochDateTime->addDays($target->diffInDays($epochDateTime));
-
-        return new LunarDate($khmerDay, $khmerMonth, $epochDateTime);
+        return match ($khmerMonth) {
+            $MK['មិគសិរ'] => $MK['បុស្ស'],
+            $MK['បុស្ស'] => $MK['មាឃ'],
+            $MK['មាឃ'] => $MK['ផល្គុន'],
+            $MK['ផល្គុន'] => $MK['ចេត្រ'],
+            $MK['ចេត្រ'] => $MK['ពិសាខ'],
+            $MK['ពិសាខ'] => $MK['ជេស្ឋ'],
+            $MK['ជេស្ឋ'] => $this->isKhmerLeapMonth($BEYear)
+                ? $MK['បឋមាសាឍ']
+                : $MK['អាសាឍ'],
+            $MK['បឋមាសាឍ'] => $MK['ទុតិយាសាឍ'],
+            $MK['ទុតិយាសាឍ'], $MK['អាសាឍ'] => $MK['ស្រាពណ៍'],
+            $MK['ស្រាពណ៍'] => $MK['ភទ្របទ'],
+            $MK['ភទ្របទ'] => $MK['អស្សុជ'],
+            $MK['អស្សុជ'] => $MK['កត្តិក'],
+            $MK['កត្តិក'] => $MK['មិគសិរ'],
+            default => throw new InvalidKhmerMonthException("Invalid Khmer month index: $khmerMonth"),
+        };
     }
 
     /**
-     * ថ្ងៃ ខែ ឆ្នាំ ម៉ោង និង នាទី ចូលឆ្នាំ
-     * @param int $gregorianYear
-     * @return Carbon|false
+     * Calculate the Khmer lunar date for a given target date.
+     *
+     * @param  CarbonImmutable  $target  The Gregorian date to convert.
+     * @return LunarDate The corresponding Khmer lunar date.
+     *
+     * @throws InvalidKhmerMonthException
+     */
+    public function findLunarDate(CarbonImmutable $target): LunarDate
+    {
+        $constant = new Constant();
+        $lunarMonths = $constant->getLunarMonths();
+
+        $epochDateTime = CarbonImmutable::createFromFormat('d/m/Y', '1/1/1900')
+            ->setTimezone('Asia/Phnom_Penh');
+
+        $khmerMonth = $lunarMonths['បុស្ស'];
+
+        // Move epoch close to the target year
+        if ($target->greaterThan($epochDateTime)) {
+            while (true) {
+                $nextEpochYear = $epochDateTime->addYear();
+                $nextBEYear = $this->getMaybeBEYear($nextEpochYear);
+                $daysInYear = $this->getNumberOfDayInKhmerYear($nextBEYear);
+
+                if ($target->diffInDays($epochDateTime, false) <= $daysInYear) {
+                    break;
+                }
+
+                $epochDateTime = $epochDateTime->addDays($daysInYear);
+            }
+        } else {
+            while (true) {
+                $daysInYear = $this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime));
+                $newEpoch = $epochDateTime->subDays($daysInYear);
+                if ($target->greaterThanOrEqualTo($newEpoch)) {
+                    break;
+                }
+                $epochDateTime = $newEpoch;
+            }
+        }
+
+        // Calculate how many days between target and epoch
+        $daysBetween = $epochDateTime->diffInDays($target, false);
+
+        // Advance through months
+        while (true) {
+            $daysInMonth = $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime));
+
+            if ($daysBetween < $daysInMonth) {
+                break;
+            }
+
+            $epochDateTime = $epochDateTime->addDays($daysInMonth);
+            $khmerMonth = $this->nextMonthOf($khmerMonth, $this->getMaybeBEYear($epochDateTime));
+            $daysBetween -= $daysInMonth;
+        }
+
+        return new LunarDate((int) $daysBetween, $khmerMonth, $target);
+    }
+
+    /**
+     * Get the Khmer New Year date and time based on traditional solar and lunar data.
+     *
+     * The New Year falls on the 3rd or 4th day after the Sotin day depending on the Angsar.
+     * This calculation aligns the Soriyatra lunar calendar with the Gregorian calendar.
+     *
+     * @param  int  $gregorianYear  The Gregorian year.
+     * @return CarbonImmutable The calculated Khmer New Year date and time.
+     *
      * @throws InvalidKhmerMonthException
      * @throws TimeOfNewYearException
      */
-    public function getKhmerNewYearDateTime(int $gregorianYear)
+    public function getKhmerNewYearDateTime(int $gregorianYear): CarbonImmutable
     {
         $jsYear = ($gregorianYear + 544) - 1182;
         $info = new SoriyatraLerngSak($jsYear);
 
         $newYearsDaySotins = $info->getNewYearDaySotins();
-        if ($newYearsDaySotins[0]->getAngsar() == 0) {
-            $numberNewYearDay = 4;
-        } else {
-            $numberNewYearDay = 3;
-        }
+        $numberNewYearDay = $newYearsDaySotins[0]->getAngsar() === 0 ? 4 : 3;
 
         $timeOfNewYear = $info->getTimeOfNewYear();
-        $minutes = sprintf("%02d", $timeOfNewYear->getMinute());
+        $minutes = sprintf('%02d', $timeOfNewYear->getMinute());
         $hour = $timeOfNewYear->getHour();
 
-        $epochLerngSak = Carbon::createFromFormat('Y-m-d H:i', "$gregorianYear-04-17 $hour:$minutes");
+        $epochLerngSak = CarbonImmutable::createFromFormat(
+            'Y-m-d H:i',
+            "$gregorianYear-04-17 $hour:$minutes"
+        )->setTimezone('Asia/Phnom_Penh');
 
         $lunarDate = $this->findLunarDate($epochLerngSak);
         $lunarDay = $lunarDate->getDay();
@@ -561,7 +671,8 @@ class Chhankitek
         $lunarLerngSakDay = $lunarLerngSak->getDay();
         $lunarLerngSakMonth = $lunarLerngSak->getMonth();
 
-        $diffFromEpoch = ((($lunarMonth - 4) * 30) + $lunarDay) - ((($lunarLerngSakMonth - 4) * 30) + $lunarLerngSakDay);
+        $diffFromEpoch = ((($lunarMonth - 4) * 30) + $lunarDay)
+            - ((($lunarLerngSakMonth - 4) * 30) + $lunarLerngSakDay);
 
         return $epochLerngSak->subDays($diffFromEpoch + $numberNewYearDay - 1);
     }

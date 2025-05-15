@@ -1,10 +1,9 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek\Exception;
 
 use Exception;
 
-class VisakhabocheaException extends Exception
-{
-
-}
+final class VisakhabocheaException extends Exception {}

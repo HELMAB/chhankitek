@@ -1,14 +1,15 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek;
 
 use Illuminate\Support\Facades\Facade;
 
 /**
  * Class ChhankitekFacade
- * @package Asorasoft\Chhankitek
  */
-class ChhankitekFacade extends Facade
+final class ChhankitekFacade extends Facade
 {
     /**
      * Get the registered name of the component.

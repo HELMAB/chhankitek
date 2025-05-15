@@ -2,6 +2,8 @@
 
 Convert from AD (Anno Domini) to Lunar (Chhankitek) format [see more](http://www.cam-cc.org/calendar/).
 
+[![Latest Version on Packagist](https://img.shields.io/packagist/v/asorasoft/chhankitek.svg?style=flat-square)](https://packagist.org/packages/asorasoft/chhankitek)
+[![Total Downloads](https://img.shields.io/packagist/dt/asorasoft/chhankitek.svg?style=flat-square)](https://packagist.org/packages/asorasoft/chhankitek)
 ## Installation
 
 You can install the package via composer:
@@ -17,7 +19,7 @@ composer require asorasoft/chhankitek
 use HasChhankitek;
 
 // start call chhankitek method
-$toLunarDate = $this->chhankiteck(Carbon::now());
+$toLunarDate = $this->chhankiteck(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
 $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
@@ -27,7 +29,7 @@ $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែប
 // In Laravel controller, use this trait
 use HasChhankitek;
 
-$toLunarDate = $this->chhankiteck(Carbon::now());
+$toLunarDate = $this->chhankiteck(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
 
 $toLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
 $toLunarDate->getLunarDay(); // ១កើត, ២កើត...
@@ -40,7 +42,7 @@ $toLunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦..
 Or we can use `toLunarDate` helper function.
 
 ```php 
-toLunarDate(Carbon::now())->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
 ### Testing

@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace Asorasoft\Chhankitek\Traits;
 
 use Asorasoft\Chhankitek\Constant;
@@ -7,17 +9,17 @@ use Asorasoft\Chhankitek\Constant;
 trait HasKhmerNumberConversion
 {
     /**
-     * @param int $number
-     * @return string
+     * Convert a number to its Khmer numeral representation.
      */
-    public function convertToKhmerNumber(int $number)
+    public function convertToKhmerNumber(int|string $number): string
     {
         $constant = new Constant();
-        $str_numbers = (string)$number;
+        $strNumbers = (string) $number;
 
         foreach ($constant->khmerNumbers as $key => $value) {
-            $str_numbers = str_replace($key, $value, $str_numbers);
+            $strNumbers = str_replace((string) $key, $value, $strNumbers);
         }
-        return trim($str_numbers);
+
+        return mb_trim($strNumbers);
     }
 }
