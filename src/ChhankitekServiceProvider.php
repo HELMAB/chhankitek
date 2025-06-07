@@ -17,11 +17,7 @@ final class ChhankitekServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        if ($this->app->runningInConsole()) {
-            $this->commands([
-                VisakBocheaCheckCommand::class,
-            ]);
-        }
+        //
     }
 
     /**
