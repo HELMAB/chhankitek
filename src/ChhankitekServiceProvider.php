@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace Asorasoft\Chhankitek;
 
+use Asorasoft\Chhankitek\Commands\VisakBocheaCheckCommand;
 use Illuminate\Support\ServiceProvider;
 
 /**
@@ -16,7 +17,11 @@ final class ChhankitekServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        // Optional methods to load your package assets
+        if ($this->app->runningInConsole()) {
+            $this->commands([
+                VisakBocheaCheckCommand::class,
+            ]);
+        }
     }
 
     /**
