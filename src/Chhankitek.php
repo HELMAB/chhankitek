@@ -14,6 +14,7 @@ use Asorasoft\Chhankitek\Exception\TimeOfNewYearException;
 use Asorasoft\Chhankitek\Exception\VisakhabocheaException;
 use Asorasoft\Chhankitek\Traits\HasKhmerNumberConversion;
 use Carbon\CarbonImmutable;
+use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
 use RuntimeException;
 
@@ -343,16 +344,18 @@ final class Chhankitek
         $date = CarbonImmutable::createFromFormat('d/m/Y', "1/1/{$gregorianYear}")
             ->setTimezone('Asia/Phnom_Penh');
 
-        for ($i = 0; $i < 365; $i++) {
-            $lunarDate = $this->findLunarDate($date);
-            if ($lunarDate->getMonth() == $lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
-                return $lunarDate->getEpochMoved();
+        return Cache::remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
+            for ($i = 0; $i < 365; $i++) {
+                $lunarDate = $this->findLunarDate($date);
+                if ($lunarDate->getMonth() == $lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
+                    return $lunarDate->getEpochMoved();
+                }
+
+                $date = $date->addDay();
             }
 
-            $date = $date->addDay();
-        }
-
-        throw new VisakhabocheaException('Cannot find Visakhabochea day.');
+            throw new VisakhabocheaException('Cannot find Visakhabochea day.');
+        });
     }
 
     /**
@@ -595,47 +598,49 @@ final class Chhankitek
 
         $khmerMonth = $lunarMonths['បុស្ស'];
 
-        // Move epoch close to the target year
-        if ($target->greaterThan($epochDateTime)) {
-            while (true) {
-                $nextEpochYear = $epochDateTime->addYear();
-                $nextBEYear = $this->getMaybeBEYear($nextEpochYear);
-                $daysInYear = $this->getNumberOfDayInKhmerYear($nextBEYear);
+        return Cache::remember('chhakitek_lunar_date_' . $target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
+            // Move epoch close to the target year
+            if ($target->greaterThan($epochDateTime)) {
+                while (true) {
+                    $nextEpochYear = $epochDateTime->addYear();
+                    $nextBEYear = $this->getMaybeBEYear($nextEpochYear);
+                    $daysInYear = $this->getNumberOfDayInKhmerYear($nextBEYear);
 
-                if ($target->diffInDays($epochDateTime, false) <= $daysInYear) {
+                    if ($target->diffInDays($epochDateTime, false) <= $daysInYear) {
+                        break;
+                    }
+
+                    $epochDateTime = $epochDateTime->addDays($daysInYear);
+                }
+            } else {
+                while (true) {
+                    $daysInYear = $this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime));
+                    $newEpoch = $epochDateTime->subDays($daysInYear);
+                    if ($target->greaterThanOrEqualTo($newEpoch)) {
+                        break;
+                    }
+                    $epochDateTime = $newEpoch;
+                }
+            }
+
+            // Calculate how many days between target and epoch
+            $daysBetween = $epochDateTime->diffInDays($target, false);
+
+            // Advance through months
+            while (true) {
+                $daysInMonth = $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime));
+
+                if ($daysBetween < $daysInMonth) {
                     break;
                 }
 
-                $epochDateTime = $epochDateTime->addDays($daysInYear);
-            }
-        } else {
-            while (true) {
-                $daysInYear = $this->getNumberOfDayInKhmerYear($this->getMaybeBEYear($epochDateTime));
-                $newEpoch = $epochDateTime->subDays($daysInYear);
-                if ($target->greaterThanOrEqualTo($newEpoch)) {
-                    break;
-                }
-                $epochDateTime = $newEpoch;
-            }
-        }
-
-        // Calculate how many days between target and epoch
-        $daysBetween = $epochDateTime->diffInDays($target, false);
-
-        // Advance through months
-        while (true) {
-            $daysInMonth = $this->getNumberOfDayInKhmerMonth($khmerMonth, $this->getMaybeBEYear($epochDateTime));
-
-            if ($daysBetween < $daysInMonth) {
-                break;
+                $epochDateTime = $epochDateTime->addDays($daysInMonth);
+                $khmerMonth = $this->nextMonthOf($khmerMonth, $this->getMaybeBEYear($epochDateTime));
+                $daysBetween -= $daysInMonth;
             }
 
-            $epochDateTime = $epochDateTime->addDays($daysInMonth);
-            $khmerMonth = $this->nextMonthOf($khmerMonth, $this->getMaybeBEYear($epochDateTime));
-            $daysBetween -= $daysInMonth;
-        }
-
-        return new LunarDate((int) $daysBetween, $khmerMonth, $target);
+            return new LunarDate((int) $daysBetween, $khmerMonth, $target);
+        });
     }
 
     /**
