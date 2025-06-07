@@ -47,11 +47,11 @@ Alternatively, you can use the `toLunarDate` helper function:
 toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
-### Caching
+## Caching
 
 The Chhankitek package implements caching to improve performance when converting dates to lunar format. When you convert a date using the package, the result is cached for one year (365 days) to minimize computational overhead for frequently accessed dates.
 
-#### How caching works
+### How caching works
 
 - Each converted date is cached
 - Cache duration: 365 days (60 * 60 * 24 * 365 seconds)
