@@ -6,7 +6,4 @@ namespace Asorasoft\Chhankitek\Exception;
 
 use Exception;
 
-final class InvalidKhmerMonthException extends Exception
-{
-    // Plugin is facing wrong calculation (Invalid month)
-}
+final class InvalidKhmerMonthException extends Exception {}

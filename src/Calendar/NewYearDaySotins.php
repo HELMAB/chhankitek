@@ -2,10 +2,12 @@
 
 declare(strict_types=1);
 
-namespace Asorasoft\Chhankitek;
+namespace Asorasoft\Chhankitek\Calendar;
 
-final class LastLeftOver
+final class NewYearDaySotins
 {
+    private $sotin;
+
     private $reasey;
 
     private $angsar;
@@ -13,13 +15,19 @@ final class LastLeftOver
     private $libda;
 
     /**
-     * LastLeftOver constructor.
+     * NewYearDaySotins constructor.
      */
-    public function __construct(int $reasey, int $angsar, int $libda)
+    public function __construct(int $sotin, int $reasey, int $angsar, int $libda)
     {
+        $this->sotin = $sotin;
         $this->reasey = $reasey;
         $this->angsar = $angsar;
         $this->libda = $libda;
+    }
+
+    public function getSotin(): int
+    {
+        return $this->sotin;
     }
 
     public function getReasey(): int

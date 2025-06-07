@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace Asorasoft\Chhankitek\Traits;
 
-use Asorasoft\Chhankitek\Constant;
+use Asorasoft\Chhankitek\Calendar\Constant;
 
 trait HasKhmerNumberConversion
 {

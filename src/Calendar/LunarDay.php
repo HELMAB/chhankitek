@@ -2,7 +2,7 @@
 
 declare(strict_types=1);
 
-namespace Asorasoft\Chhankitek;
+namespace Asorasoft\Chhankitek\Calendar;
 
 final class LunarDay
 {
