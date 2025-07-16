@@ -45,7 +45,7 @@ final class Constant
         }
 
         $this->animalYears = [];
-        $years = explode('_', 'ជូត_ឆ្លូវ_ខាល_ថោះ_រោង_ម្សាញ់_មមីរ_មមែ_វក_រកា_ច_កុរ');
+        $years = explode('_', 'ជូត_ឆ្លូវ_ខាល_ថោះ_រោង_ម្សាញ់_មមី_មមែ_វក_រកា_ច_កុរ');
         foreach ($years as $index => $year) {
             $this->animalYears[$year] = $index;
         }
