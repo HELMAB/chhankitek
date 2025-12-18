@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Chhankitek - Laravel Khmer Lunar Calendar Package</title>
+    <meta name="description" content="A Laravel package to convert Gregorian dates to Khmer Lunar (Chhankitek) calendar format.">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <style>
+        body {
+            font-family: 'Raleway', sans-serif;
+        }
+        .khmer-text {
+            font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        /* Hero animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes float {
+            0%, 100% {
+                transform: translateY(0px);
+            }
+            50% {
+                transform: translateY(-20px);
+            }
+        }
+
+        @keyframes pulse {
+            0%, 100% {
+                opacity: 1;
+            }
+            50% {
+                opacity: 0.5;
+            }
+        }
+
+        .animate-fade-in-up {
+            animation: fadeInUp 0.8s ease-out forwards;
+        }
+
+        .animate-delay-1 {
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .animate-delay-2 {
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .float-animation {
+            animation: float 6s ease-in-out infinite;
+        }
+
+        .moon-icon {
+            animation: pulse 4s ease-in-out infinite;
+        }
+
+        /* Gradient background animation */
+        .gradient-bg {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 400% 400%;
+            animation: gradientShift 15s ease infinite;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+    </style>
+</head>
+<body class="bg-gray-50">
+    <!-- Navigation -->
+    <nav class="bg-white shadow-sm sticky top-0 z-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between h-16 items-center">
+                <div class="flex items-center">
+                    <span class="text-2xl font-bold text-indigo-600">Chhankitek</span>
+                </div>
+                <div class="flex space-x-8">
+                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
+                    <a href="#installation" class="text-gray-700 hover:text-indigo-600 transition-colors">Installation</a>
+                    <a href="documentation.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors">GitHub</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Hero Section -->
+    <section class="gradient-bg text-white py-24 md:py-32 relative overflow-hidden">
+        <!-- Decorative elements -->
+        <div class="absolute top-20 right-10 opacity-20 float-animation">
+            <svg class="w-32 h-32 moon-icon" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 left-10 opacity-20 float-animation" style="animation-delay: 2s;">
+            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+        </div>
+
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center space-y-8">
+                <!-- Badge -->
+                <div class="animate-fade-in-up inline-block">
+                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
+                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
+                        </svg>
+                        Laravel Package for Khmer Calendar
+                    </span>
+                </div>
+
+                <!-- Main heading -->
+                <h1 class="animate-fade-in-up animate-delay-1 text-5xl md:text-7xl font-bold tracking-tight">
+                    Chhankitek
+                    <span class="block mt-2 bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
+                        for Laravel
+                    </span>
+                </h1>
+
+                <!-- Description -->
+                <p class="animate-fade-in-up animate-delay-2 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/90">
+                    Convert Gregorian dates to Khmer Lunar calendar format with precision. Built with traditional astronomical algorithms.
+                </p>
+
+                <!-- CTA Buttons -->
+                <div class="animate-fade-in-up animate-delay-2 flex flex-col sm:flex-row justify-center gap-4 pt-4">
+                    <a href="#installation" class="group relative inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        </svg>
+                        Get Started
+                    </a>
+                    <a href="documentation.html" class="group relative inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                        </svg>
+                        Documentation
+                    </a>
+                </div>
+
+                <!-- Stats/Features -->
+                <div class="animate-fade-in-up animate-delay-2 grid grid-cols-3 gap-8 max-w-2xl mx-auto pt-12">
+                    <div class="text-center">
+                        <div class="text-3xl font-bold">PHP 8.2+</div>
+                        <div class="text-sm text-white/70 mt-1">Modern PHP</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold">Laravel 10+</div>
+                        <div class="text-sm text-white/70 mt-1">Framework</div>
+                    </div>
+                    <div class="text-center">
+                        <div class="text-3xl font-bold">MIT</div>
+                        <div class="text-sm text-white/70 mt-1">Open Source</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Quick Example -->
+    <section class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Simple and Powerful</h2>
+                <p class="text-xl text-gray-600">Convert dates in just one line of code</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
+                    <pre class="text-green-400 overflow-x-auto"><code>// Using the trait
+use HasChhankitek;
+
+$lunarDate = $this->chhankiteck(
+    Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
+);
+
+echo $lunarDate->toString();
+// Output: ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+
+// Or use the helper function
+echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));</code></pre>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Features Section -->
+    <section id="features" class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Features</h2>
+                <p class="text-xl text-gray-600">Everything you need for Khmer calendar conversions</p>
+            </div>
+            <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">📅</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Accurate Conversions</h3>
+                    <p class="text-gray-600">Based on traditional Khmer astronomical algorithms by Mr. Phylypo Tum</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">⚡</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Built-in Caching</h3>
+                    <p class="text-gray-600">Results cached for 365 days for optimal performance</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">🎯</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Laravel Integration</h3>
+                    <p class="text-gray-600">Seamlessly integrates with Laravel 10, 11, and 12</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">🌙</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Leap Year Support</h3>
+                    <p class="text-gray-600">Handles leap months (Adhikameas) and leap days automatically</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">🔧</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Simple API</h3>
+                    <p class="text-gray-600">Use via trait or global helper function - your choice</p>
+                </div>
+                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
+                    <div class="text-indigo-600 text-3xl mb-4">🐉</div>
+                    <h3 class="text-xl font-semibold mb-2 text-gray-900">Zodiac & Era</h3>
+                    <p class="text-gray-600">Get animal year, era year, and Buddhist Era calculations</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Installation Section -->
+    <section id="installation" class="py-16 bg-white">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Installation</h2>
+                <p class="text-xl text-gray-600">Get started in seconds</p>
+            </div>
+            <div class="max-w-3xl mx-auto">
+                <div class="bg-gray-900 rounded-lg p-6 shadow-xl mb-8">
+                    <pre class="text-green-400"><code>composer require asorasoft/chhankitek</code></pre>
+                </div>
+                <div class="prose prose-lg max-w-none">
+                    <p class="text-gray-600 text-center">
+                        The package will automatically register its service provider. No additional configuration needed!
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Usage Section -->
+    <section class="py-16 bg-gray-50">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900 mb-4">Usage Examples</h2>
+            </div>
+            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Trait</h3>
+                    <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
+                        <pre class="text-green-400 text-sm overflow-x-auto"><code>use HasChhankitek;
+
+$date = $this->chhankiteck(
+    CarbonImmutable::now()
+        ->setTimezone('Asia/Phnom_Penh')
+);
+
+// Get components
+$date->getDayOfWeek();
+$date->getLunarDay();
+$date->getLunarMonth();
+$date->getLunarZodiac();
+$date->getLunarEra();
+$date->getLunarYear();</code></pre>
+                    </div>
+                </div>
+                <div>
+                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Helper</h3>
+                    <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
+                        <pre class="text-green-400 text-sm overflow-x-auto"><code>$lunarDate = toLunarDate(
+    CarbonImmutable::now()
+        ->setTimezone('Asia/Phnom_Penh')
+);
+
+// Get full string
+echo $lunarDate->toString();
+
+// ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ
+// ឆ្នាំឆ្លូវ ត្រីស័ក
+// ពុទ្ធសករាជ ២៥៦៥</code></pre>
+                    </div>
+                </div>
+            </div>
+            <div class="text-center mt-8">
+                <a href="documentation.html" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+                    View Full Documentation
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- About Section -->
+    <section class="py-20 bg-white">
+        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center space-y-8">
+                <h2 class="text-3xl font-light text-gray-900">About Khmer Calendar</h2>
+
+                <p class="text-lg text-gray-600 leading-relaxed">
+                    The Khmer lunar calendar (<span class="khmer-text">ចន្ទគតិ</span>) is a traditional lunisolar system that combines solar and lunar observations to determine important dates, religious ceremonies, and festivals in Cambodia.
+                </p>
+
+                <div class="pt-4">
+                    <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
+                       class="text-indigo-600 hover:text-indigo-700 transition-colors font-medium">
+                        Learn more about Khmer Calendar →
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 text-white py-12">
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="grid md:grid-cols-4 gap-8 mb-8">
+                <div>
+                    <h3 class="text-xl font-bold mb-4">Chhankitek</h3>
+                    <p class="text-gray-400 text-sm">
+                        Laravel package for Khmer Lunar calendar conversions
+                    </p>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Resources</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="documentation.html" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
+                        <li><a href="https://packagist.org/packages/asorasoft/chhankitek" target="_blank" class="text-gray-400 hover:text-white transition-colors">Packagist</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CHANGELOG.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">Changelog</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">Community</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://github.com/HELMAB/chhankitek/issues" target="_blank" class="text-gray-400 hover:text-white transition-colors">Report Issues</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/discussions" target="_blank" class="text-gray-400 hover:text-white transition-colors">Discussions</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">Contributing</a></li>
+                        <li><a href="mailto:mabhelitc@gmail.com" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    </ul>
+                </div>
+                <div>
+                    <h3 class="text-lg font-semibold mb-4">About</h3>
+                    <ul class="space-y-2 text-sm">
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/LICENSE.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">MIT License</a></li>
+                        <li><a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" class="text-gray-400 hover:text-white transition-colors">Khmer Calendar</a></li>
+                        <li class="text-gray-400">PHP ^8.2</li>
+                        <li class="text-gray-400">Laravel 10, 11, 12</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="border-t border-gray-800 pt-8 text-center">
+                <p class="text-gray-400 text-sm">
+                    &copy; 2024 Chhankitek. Released under the MIT License.
+                </p>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+    </script>
+</body>
+</html>

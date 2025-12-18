@@ -1,0 +1,5 @@
+# Redirect default Netlify subdomain to primary domain (optional)
+# https://chhankitek.netlify.app/* https://yourdomain.com/:splat 301!
+
+# SPA fallback
+/*    /index.html   200
