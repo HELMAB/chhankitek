@@ -709,7 +709,7 @@ echo $lunarDate->toString();
     </section>
 
     <!-- About Section -->
-    <section class="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+    <section class="py-24 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
         <!-- Decorative Background Elements -->
         <div class="absolute top-20 right-10 opacity-5 rotate-slow">
             <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
@@ -724,45 +724,64 @@ echo $lunarDate->toString();
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <!-- Section Header -->
-            <div class="text-center mb-16 about-item" data-order="header">
-                <div class="inline-block mb-4">
-                    <span class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+            <div class="text-center mb-20 about-item" data-order="header">
+                <div class="inline-block mb-6">
+                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
+                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
                         </svg>
-                        Khmer Lunar Calendar System
+                        Traditional Khmer Astronomy
                     </span>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    Understanding <span class="khmer-text gradient-text-animated">ចន្ទគតិ</span>
+                <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
+                    The Khmer <span class="khmer-text gradient-text-animated">ចន្ទគតិ</span> System
                 </h2>
-                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-                    A traditional lunisolar system combining solar and lunar observations to determine important dates, religious ceremonies, and cultural festivals throughout Cambodia
+                <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
+                    For over a millennium, Cambodia has used a sophisticated lunisolar calendar that harmonizes the rhythms of the moon and sun, guiding everything from rice planting to sacred ceremonies
                 </p>
             </div>
 
             <!-- Main Content Grid -->
-            <div class="grid lg:grid-cols-2 gap-12 mb-16">
-                <!-- Left Column: Description -->
+            <div class="grid lg:grid-cols-2 gap-10 mb-16">
+                <!-- Left Column: Heritage & History -->
                 <div class="about-item" data-order="1">
-                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 h-full">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-white rounded-3xl p-10 shadow-md border border-gray-100 h-full hover:shadow-lg transition-shadow duration-300">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow">
+                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900">Ancient Wisdom</h3>
+                            <h3 class="text-3xl font-bold text-gray-900">Heritage & Precision</h3>
                         </div>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            The Khmer lunar calendar has been used for centuries to guide agricultural activities, religious observances, and cultural celebrations. It reflects deep astronomical knowledge passed down through generations.
-                        </p>
-                        <p class="text-gray-600 leading-relaxed mb-6">
-                            This lunisolar system carefully balances the solar year (365 days) with the lunar month cycle (29-30 days), requiring sophisticated calculations to maintain accuracy over time.
-                        </p>
-                        <div class="pt-4 border-t border-gray-200">
+
+                        <div class="space-y-6">
+                            <p class="text-gray-700 leading-relaxed text-lg">
+                                The Khmer lunar calendar, known as <span class="khmer-text font-semibold text-indigo-600">ចន្ទគតិ</span> (Chântôkôtĕ), represents centuries of astronomical observations and mathematical refinement by Cambodian scholars and monks.
+                            </p>
+
+                            <p class="text-gray-700 leading-relaxed">
+                                This lunisolar system masterfully synchronizes two celestial cycles: the <strong>lunar month</strong> (29-30 days) based on moon phases, and the <strong>solar year</strong> (approximately 365.25 days) tracking Earth's orbit around the sun.
+                            </p>
+
+                            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border-l-4 border-indigo-500">
+                                <div class="flex items-start gap-3">
+                                    <svg class="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
+                                    </svg>
+                                    <div>
+                                        <h4 class="font-bold text-gray-900 mb-2">Why It Matters</h4>
+                                        <p class="text-gray-700 text-sm leading-relaxed">
+                                            Traditional Cambodian life revolves around this calendar—determining planting seasons, celebrating <span class="khmer-text">បុណ្យភ្ជុំបិណ្ឌ</span> (Pchum Ben), <span class="khmer-text">បុណ្យចូលឆ្នាំខ្មែរ</span> (Khmer New Year), and countless other cultural events.
+                                        </p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="pt-6 mt-8 border-t border-gray-200">
                             <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
-                               class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-semibold transition-colors group">
+                               class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-bold transition-all group">
                                 <span>Explore Interactive Calendar</span>
                                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -772,47 +791,93 @@ echo $lunarDate->toString();
                     </div>
                 </div>
 
-                <!-- Right Column: Key Features -->
+                <!-- Right Column: Technical Components -->
                 <div class="about-item" data-order="2">
-                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 shadow-xl border border-indigo-100 h-full">
-                        <div class="flex items-center gap-3 mb-6">
-                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
-                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-3xl p-10 shadow-md border border-indigo-100 h-full hover:shadow-lg transition-shadow duration-300">
+                        <div class="flex items-center gap-4 mb-8">
+                            <div class="w-14 h-14 bg-gradient-to-br from-purple-600 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow">
+                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
                             </div>
-                            <h3 class="text-2xl font-bold text-gray-900">Calendar Components</h3>
+                            <h3 class="text-3xl font-bold text-gray-900">Calendar Components</h3>
                         </div>
+
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
-                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Buddhist Era Years (BE)</h4>
-                                    <p class="text-sm text-gray-600">Calculated from Buddha's passing, typically 543-544 years ahead of Gregorian calendar</p>
+                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow">
+                                        <span class="text-white font-bold text-sm">BE</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Buddhist Era Years</h4>
+                                        <p class="text-sm text-gray-600 leading-relaxed">
+                                            Counted from the parinirvana of Buddha (543 BCE), making 2025 CE equivalent to BE 2568/2569. The transition happens on Visakha Bochea day, not January 1st.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
-                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-purple-600 mt-2"></div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Lunar Months & Leap Months</h4>
-                                    <p class="text-sm text-gray-600">12 regular months with occasional 13th month (Adhikameas) to align with solar year</p>
+
+                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow">
+                                        <span class="text-white font-bold text-sm">13</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Leap Months (Adhikameas)</h4>
+                                        <p class="text-sm text-gray-600 leading-relaxed">
+                                            To keep lunar and solar years aligned, a 13th month is added approximately every 2-3 years based on complex astronomical calculations. This prevents seasons from drifting over time.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
-                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-pink-600 mt-2"></div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Zodiac Animal Years</h4>
-                                    <p class="text-sm text-gray-600">12-year cycle featuring animals like rat, ox, tiger, and dragon</p>
+
+                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow">
+                                        <span class="text-white font-bold text-sm">🐉</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Zodiac Animal Cycle</h4>
+                                        <p class="text-sm text-gray-600 leading-relaxed">
+                                            Each year is associated with one of 12 animals (rat, ox, tiger, rabbit, dragon, snake, horse, goat, monkey, rooster, dog, pig) in a repeating cycle.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
-                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
-                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Waxing & Waning Cycles</h4>
-                                    <p class="text-sm text-gray-600">Each month divided into កើន (waxing) and រោច (waning) moon phases</p>
+
+                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
+                                <div class="flex items-start gap-4">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow">
+                                        <span class="text-white font-bold text-sm">🌙</span>
+                                    </div>
+                                    <div class="flex-1">
+                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Moon Phases</h4>
+                                        <p class="text-sm text-gray-600 leading-relaxed">
+                                            Each month splits into <span class="khmer-text font-semibold">កើន</span> (waxing, days 1-15) and <span class="khmer-text font-semibold">រោច</span> (waning, days 1-14/15), marking the moon's journey from new to full and back.
+                                        </p>
+                                    </div>
                                 </div>
                             </div>
                         </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Implementation Highlight -->
+            <div class="about-item" data-order="3">
+                <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-12 shadow-md text-white">
+                    <div class="max-w-4xl mx-auto text-center">
+                        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
+                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
+                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
+                            </svg>
+                            Why Choose Chhankitek
+                        </div>
+                        <h3 class="text-4xl md:text-5xl font-bold mb-6">Precision Meets Tradition</h3>
+                        <p class="text-xl text-white/90 leading-relaxed mb-8 max-w-3xl mx-auto">
+                            Chhankitek faithfully implements traditional Khmer astronomical algorithms, preserving centuries of mathematical and celestial knowledge in modern PHP code. Every conversion accounts for complex leap year calculations, Buddhist Era year transitions, moon phase cycles, and zodiac animal years—delivering culturally accurate results your applications can depend on.
+                        </p>
                     </div>
                 </div>
             </div>
