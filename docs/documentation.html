@@ -25,6 +25,61 @@
             scroll-margin-top: 80px;
         }
 
+        /* Override highlight.js background to match our design */
+        pre code.hljs {
+            background: transparent;
+            padding: 0;
+        }
+        pre {
+            margin: 0;
+        }
+
+        /* Code block container with copy button */
+        .code-block-wrapper {
+            position: relative;
+        }
+        .copy-button {
+            position: absolute;
+            top: -0.5rem;
+            right: 0.5rem;
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            color: #fff;
+            padding: 0.375rem 0.75rem;
+            border-radius: 0.375rem;
+            font-size: 0.875rem;
+            cursor: pointer;
+            transition: all 0.2s;
+            display: flex;
+            align-items: center;
+            gap: 0.375rem;
+            z-index: 10;
+        }
+        .copy-button:hover {
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .copy-button.copied {
+            background: rgba(34, 197, 94, 0.2);
+            border-color: rgba(34, 197, 94, 0.3);
+        }
+        .copy-button svg {
+            width: 1rem;
+            height: 1rem;
+        }
+
+        /* Line numbers styling */
+        .hljs-ln-numbers {
+            text-align: right;
+            color: rgba(255, 255, 255, 0.3);
+            border-right: 1px solid rgba(255, 255, 255, 0.1);
+            padding-right: 1rem !important;
+            margin-right: 1rem;
+            user-select: none;
+        }
+        .hljs-ln-code {
+            padding-left: 1rem !important;
+        }
+
         /* Hero animations */
         @keyframes fadeInUp {
             from {
@@ -559,9 +614,57 @@ public function index()
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
     <script>
         // Initialize highlight.js
         hljs.highlightAll();
+        hljs.initLineNumbersOnLoad();
+
+        // Add copy buttons to code blocks
+        document.addEventListener('DOMContentLoaded', function() {
+            document.querySelectorAll('pre code').forEach(function(codeBlock) {
+                const pre = codeBlock.parentElement;
+                const wrapper = document.createElement('div');
+                wrapper.className = 'code-block-wrapper';
+
+                pre.parentNode.insertBefore(wrapper, pre);
+                wrapper.appendChild(pre);
+
+                const button = document.createElement('button');
+                button.className = 'copy-button';
+                button.innerHTML = `
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                    </svg>
+                    <span>Copy</span>
+                `;
+
+                button.addEventListener('click', function() {
+                    const code = codeBlock.textContent;
+                    navigator.clipboard.writeText(code).then(function() {
+                        button.innerHTML = `
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
+                            </svg>
+                            <span>Copied!</span>
+                        `;
+                        button.classList.add('copied');
+
+                        setTimeout(function() {
+                            button.innerHTML = `
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            `;
+                            button.classList.remove('copied');
+                        }, 2000);
+                    });
+                });
+
+                wrapper.appendChild(button);
+            });
+        });
 
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
