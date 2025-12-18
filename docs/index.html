@@ -323,14 +323,18 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
     <!-- Usage Section -->
     <section class="py-16 bg-gray-50">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
+            <div class="text-center mb-16">
                 <h2 class="text-3xl font-bold text-gray-900 mb-4">Usage Examples</h2>
+                <p class="text-xl text-gray-600">Two simple ways to convert dates</p>
             </div>
-            <div class="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-                <div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Trait</h3>
-                    <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                        <pre><code class="language-php">use HasChhankitek;
+
+            <!-- Example 1: Code Left, Content Right -->
+            <div class="mb-16">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Code Block -->
+                    <div class="order-2 md:order-1">
+                        <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
+                            <pre><code class="language-php">use HasChhankitek;
 
 $date = $this->chhankiteck(
     CarbonImmutable::now()
@@ -344,12 +348,74 @@ $date->getLunarMonth();
 $date->getLunarZodiac();
 $date->getLunarEra();
 $date->getLunarYear();</code></pre>
+                        </div>
+                    </div>
+                    <!-- Description -->
+                    <div class="order-1 md:order-2">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Using the Trait</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            Include the <code class="px-2 py-1 bg-gray-200 rounded text-sm">HasChhankitek</code> trait in your Laravel controllers or models.
+                            This approach gives you access to individual date components and provides fine-grained control over the lunar calendar data.
+                        </p>
+                        <div class="mt-6 space-y-2">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Access individual components</span>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Perfect for custom formatting</span>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Use in controllers and models</span>
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div>
-                    <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Helper</h3>
-                    <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                        <pre><code class="language-php">$lunarDate = toLunarDate(
+            </div>
+
+            <!-- Example 2: Content Left, Code Right -->
+            <div class="mb-12">
+                <div class="grid md:grid-cols-2 gap-12 items-center">
+                    <!-- Description -->
+                    <div>
+                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Using the Helper Function</h3>
+                        <p class="text-gray-600 text-lg leading-relaxed">
+                            Use the global <code class="px-2 py-1 bg-gray-200 rounded text-sm">toLunarDate()</code> helper for quick conversions anywhere in your application.
+                            This is the simplest approach when you need the complete formatted lunar date string.
+                        </p>
+                        <div class="mt-6 space-y-2">
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Available globally</span>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Get formatted string instantly</span>
+                            </div>
+                            <div class="flex items-start">
+                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                </svg>
+                                <span class="text-gray-700">Perfect for Blade templates</span>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- Code Block -->
+                    <div>
+                        <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
+                            <pre><code class="language-php">$lunarDate = toLunarDate(
     CarbonImmutable::now()
         ->setTimezone('Asia/Phnom_Penh')
 );
@@ -360,10 +426,12 @@ echo $lunarDate->toString();
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ
 // ឆ្នាំឆ្លូវ ត្រីស័ក
 // ពុទ្ធសករាជ ២៥៦៥</code></pre>
+                        </div>
                     </div>
                 </div>
             </div>
-            <div class="text-center mt-8">
+
+            <div class="text-center mt-12">
                 <a href="documentation.html" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
                     View Full Documentation
                 </a>
