@@ -138,6 +138,103 @@
             50% { background-position: 100% 50%; }
             100% { background-position: 0% 50%; }
         }
+
+        /* Usage section animations */
+        @keyframes slideInLeft {
+            from {
+                opacity: 0;
+                transform: translateX(-50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes slideInRight {
+            from {
+                opacity: 0;
+                transform: translateX(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes scaleIn {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .animate-slide-in-left {
+            animation: slideInLeft 0.8s ease-out forwards;
+        }
+
+        .animate-slide-in-right {
+            animation: slideInRight 0.8s ease-out forwards;
+        }
+
+        .animate-scale-in {
+            animation: scaleIn 0.6s ease-out forwards;
+        }
+
+        .usage-item {
+            opacity: 0;
+        }
+
+        .usage-item.visible {
+            opacity: 1;
+        }
+
+        /* Code block hover effect */
+        .code-block-container {
+            transition: all 0.3s ease;
+        }
+
+        .code-block-container:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
+        }
+
+        /* Feature badge animation */
+        @keyframes badgePulse {
+            0%, 100% {
+                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+            }
+            50% {
+                box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+            }
+        }
+
+        .feature-badge {
+            animation: badgePulse 2s infinite;
+        }
+
+        /* Gradient text animation */
+        @keyframes gradientText {
+            0%, 100% {
+                background-position: 0% 50%;
+            }
+            50% {
+                background-position: 100% 50%;
+            }
+        }
+
+        .gradient-text-animated {
+            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background-size: 300% 300%;
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: gradientText 5s ease infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -321,119 +418,238 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
     </section>
 
     <!-- Usage Section -->
-    <section class="py-16 bg-gray-50">
+    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-16">
-                <h2 class="text-3xl font-bold text-gray-900 mb-4">Usage Examples</h2>
-                <p class="text-xl text-gray-600">Two simple ways to convert dates</p>
+            <!-- Section Header -->
+            <div class="text-center mb-20">
+                <div class="inline-block mb-4">
+                    <span class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold feature-badge">
+                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
+                        </svg>
+                        Two Powerful Methods
+                    </span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    <span class="gradient-text-animated">Choose Your Approach</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
+                    Pick the method that best fits your workflow — both deliver the same accurate Khmer lunar calendar conversions
+                </p>
             </div>
 
-            <!-- Example 1: Code Left, Content Right -->
-            <div class="mb-16">
+            <!-- Example 1: Trait Method -->
+            <div class="mb-24 usage-item" data-order="1">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <!-- Code Block -->
                     <div class="order-2 md:order-1">
-                        <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                            <pre><code class="language-php">use HasChhankitek;
+                        <div class="code-block-container bg-gray-900 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+                            <!-- Decorative gradient -->
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl"></div>
+                            <div class="relative">
+                                <pre><code class="language-php">use HasChhankitek;
 
 $date = $this->chhankiteck(
     CarbonImmutable::now()
         ->setTimezone('Asia/Phnom_Penh')
 );
 
-// Get components
-$date->getDayOfWeek();
-$date->getLunarDay();
-$date->getLunarMonth();
-$date->getLunarZodiac();
-$date->getLunarEra();
-$date->getLunarYear();</code></pre>
+// Access individual components
+$dayOfWeek = $date->getDayOfWeek();
+$lunarDay = $date->getLunarDay();
+$lunarMonth = $date->getLunarMonth();
+$zodiac = $date->getLunarZodiac();
+$era = $date->getLunarEra();
+$year = $date->getLunarYear();
+
+// Or get the complete formatted string
+echo $date->toString();</code></pre>
+                            </div>
                         </div>
                     </div>
+
                     <!-- Description -->
                     <div class="order-1 md:order-2">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Using the Trait</h3>
-                        <p class="text-gray-600 text-lg leading-relaxed">
-                            Include the <code class="px-2 py-1 bg-gray-200 rounded text-sm">HasChhankitek</code> trait in your Laravel controllers or models.
-                            This approach gives you access to individual date components and provides fine-grained control over the lunar calendar data.
+                        <div class="inline-flex items-center gap-2 text-indigo-600 font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold">1</span>
+                            <span class="text-sm uppercase tracking-wider">Trait Method</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">
+                            Component-Level Control
+                        </h3>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                            Perfect for <strong>controllers, models, and services</strong> where you need granular access to individual calendar components. This approach gives you complete flexibility to format and manipulate each piece of the lunar date separately.
                         </p>
-                        <div class="mt-6 space-y-2">
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Access individual components</span>
+
+                        <!-- Benefits -->
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Granular Component Access</h4>
+                                    <p class="text-gray-600 text-sm">Retrieve day, month, zodiac, era, and year independently for custom formatting</p>
+                                </div>
                             </div>
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Perfect for custom formatting</span>
+
+                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Type-Safe & IDE-Friendly</h4>
+                                    <p class="text-gray-600 text-sm">Full IDE autocomplete support with proper type hints and documentation</p>
+                                </div>
                             </div>
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Use in controllers and models</span>
+
+                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Clean Object-Oriented Design</h4>
+                                    <p class="text-gray-600 text-sm">Integrate seamlessly with your Laravel application architecture</p>
+                                </div>
                             </div>
+                        </div>
+
+                        <!-- Use Case Badge -->
+                        <div class="mt-8 p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg text-white">
+                            <div class="flex items-center gap-2 mb-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                <span class="font-semibold">Best For:</span>
+                            </div>
+                            <p class="text-indigo-100 text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <!-- Example 2: Content Left, Code Right -->
-            <div class="mb-12">
+            <!-- Divider -->
+            <div class="flex items-center justify-center my-16">
+                <div class="flex-grow border-t border-gray-300"></div>
+                <span class="flex-shrink mx-4 text-gray-400 font-medium">OR</span>
+                <div class="flex-grow border-t border-gray-300"></div>
+            </div>
+
+            <!-- Example 2: Helper Function -->
+            <div class="mb-16 usage-item" data-order="2">
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <!-- Description -->
                     <div>
-                        <h3 class="text-2xl font-bold text-gray-900 mb-4">Using the Helper Function</h3>
-                        <p class="text-gray-600 text-lg leading-relaxed">
-                            Use the global <code class="px-2 py-1 bg-gray-200 rounded text-sm">toLunarDate()</code> helper for quick conversions anywhere in your application.
-                            This is the simplest approach when you need the complete formatted lunar date string.
+                        <div class="inline-flex items-center gap-2 text-purple-600 font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 text-sm font-bold">2</span>
+                            <span class="text-sm uppercase tracking-wider">Helper Function</span>
+                        </div>
+                        <h3 class="text-3xl font-bold text-gray-900 mb-6">
+                            Quick & Simple Conversion
+                        </h3>
+                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
+                            Ideal for <strong>Blade templates, views, and rapid prototyping</strong>. Get a beautifully formatted Khmer lunar date string instantly with a single function call — no setup required.
                         </p>
-                        <div class="mt-6 space-y-2">
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Available globally</span>
+
+                        <!-- Benefits -->
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Zero Configuration</h4>
+                                    <p class="text-gray-600 text-sm">Available globally throughout your application — just call and use</p>
+                                </div>
                             </div>
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Get formatted string instantly</span>
+
+                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Instant Formatted Output</h4>
+                                    <p class="text-gray-600 text-sm">Returns a complete, properly formatted Khmer date string ready to display</p>
+                                </div>
                             </div>
-                            <div class="flex items-start">
-                                <svg class="w-6 h-6 text-indigo-600 mr-2 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                </svg>
-                                <span class="text-gray-700">Perfect for Blade templates</span>
+
+                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
+                                    </svg>
+                                </div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Perfect for Views</h4>
+                                    <p class="text-gray-600 text-sm">Clean, readable syntax ideal for Blade templates and frontend display</p>
+                                </div>
                             </div>
                         </div>
+
+                        <!-- Use Case Badge -->
+                        <div class="mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white">
+                            <div class="flex items-center gap-2 mb-1">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                                </svg>
+                                <span class="font-semibold">Best For:</span>
+                            </div>
+                            <p class="text-purple-100 text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
+                        </div>
                     </div>
+
                     <!-- Code Block -->
                     <div>
-                        <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                            <pre><code class="language-php">$lunarDate = toLunarDate(
+                        <div class="code-block-container bg-gray-900 rounded-xl p-8 shadow-2xl relative overflow-hidden">
+                            <!-- Decorative gradient -->
+                            <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-purple-500/10 to-pink-500/10 blur-3xl"></div>
+                            <div class="relative">
+                                <pre><code class="language-php">// One-line conversion
+$lunarDate = toLunarDate(
     CarbonImmutable::now()
         ->setTimezone('Asia/Phnom_Penh')
 );
 
-// Get full string
+// Display the formatted string
 echo $lunarDate->toString();
 
+// Output example:
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ
 // ឆ្នាំឆ្លូវ ត្រីស័ក
-// ពុទ្ធសករាជ ២៥៦៥</code></pre>
+// ពុទ្ធសករាជ ២៥៦៥
+
+// Use directly in Blade
+{{ toLunarDate($date)->toString() }}</code></pre>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
 
-            <div class="text-center mt-12">
-                <a href="documentation.html" class="inline-block bg-indigo-600 text-white px-8 py-3 rounded-lg font-semibold hover:bg-indigo-700 transition-colors">
+            <!-- Call to Action -->
+            <div class="text-center mt-20 pt-12 border-t border-gray-200">
+                <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to explore more?</h3>
+                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
+                    Check out our comprehensive documentation for advanced usage patterns, API reference, and detailed examples
+                </p>
+                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
+                    </svg>
                     View Full Documentation
+                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                    </svg>
                 </a>
             </div>
         </div>
@@ -573,6 +789,56 @@ echo $lunarDate->toString();
                     });
                 }
             });
+        });
+
+        // Intersection Observer for usage section animations
+        const observerOptions = {
+            threshold: 0.2,
+            rootMargin: '0px 0px -100px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const item = entry.target;
+                    const order = item.getAttribute('data-order');
+
+                    item.classList.add('visible');
+
+                    // Animate based on order
+                    if (order === '1') {
+                        const codeBlock = item.querySelector('.order-2');
+                        const description = item.querySelector('.order-1');
+
+                        setTimeout(() => {
+                            if (codeBlock) codeBlock.classList.add('animate-slide-in-left');
+                        }, 100);
+
+                        setTimeout(() => {
+                            if (description) description.classList.add('animate-slide-in-right');
+                        }, 300);
+                    } else if (order === '2') {
+                        const description = item.querySelector('.order-1, div:first-child');
+                        const codeBlock = item.querySelector('.order-2, div:last-child');
+
+                        setTimeout(() => {
+                            if (description) description.classList.add('animate-slide-in-left');
+                        }, 100);
+
+                        setTimeout(() => {
+                            if (codeBlock) codeBlock.classList.add('animate-slide-in-right');
+                        }, 300);
+                    }
+
+                    // Unobserve after animation
+                    observer.unobserve(item);
+                }
+            });
+        }, observerOptions);
+
+        // Observe all usage items
+        document.querySelectorAll('.usage-item').forEach(item => {
+            observer.observe(item);
         });
     </script>
 </body>
