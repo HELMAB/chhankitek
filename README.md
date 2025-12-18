@@ -5,6 +5,22 @@
 
 A Laravel package to convert dates to Lunar (Chhankitek) format. [Learn more about Khmer calendar](https://khmer-calendar.tovnah.com/calendar).
 
+---
+
+<div align="center">
+
+## 🇰🇭 Stand with Cambodia • កម្ពុជា
+
+### 🕊️ **Cambodia Needs Peace** 🕊️
+
+We stand in solidarity with our brave soldiers defending Cambodia's sovereignty and territorial integrity. Our hearts are with those protecting our homeland during these challenging times. We call upon the international community to support peaceful resolution and respect for Cambodia's borders.
+
+**🙏 កម្ពុជាត្រូវការសន្តិភាព • Together we stand for peace and sovereignty**
+
+</div>
+
+---
+
 ## Documentation
 
 For detailed documentation, please visit [https://chhankitek.netlify.app](https://chhankitek.netlify.app)
