@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
         body {
             font-family: 'Raleway', sans-serif;
@@ -114,7 +116,7 @@
                             You can install the package via Composer:
                         </p>
                         <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                            <pre class="text-green-400"><code>composer require asorasoft/chhankitek</code></pre>
+                            <pre><code class="language-bash">composer require asorasoft/chhankitek</code></pre>
                         </div>
                         <p class="text-gray-600">
                             The package will automatically register its service provider. No additional configuration is needed.
@@ -130,7 +132,7 @@
                             In your Laravel controller, use the <code class="bg-gray-100 px-2 py-1 rounded">HasChhankitek</code> trait:
                         </p>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>use Asorasoft\Chhankitek\Traits\HasChhankitek;
+                            <pre><code class="language-php">use Asorasoft\Chhankitek\Traits\HasChhankitek;
 use Carbon\CarbonImmutable;
 
 class YourController extends Controller
@@ -154,7 +156,7 @@ class YourController extends Controller
                             Alternatively, you can use the global <code class="bg-gray-100 px-2 py-1 rounded">toLunarDate</code> helper:
                         </p>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>use Carbon\CarbonImmutable;
+                            <pre><code class="language-php">use Carbon\CarbonImmutable;
 
 $lunarDate = toLunarDate(
     CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
@@ -183,7 +185,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getDayOfWeek()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer day of the week.</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ, អង្គារ, ពុធ, ព្រហស្បតិ៍, សុក្រ, សៅរ៍</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ, អង្គារ, ពុធ, ព្រហស្បតិ៍, សុក្រ, សៅរ៍</code></pre>
                                 </div>
                             </div>
 
@@ -191,7 +193,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarDay()</h4>
                                 <p class="text-gray-600 mb-2">Returns the lunar day with moon status (កើត for waxing, រោច for waning).</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getLunarDay(); // ១កើត, ២កើត, ១៤រោច, etc.</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getLunarDay(); // ១កើត, ២កើត, ១៤រោច, etc.</code></pre>
                                 </div>
                             </div>
 
@@ -199,7 +201,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarMonth()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer lunar month name.</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getLunarMonth(); // ចេត្រ, ពិសាខ, ជេស្ឋ, អាសាឍ, etc.</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getLunarMonth(); // ចេត្រ, ពិសាខ, ជេស្ឋ, អាសាឍ, etc.</code></pre>
                                 </div>
                             </div>
 
@@ -207,7 +209,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarZodiac()</h4>
                                 <p class="text-gray-600 mb-2">Returns the animal year (Khmer zodiac).</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ, ខាល, ថោះ, រោង, ម្សាញ់, មមី, មមែ, វក, រកា, ច, កុរ</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ, ខាល, ថោះ, រោង, ម្សាញ់, មមី, មមែ, វក, រកា, ច, កុរ</code></pre>
                                 </div>
                             </div>
 
@@ -215,7 +217,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarEra()</h4>
                                 <p class="text-gray-600 mb-2">Returns the era year (10-year cycle).</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getLunarEra(); // ត្រីស័ក, ចត្វាស័ក, បញ្ចស័ក, etc.</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getLunarEra(); // ត្រីស័ក, ចត្វាស័ក, បញ្ចស័ក, etc.</code></pre>
                                 </div>
                             </div>
 
@@ -223,7 +225,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarYear()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Buddhist Era year in Khmer numerals.</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦, etc.</code></pre>
+                                    <pre><code class="language-php">$lunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦, etc.</code></pre>
                                 </div>
                             </div>
 
@@ -231,7 +233,7 @@ echo $lunarDate->toString();</code></pre>
                                 <h4 class="font-semibold text-gray-900 mb-2">toString()</h4>
                                 <p class="text-gray-600 mb-2">Returns the complete lunar date as a formatted string.</p>
                                 <div class="bg-gray-900 rounded-lg p-4">
-                                    <pre class="text-green-400"><code>$lunarDate->toString();
+                                    <pre><code class="language-php">$lunarDate->toString();
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥</code></pre>
                                 </div>
                             </div>
@@ -276,7 +278,7 @@ echo $lunarDate->toString();</code></pre>
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 1: Convert Current Date</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>$today = toLunarDate(
+                            <pre><code class="language-php">$today = toLunarDate(
     CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
 );
 
@@ -288,7 +290,7 @@ echo "Year: " . $today->getLunarYear();</code></pre>
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 2: Convert Specific Date</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>$date = CarbonImmutable::createFromFormat(
+                            <pre><code class="language-php">$date = CarbonImmutable::createFromFormat(
     'Y-m-d',
     '2024-04-14'
 )->setTimezone('Asia/Phnom_Penh');
@@ -299,7 +301,7 @@ echo $lunarDate->toString();</code></pre>
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 3: Display in Blade Template</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>// In Controller
+                            <pre><code class="language-php">// In Controller
 public function index()
 {
     $lunarDate = toLunarDate(
@@ -318,7 +320,7 @@ public function index()
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 4: Using in API</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-6">
-                            <pre class="text-green-400 overflow-x-auto"><code>Route::get('/api/lunar-date', function (Request $request) {
+                            <pre><code class="language-php">Route::get('/api/lunar-date', function (Request $request) {
     $date = $request->input('date')
         ? CarbonImmutable::parse($request->input('date'))
         : CarbonImmutable::now();
@@ -421,7 +423,7 @@ public function index()
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">HasChhankitek Trait</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                            <pre class="text-green-400"><code>chhankiteck(CarbonImmutable $target): KhmerLunarDate</code></pre>
+                            <pre><code class="language-php">chhankiteck(CarbonImmutable $target): KhmerLunarDate</code></pre>
                         </div>
                         <p class="text-gray-600 mb-6">
                             Converts a Gregorian date to Khmer lunar date format.
@@ -429,7 +431,7 @@ public function index()
 
                         <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Helper Function</h3>
                         <div class="bg-gray-900 rounded-lg p-4 mb-4">
-                            <pre class="text-green-400"><code>toLunarDate(CarbonImmutable $target): KhmerLunarDate</code></pre>
+                            <pre><code class="language-php">toLunarDate(CarbonImmutable $target): KhmerLunarDate</code></pre>
                         </div>
                         <p class="text-gray-600 mb-6">
                             Global helper function for date conversion.
@@ -553,7 +555,14 @@ public function index()
         </div>
     </footer>
 
+    <!-- Highlight.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     <script>
+        // Initialize highlight.js
+        hljs.highlightAll();
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {

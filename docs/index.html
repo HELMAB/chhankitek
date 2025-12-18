@@ -9,6 +9,8 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <!-- Highlight.js -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
         body {
             font-family: 'Raleway', sans-serif;
@@ -184,7 +186,7 @@
             </div>
             <div class="max-w-3xl mx-auto">
                 <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                    <pre class="text-green-400 overflow-x-auto"><code>// Using the trait
+                    <pre><code class="language-php">// Using the trait
 use HasChhankitek;
 
 $lunarDate = $this->chhankiteck(
@@ -252,7 +254,7 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
             </div>
             <div class="max-w-3xl mx-auto">
                 <div class="bg-gray-900 rounded-lg p-6 shadow-xl mb-8">
-                    <pre class="text-green-400"><code>composer require asorasoft/chhankitek</code></pre>
+                    <pre><code class="language-bash">composer require asorasoft/chhankitek</code></pre>
                 </div>
                 <div class="prose prose-lg max-w-none">
                     <p class="text-gray-600 text-center">
@@ -273,7 +275,7 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
                 <div>
                     <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Trait</h3>
                     <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                        <pre class="text-green-400 text-sm overflow-x-auto"><code>use HasChhankitek;
+                        <pre><code class="language-php">use HasChhankitek;
 
 $date = $this->chhankiteck(
     CarbonImmutable::now()
@@ -292,7 +294,7 @@ $date->getLunarYear();</code></pre>
                 <div>
                     <h3 class="text-xl font-semibold mb-4 text-gray-900">Using the Helper</h3>
                     <div class="bg-gray-900 rounded-lg p-6 shadow-xl">
-                        <pre class="text-green-400 text-sm overflow-x-auto"><code>$lunarDate = toLunarDate(
+                        <pre><code class="language-php">$lunarDate = toLunarDate(
     CarbonImmutable::now()
         ->setTimezone('Asia/Phnom_Penh')
 );
@@ -380,7 +382,14 @@ echo $lunarDate->toString();
         </div>
     </footer>
 
+    <!-- Highlight.js Script -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     <script>
+        // Initialize highlight.js
+        hljs.highlightAll();
+
         // Smooth scrolling for anchor links
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function (e) {
