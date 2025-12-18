@@ -5,6 +5,10 @@
 
 A Laravel package to convert dates to Lunar (Chhankitek) format. [Learn more about Khmer calendar](https://khmer-calendar.tovnah.com/calendar).
 
+## Documentation
+
+For detailed documentation, please visit [https://chhankitek.netlify.app](https://chhankitek.netlify.app)
+
 ## Installation
 
 You can install the package via composer:
