@@ -235,6 +235,59 @@
             -webkit-text-fill-color: transparent;
             animation: gradientText 5s ease infinite;
         }
+
+        /* About section animations */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.95);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .animate-fade-in-scale {
+            animation: fadeInScale 0.8s ease-out forwards;
+        }
+
+        .animate-slide-up {
+            animation: slideUp 0.8s ease-out forwards;
+        }
+
+        .about-item {
+            opacity: 0;
+        }
+
+        .about-item.visible {
+            opacity: 1;
+        }
+
+        /* Decorative moon phases */
+        @keyframes rotateSlow {
+            from {
+                transform: rotate(0deg);
+            }
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .rotate-slow {
+            animation: rotateSlow 30s linear infinite;
+        }
     </style>
 </head>
 <body class="bg-gray-50">
@@ -656,20 +709,111 @@ echo $lunarDate->toString();
     </section>
 
     <!-- About Section -->
-    <section class="py-20 bg-white">
-        <div class="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center space-y-8">
-                <h2 class="text-3xl font-light text-gray-900">About Khmer Calendar</h2>
+    <section class="py-24 bg-gradient-to-b from-white to-gray-50 relative overflow-hidden">
+        <!-- Decorative Background Elements -->
+        <div class="absolute top-20 right-10 opacity-5 rotate-slow">
+            <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+            </svg>
+        </div>
+        <div class="absolute bottom-20 left-10 opacity-5 rotate-slow" style="animation-direction: reverse;">
+            <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24">
+                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
+            </svg>
+        </div>
 
-                <p class="text-lg text-gray-600 leading-relaxed">
-                    The Khmer lunar calendar (<span class="khmer-text">ចន្ទគតិ</span>) is a traditional lunisolar system that combines solar and lunar observations to determine important dates, religious ceremonies, and festivals in Cambodia.
+        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <!-- Section Header -->
+            <div class="text-center mb-16 about-item" data-order="header">
+                <div class="inline-block mb-4">
+                    <span class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold">
+                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
+                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
+                        </svg>
+                        Khmer Lunar Calendar System
+                    </span>
+                </div>
+                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
+                    Understanding <span class="khmer-text gradient-text-animated">ចន្ទគតិ</span>
+                </h2>
+                <p class="text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
+                    A traditional lunisolar system combining solar and lunar observations to determine important dates, religious ceremonies, and cultural festivals throughout Cambodia
                 </p>
+            </div>
 
-                <div class="pt-4">
-                    <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
-                       class="text-indigo-600 hover:text-indigo-700 transition-colors font-medium">
-                        Learn more about Khmer Calendar →
-                    </a>
+            <!-- Main Content Grid -->
+            <div class="grid lg:grid-cols-2 gap-12 mb-16">
+                <!-- Left Column: Description -->
+                <div class="about-item" data-order="1">
+                    <div class="bg-white rounded-2xl p-8 shadow-xl border border-gray-100 h-full">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900">Ancient Wisdom</h3>
+                        </div>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            The Khmer lunar calendar has been used for centuries to guide agricultural activities, religious observances, and cultural celebrations. It reflects deep astronomical knowledge passed down through generations.
+                        </p>
+                        <p class="text-gray-600 leading-relaxed mb-6">
+                            This lunisolar system carefully balances the solar year (365 days) with the lunar month cycle (29-30 days), requiring sophisticated calculations to maintain accuracy over time.
+                        </p>
+                        <div class="pt-4 border-t border-gray-200">
+                            <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
+                               class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-semibold transition-colors group">
+                                <span>Explore Interactive Calendar</span>
+                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
+                                </svg>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Right Column: Key Features -->
+                <div class="about-item" data-order="2">
+                    <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-8 shadow-xl border border-indigo-100 h-full">
+                        <div class="flex items-center gap-3 mb-6">
+                            <div class="w-12 h-12 bg-gradient-to-br from-purple-500 to-pink-500 rounded-xl flex items-center justify-center">
+                                <svg class="w-6 h-6 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                                </svg>
+                            </div>
+                            <h3 class="text-2xl font-bold text-gray-900">Calendar Components</h3>
+                        </div>
+                        <div class="space-y-4">
+                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Buddhist Era Years (BE)</h4>
+                                    <p class="text-sm text-gray-600">Calculated from Buddha's passing, typically 543-544 years ahead of Gregorian calendar</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-purple-600 mt-2"></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Lunar Months & Leap Months</h4>
+                                    <p class="text-sm text-gray-600">12 regular months with occasional 13th month (Adhikameas) to align with solar year</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-pink-600 mt-2"></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Zodiac Animal Years</h4>
+                                    <p class="text-sm text-gray-600">12-year cycle featuring animals like rat, ox, tiger, and dragon</p>
+                                </div>
+                            </div>
+                            <div class="flex items-start gap-3 p-4 bg-white/60 backdrop-blur-sm rounded-xl">
+                                <div class="flex-shrink-0 w-2 h-2 rounded-full bg-indigo-600 mt-2"></div>
+                                <div>
+                                    <h4 class="font-semibold text-gray-900 mb-1">Waxing & Waning Cycles</h4>
+                                    <p class="text-sm text-gray-600">Each month divided into កើន (waxing) and រោច (waning) moon phases</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
@@ -839,6 +983,54 @@ echo $lunarDate->toString();
         // Observe all usage items
         document.querySelectorAll('.usage-item').forEach(item => {
             observer.observe(item);
+        });
+
+        // Intersection Observer for About section animations
+        const aboutObserverOptions = {
+            threshold: 0.15,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const aboutObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    const item = entry.target;
+                    const order = item.getAttribute('data-order');
+
+                    item.classList.add('visible');
+
+                    // Animate based on order
+                    if (order === 'header') {
+                        setTimeout(() => {
+                            item.classList.add('animate-fade-in-scale');
+                        }, 100);
+                    } else if (order === '1') {
+                        setTimeout(() => {
+                            item.classList.add('animate-slide-in-left');
+                        }, 200);
+                    } else if (order === '2') {
+                        setTimeout(() => {
+                            item.classList.add('animate-slide-in-right');
+                        }, 400);
+                    } else if (order === '3') {
+                        setTimeout(() => {
+                            item.classList.add('animate-slide-up');
+                        }, 600);
+                    } else if (order === '4') {
+                        setTimeout(() => {
+                            item.classList.add('animate-fade-in-scale');
+                        }, 800);
+                    }
+
+                    // Unobserve after animation
+                    aboutObserver.unobserve(item);
+                }
+            });
+        }, aboutObserverOptions);
+
+        // Observe all about items
+        document.querySelectorAll('.about-item').forEach(item => {
+            aboutObserver.observe(item);
         });
     </script>
 </body>
