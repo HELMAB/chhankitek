@@ -44,14 +44,61 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" as="style">
     <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
+        /* Smooth scroll behavior */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Respect user's motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
         body {
             font-family: 'Raleway', sans-serif;
         }
         .khmer-text {
             font-family: 'Kantumruy Pro', sans-serif;
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-to-main {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 0.5rem 0;
+            font-weight: 600;
+            transition: top 0.3s;
+        }
+
+        .skip-to-main:focus {
+            top: 0;
+            outline: 3px solid #fbbf24;
+            outline-offset: 2px;
+        }
+
+        /* Improved focus styles for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #6366f1;
+            outline-offset: 2px;
+            border-radius: 0.25rem;
         }
 
         /* Override highlight.js background to match our design */
@@ -357,6 +404,113 @@
         .rotate-slow {
             animation: rotateSlow 30s linear infinite;
         }
+
+        /* Mobile menu animations */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        #mobile-menu.show {
+            max-height: 500px;
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+
+        /* Better touch targets for mobile */
+        @media (max-width: 768px) {
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Loading state */
+        body.loading {
+            cursor: wait;
+        }
+
+        /* Improved copy button */
+        .copy-button {
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:focus-visible {
+            outline: 2px solid #fbbf24;
+            outline-offset: 2px;
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Improve link hover states */
+        a {
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Better button states */
+        button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Smooth focus transitions */
+        * {
+            transition: outline 0.2s ease;
+        }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -389,6 +543,9 @@
     </script>
 </head>
 <body class="bg-gray-50">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
     <!-- Peace Banner for Cambodia -->
     <div
         class="w-full shadow-lg flex-shrink-0 sticky top-0 z-50"
@@ -422,40 +579,41 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm">
+    <nav class="bg-white shadow-sm" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group" aria-label="Chhankitek Home">
                     <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
                     <span class="text-xl sm:text-2xl font-bold text-indigo-600 transition-colors group-hover:text-indigo-700">Chhankitek</span>
                 </a>
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-6 lg:space-x-8">
-                    <a href="#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
-                    <a href="#installation" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Installation</a>
-                    <a href="documentation.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">GitHub</a>
+                <div class="hidden md:flex space-x-6 lg:space-x-8" role="menubar">
+                    <a href="#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Features</a>
+                    <a href="#installation" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">GitHub</a>
                 </div>
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
             </div>
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div id="mobile-menu" class="md:hidden" role="menu" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-3">
-                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Features</a>
-                    <a href="#installation" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Installation</a>
-                    <a href="documentation.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors py-2">GitHub</a>
+                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
+                    <a href="#installation" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-600 transition-colors py-2" role="menuitem">GitHub</a>
                 </div>
             </div>
         </div>
     </nav>
 
     <!-- Hero Section -->
+    <main id="main-content">
     <section class="gradient-bg text-white py-24 md:py-32 relative overflow-hidden">
         <!-- Decorative elements -->
         <div class="absolute top-20 right-10 opacity-20 float-animation">
@@ -1030,9 +1188,17 @@ echo $lunarDate->toString();
             </div>
         </div>
     </section>
+    </main>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12">
+    <footer class="bg-gray-900 text-white py-12" role="contentinfo">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
                 <div>
@@ -1099,8 +1265,9 @@ echo $lunarDate->toString();
 
                 const button = document.createElement('button');
                 button.className = 'copy-button';
+                button.setAttribute('aria-label', 'Copy code to clipboard');
                 button.innerHTML = `
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                     <span>Copy</span>
@@ -1109,8 +1276,9 @@ echo $lunarDate->toString();
                 button.addEventListener('click', function() {
                     const code = codeBlock.textContent;
                     navigator.clipboard.writeText(code).then(function() {
+                        button.setAttribute('aria-label', 'Code copied to clipboard');
                         button.innerHTML = `
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                             <span>Copied!</span>
@@ -1118,13 +1286,31 @@ echo $lunarDate->toString();
                         button.classList.add('copied');
 
                         setTimeout(function() {
+                            button.setAttribute('aria-label', 'Copy code to clipboard');
                             button.innerHTML = `
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
                                 <span>Copy</span>
                             `;
                             button.classList.remove('copied');
+                        }, 2000);
+                    }).catch(function(err) {
+                        console.error('Failed to copy code:', err);
+                        button.innerHTML = `
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Failed</span>
+                        `;
+                        setTimeout(function() {
+                            button.setAttribute('aria-label', 'Copy code to clipboard');
+                            button.innerHTML = `
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            `;
                         }, 2000);
                     });
                 });
@@ -1245,23 +1431,100 @@ echo $lunarDate->toString();
             aboutObserver.observe(item);
         });
 
-        // Mobile menu toggle
+        // Mobile menu toggle with improved accessibility
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('show');
             });
 
             // Close mobile menu when clicking on a link
             const mobileMenuLinks = mobileMenu.querySelectorAll('a');
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
                 });
             });
+
+            // Close mobile menu when pressing Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
+                    mobileMenuButton.focus();
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && mobileMenu.classList.contains('show')) {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
+                }
+            });
         }
+
+        // Scroll to top button
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        if (scrollToTopButton) {
+            // Show/hide scroll to top button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            });
+
+            // Scroll to top when clicked
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Handle keyboard navigation
+            scrollToTopButton.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+
+        // Improve copy button accessibility and feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            // Announce copy success to screen readers
+            const copyAnnouncer = document.createElement('div');
+            copyAnnouncer.setAttribute('role', 'status');
+            copyAnnouncer.setAttribute('aria-live', 'polite');
+            copyAnnouncer.className = 'sr-only';
+            document.body.appendChild(copyAnnouncer);
+
+            document.querySelectorAll('.copy-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    copyAnnouncer.textContent = 'Code copied to clipboard';
+                    setTimeout(() => {
+                        copyAnnouncer.textContent = '';
+                    }, 3000);
+                });
+            });
+        });
+
+        // Preload critical resources
+        window.addEventListener('load', function() {
+            document.body.classList.remove('loading');
+        });
     </script>
 </body>
 </html>
