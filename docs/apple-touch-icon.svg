@@ -1,0 +1,61 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 180 180" fill="none">
+  <!-- Background with rounded corners for iOS -->
+  <defs>
+    <linearGradient id="iosGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#667eea;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#764ba2;stop-opacity:1" />
+    </linearGradient>
+    <clipPath id="roundedCorners">
+      <rect x="0" y="0" width="180" height="180" rx="40"/>
+    </clipPath>
+  </defs>
+
+  <!-- Background with rounded corners -->
+  <rect x="0" y="0" width="180" height="180" rx="40" fill="url(#iosGradient)"/>
+
+  <!-- Large crescent moon -->
+  <path d="M115 45 C115 82, 90 105, 60 105 C73 105, 85 92, 85 68 C85 56, 82 45, 76 38 C91 38, 115 45, 115 45 Z"
+        fill="#ffffff"
+        opacity="0.95"/>
+
+  <!-- Moon phases dots -->
+  <g opacity="0.85">
+    <circle cx="50" cy="58" r="2.5" fill="#ffffff"/>
+    <circle cx="63" cy="50" r="2" fill="#ffffff"/>
+    <circle cx="100" cy="75" r="3" fill="#ffffff"/>
+    <circle cx="118" cy="65" r="2" fill="#ffffff"/>
+    <circle cx="110" cy="88" r="1.8" fill="#ffffff"/>
+  </g>
+
+  <!-- Calendar grid at bottom -->
+  <g opacity="0.9">
+    <!-- Calendar base -->
+    <rect x="45" y="120" width="90" height="45" rx="4" fill="#ffffff" opacity="0.2"/>
+
+    <!-- Calendar dates -->
+    <g fill="#ffffff">
+      <rect x="53" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="63" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="73" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="83" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="93" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="103" y="128" width="5" height="7" rx="1.2"/>
+      <rect x="113" y="128" width="5" height="7" rx="1.2"/>
+
+      <rect x="53" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="63" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="73" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="83" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="93" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="103" y="140" width="5" height="7" rx="1.2"/>
+      <rect x="113" y="140" width="5" height="7" rx="1.2"/>
+
+      <rect x="53" y="152" width="5" height="7" rx="1.2"/>
+      <rect x="63" y="152" width="5" height="7" rx="1.2"/>
+      <rect x="73" y="152" width="5" height="7" rx="1.2"/>
+      <rect x="83" y="152" width="5" height="7" rx="1.2"/>
+      <rect x="93" y="152" width="5" height="7" rx="1.2"/>
+      <rect x="103" y="152" width="5" height="7" rx="1.2"/>
+    </g>
+  </g>
+</svg>

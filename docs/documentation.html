@@ -34,6 +34,12 @@
     <meta name="language" content="English">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="favicon.svg">
+    <link rel="alternate icon" href="favicon.svg">
+    <link rel="mask-icon" href="favicon.svg" color="#667eea">
+    <link rel="apple-touch-icon" href="apple-touch-icon.svg">
+
     <script src="https://cdn.tailwindcss.com"></script>
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -59,13 +65,52 @@
             background: transparent;
             padding: 0;
         }
-        pre {
-            margin: 0;
-        }
 
         /* Code block container with copy button */
         .code-block-wrapper {
             position: relative;
+        }
+
+        /* Code block responsive handling */
+        pre {
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            max-width: 100%;
+        }
+
+        pre code {
+            font-size: 0.875rem;
+            display: block;
+            white-space: pre;
+            word-wrap: normal;
+        }
+
+        /* Mobile code block improvements */
+        @media (max-width: 640px) {
+            pre code {
+                font-size: 0.7rem;
+                line-height: 1.4;
+            }
+
+            /* Reduce padding on code block containers for mobile */
+            .bg-gray-900 {
+                padding: 1rem !important;
+            }
+
+            .code-block-container {
+                padding: 1rem !important;
+            }
+
+            /* Better spacing for documentation content on mobile */
+            .bg-white.rounded-lg.shadow-md.p-8 {
+                padding: 1.5rem !important;
+            }
+        }
+
+        @media (max-width: 768px) {
+            pre code {
+                font-size: 0.75rem;
+            }
         }
         .copy-button {
             position: absolute;
@@ -202,14 +247,31 @@
     <nav class="bg-white shadow-sm">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <div class="flex items-center">
-                    <a href="index.html" class="text-2xl font-bold text-indigo-600">Chhankitek</a>
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group">
+                    <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
+                    <span class="text-xl sm:text-2xl font-bold text-indigo-600 transition-colors group-hover:text-indigo-700">Chhankitek</span>
+                </a>
+                <!-- Desktop Navigation -->
+                <div class="hidden md:flex space-x-6 lg:space-x-8">
+                    <a href="index.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Home</a>
+                    <a href="index.html#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
+                    <a href="documentation.html" class="text-sm lg:text-base text-indigo-600 font-semibold">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">GitHub</a>
                 </div>
-                <div class="flex space-x-8">
-                    <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors">Home</a>
-                    <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
-                    <a href="documentation.html" class="text-indigo-600 font-semibold">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors">GitHub</a>
+                <!-- Mobile Menu Button -->
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
+                    </svg>
+                </button>
+            </div>
+            <!-- Mobile Navigation -->
+            <div id="mobile-menu" class="hidden md:hidden pb-4">
+                <div class="flex flex-col space-y-3">
+                    <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Home</a>
+                    <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Features</a>
+                    <a href="documentation.html" class="text-indigo-600 font-semibold py-2 border-b border-gray-100">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors py-2">GitHub</a>
                 </div>
             </div>
         </div>
@@ -236,36 +298,44 @@
     </section>
 
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+        <!-- Mobile Sidebar Toggle Button -->
+        <button id="sidebar-toggle" class="lg:hidden mb-4 w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-between hover:bg-indigo-700 transition-colors">
+            <span>Table of Contents</span>
+            <svg class="h-5 w-5 transform transition-transform" id="sidebar-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
+            </svg>
+        </button>
+
         <div class="grid lg:grid-cols-4 gap-8">
             <!-- Sidebar -->
             <aside class="lg:col-span-1">
-                <div class="sticky top-20 bg-white rounded-lg shadow-md p-6">
+                <div id="sidebar-content" class="hidden lg:block lg:sticky top-20 bg-white rounded-lg shadow-md p-6">
                     <h3 class="font-semibold text-gray-900 mb-4">Contents</h3>
                     <nav class="space-y-2">
-                        <a href="#installation" class="block text-gray-600 hover:text-indigo-600 transition-colors">Installation</a>
-                        <a href="#basic-usage" class="block text-gray-600 hover:text-indigo-600 transition-colors">Basic Usage</a>
-                        <a href="#available-methods" class="block text-gray-600 hover:text-indigo-600 transition-colors">Available Methods</a>
-                        <a href="#caching" class="block text-gray-600 hover:text-indigo-600 transition-colors">Caching</a>
-                        <a href="#requirements" class="block text-gray-600 hover:text-indigo-600 transition-colors">Requirements</a>
-                        <a href="#examples" class="block text-gray-600 hover:text-indigo-600 transition-colors">Examples</a>
-                        <a href="#understanding" class="block text-gray-600 hover:text-indigo-600 transition-colors">Understanding the Calendar</a>
-                        <a href="#api-reference" class="block text-gray-600 hover:text-indigo-600 transition-colors">API Reference</a>
+                        <a href="#installation" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Installation</a>
+                        <a href="#basic-usage" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Basic Usage</a>
+                        <a href="#available-methods" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Available Methods</a>
+                        <a href="#caching" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Caching</a>
+                        <a href="#requirements" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Requirements</a>
+                        <a href="#examples" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Examples</a>
+                        <a href="#understanding" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Understanding the Calendar</a>
+                        <a href="#api-reference" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">API Reference</a>
                     </nav>
                 </div>
             </aside>
 
             <!-- Main Content -->
             <main class="lg:col-span-3">
-                <div class="bg-white rounded-lg shadow-md p-8">
-                    <h1 class="text-4xl font-bold text-gray-900 mb-8">Documentation</h1>
+                <div class="bg-white rounded-lg shadow-md p-4 sm:p-6 md:p-8">
+                    <h1 class="text-3xl sm:text-4xl font-bold text-gray-900 mb-6 sm:mb-8">Documentation</h1>
 
                     <!-- Installation -->
                     <section id="installation" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Installation</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Installation</h2>
                         <p class="text-gray-600 mb-4">
                             You can install the package via Composer:
                         </p>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-4">
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 mb-4 overflow-hidden">
                             <pre><code class="language-bash">composer require asorasoft/chhankitek</code></pre>
                         </div>
                         <p class="text-gray-600">
@@ -275,13 +345,13 @@
 
                     <!-- Basic Usage -->
                     <section id="basic-usage" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Basic Usage</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Basic Usage</h2>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Using the Trait</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Using the Trait</h3>
                         <p class="text-gray-600 mb-4">
                             In your Laravel controller, use the <code class="bg-gray-100 px-2 py-1 rounded">HasChhankitek</code> trait:
                         </p>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 mb-6 overflow-hidden">
                             <pre><code class="language-php">use Asorasoft\Chhankitek\Traits\HasChhankitek;
 use Carbon\CarbonImmutable;
 
@@ -301,11 +371,11 @@ class YourController extends Controller
 }</code></pre>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Using the Helper Function</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Using the Helper Function</h3>
                         <p class="text-gray-600 mb-4">
                             Alternatively, you can use the global <code class="bg-gray-100 px-2 py-1 rounded">toLunarDate</code> helper:
                         </p>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-6">
                             <pre><code class="language-php">use Carbon\CarbonImmutable;
 
 $lunarDate = toLunarDate(
@@ -325,7 +395,7 @@ echo $lunarDate->toString();</code></pre>
 
                     <!-- Available Methods -->
                     <section id="available-methods" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Available Methods</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Available Methods</h2>
                         <p class="text-gray-600 mb-6">
                             The <code class="bg-gray-100 px-2 py-1 rounded">KhmerLunarDate</code> object provides the following methods:
                         </p>
@@ -334,7 +404,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getDayOfWeek()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer day of the week.</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ, អង្គារ, ពុធ, ព្រហស្បតិ៍, សុក្រ, សៅរ៍</code></pre>
                                 </div>
                             </div>
@@ -342,7 +412,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarDay()</h4>
                                 <p class="text-gray-600 mb-2">Returns the lunar day with moon status (កើត for waxing, រោច for waning).</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getLunarDay(); // ១កើត, ២កើត, ១៤រោច, etc.</code></pre>
                                 </div>
                             </div>
@@ -350,7 +420,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarMonth()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer lunar month name.</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getLunarMonth(); // ចេត្រ, ពិសាខ, ជេស្ឋ, អាសាឍ, etc.</code></pre>
                                 </div>
                             </div>
@@ -358,7 +428,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarZodiac()</h4>
                                 <p class="text-gray-600 mb-2">Returns the animal year (Khmer zodiac).</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ, ខាល, ថោះ, រោង, ម្សាញ់, មមី, មមែ, វក, រកា, ច, កុរ</code></pre>
                                 </div>
                             </div>
@@ -366,7 +436,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarEra()</h4>
                                 <p class="text-gray-600 mb-2">Returns the era year (10-year cycle).</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getLunarEra(); // ត្រីស័ក, ចត្វាស័ក, បញ្ចស័ក, etc.</code></pre>
                                 </div>
                             </div>
@@ -374,7 +444,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarYear()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Buddhist Era year in Khmer numerals.</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦, etc.</code></pre>
                                 </div>
                             </div>
@@ -382,7 +452,7 @@ echo $lunarDate->toString();</code></pre>
                             <div class="border-l-4 border-indigo-500 pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">toString()</h4>
                                 <p class="text-gray-600 mb-2">Returns the complete lunar date as a formatted string.</p>
-                                <div class="bg-gray-900 rounded-lg p-4">
+                                <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
                                     <pre><code class="language-php">$lunarDate->toString();
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥</code></pre>
                                 </div>
@@ -392,7 +462,7 @@ echo $lunarDate->toString();</code></pre>
 
                     <!-- Caching -->
                     <section id="caching" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Caching</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Caching</h2>
                         <p class="text-gray-600 mb-4">
                             The Chhankitek package implements automatic caching to improve performance:
                         </p>
@@ -412,7 +482,7 @@ echo $lunarDate->toString();</code></pre>
 
                     <!-- Requirements -->
                     <section id="requirements" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Requirements</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Requirements</h2>
                         <div class="bg-gray-50 rounded-lg p-6">
                             <ul class="space-y-2 text-gray-700">
                                 <li><strong>PHP:</strong> ^8.2</li>
@@ -424,10 +494,10 @@ echo $lunarDate->toString();</code></pre>
 
                     <!-- Examples -->
                     <section id="examples" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Examples</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Examples</h2>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 1: Convert Current Date</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 1: Convert Current Date</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-6">
                             <pre><code class="language-php">$today = toLunarDate(
     CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
 );
@@ -438,8 +508,8 @@ echo "Month: " . $today->getLunarMonth();
 echo "Year: " . $today->getLunarYear();</code></pre>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 2: Convert Specific Date</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 2: Convert Specific Date</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-6">
                             <pre><code class="language-php">$date = CarbonImmutable::createFromFormat(
     'Y-m-d',
     '2024-04-14'
@@ -449,8 +519,8 @@ $lunarDate = toLunarDate($date);
 echo $lunarDate->toString();</code></pre>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 3: Display in Blade Template</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 3: Display in Blade Template</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-6">
                             <pre><code class="language-php">// In Controller
 public function index()
 {
@@ -468,8 +538,8 @@ public function index()
 &lt;/div&gt;</code></pre>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 4: Using in API</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-6">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Example 4: Using in API</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-6">
                             <pre><code class="language-php">Route::get('/api/lunar-date', function (Request $request) {
     $date = $request->input('date')
         ? CarbonImmutable::parse($request->input('date'))
@@ -496,9 +566,9 @@ public function index()
 
                     <!-- Understanding the Calendar -->
                     <section id="understanding" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">Understanding the Khmer Calendar</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Understanding the Khmer Calendar</h2>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Lunar Months</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Lunar Months</h3>
                         <p class="text-gray-600 mb-4">
                             The Khmer lunar calendar has 12 standard months. In leap years, an additional month (បឋមាសាឍ) is added:
                         </p>
@@ -521,7 +591,7 @@ public function index()
                             </ul>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Lunar Days</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Lunar Days</h3>
                         <p class="text-gray-600 mb-4">
                             Each lunar month is divided into two phases:
                         </p>
@@ -530,7 +600,7 @@ public function index()
                             <li><strong>រោច (Roch):</strong> Waning moon (days 1-15)</li>
                         </ul>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Zodiac Animals (12-year cycle)</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Zodiac Animals (12-year cycle)</h3>
                         <div class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
                             <div class="bg-gray-50 p-3 rounded">ជូត - Rat</div>
                             <div class="bg-gray-50 p-3 rounded">ឆ្លូវ - Ox</div>
@@ -546,7 +616,7 @@ public function index()
                             <div class="bg-gray-50 p-3 rounded">កុរ - Pig</div>
                         </div>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Leap Years</h3>
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Leap Years</h3>
                         <p class="text-gray-600 mb-4">
                             The Khmer calendar has two types of leap years:
                         </p>
@@ -569,26 +639,28 @@ public function index()
 
                     <!-- API Reference -->
                     <section id="api-reference" class="mb-12">
-                        <h2 class="text-3xl font-bold text-gray-900 mb-4">API Reference</h2>
+                        <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">API Reference</h2>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">HasChhankitek Trait</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-4">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">HasChhankitek Trait</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-4">
                             <pre><code class="language-php">chhankiteck(CarbonImmutable $target): KhmerLunarDate</code></pre>
                         </div>
                         <p class="text-gray-600 mb-6">
                             Converts a Gregorian date to Khmer lunar date format.
                         </p>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">Helper Function</h3>
-                        <div class="bg-gray-900 rounded-lg p-4 mb-4">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">Helper Function</h3>
+                        <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-4">
                             <pre><code class="language-php">toLunarDate(CarbonImmutable $target): KhmerLunarDate</code></pre>
                         </div>
                         <p class="text-gray-600 mb-6">
                             Global helper function for date conversion.
                         </p>
 
-                        <h3 class="text-2xl font-semibold text-gray-900 mb-3 mt-6">KhmerLunarDate Methods</h3>
-                        <div class="overflow-x-auto">
+                        <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">KhmerLunarDate Methods</h3>
+                        <div class="overflow-x-auto -mx-4 sm:mx-0">
+                            <div class="inline-block min-w-full align-middle">
+                                <div class="overflow-hidden shadow ring-1 ring-black ring-opacity-5 sm:rounded-lg">
                             <table class="min-w-full divide-y divide-gray-200 mb-6">
                                 <thead class="bg-gray-50">
                                     <tr>
@@ -635,6 +707,8 @@ public function index()
                                     </tr>
                                 </tbody>
                             </table>
+                                </div>
+                            </div>
                         </div>
                     </section>
 
@@ -662,9 +736,9 @@ public function index()
     <!-- Footer -->
     <footer class="bg-gray-900 text-white py-12 mt-16">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid md:grid-cols-4 gap-8 mb-8">
+            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
                 <div>
-                    <h3 class="text-xl font-bold mb-4">Chhankitek</h3>
+                    <h3 class="text-lg sm:text-xl font-bold mb-4">Chhankitek</h3>
                     <p class="text-gray-400 text-sm">
                         Laravel package for Khmer Lunar calendar conversions
                     </p>
@@ -774,6 +848,47 @@ public function index()
                 }
             });
         });
+
+        // Mobile menu toggle
+        const mobileMenuButton = document.getElementById('mobile-menu-button');
+        const mobileMenu = document.getElementById('mobile-menu');
+
+        if (mobileMenuButton && mobileMenu) {
+            mobileMenuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('hidden');
+            });
+
+            // Close mobile menu when clicking on a link
+            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+        }
+
+        // Sidebar toggle for mobile
+        const sidebarToggle = document.getElementById('sidebar-toggle');
+        const sidebarContent = document.getElementById('sidebar-content');
+        const sidebarToggleIcon = document.getElementById('sidebar-toggle-icon');
+
+        if (sidebarToggle && sidebarContent) {
+            sidebarToggle.addEventListener('click', function() {
+                sidebarContent.classList.toggle('hidden');
+                sidebarToggleIcon.classList.toggle('rotate-180');
+            });
+
+            // Close sidebar when clicking on a link (mobile only)
+            const sidebarLinks = sidebarContent.querySelectorAll('a');
+            sidebarLinks.forEach(link => {
+                link.addEventListener('click', function() {
+                    if (window.innerWidth < 1024) {
+                        sidebarContent.classList.add('hidden');
+                        sidebarToggleIcon.classList.remove('rotate-180');
+                    }
+                });
+            });
+        }
     </script>
 </body>
 </html>

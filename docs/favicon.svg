@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" fill="none">
+  <!-- Background circle -->
+  <circle cx="32" cy="32" r="32" fill="#667eea"/>
+
+  <!-- Crescent moon -->
+  <path d="M42 18 C42 28, 32 36, 24 36 C28 36, 32 32, 32 24 C32 20, 30 16, 28 14 C34 14, 42 18, 42 18 Z"
+        fill="#ffffff"
+        opacity="0.95"/>
+
+  <!-- Small stars -->
+  <circle cx="20" cy="22" r="1.5" fill="#ffffff" opacity="0.8"/>
+  <circle cx="26" cy="18" r="1" fill="#ffffff" opacity="0.8"/>
+  <circle cx="38" cy="28" r="1.2" fill="#ffffff" opacity="0.8"/>
+  <circle cx="44" cy="24" r="1" fill="#ffffff" opacity="0.8"/>
+
+  <!-- Calendar element - small lines at bottom representing dates -->
+  <g opacity="0.9">
+    <rect x="18" y="44" width="2" height="6" rx="1" fill="#ffffff"/>
+    <rect x="24" y="44" width="2" height="6" rx="1" fill="#ffffff"/>
+    <rect x="30" y="44" width="2" height="6" rx="1" fill="#ffffff"/>
+    <rect x="36" y="44" width="2" height="6" rx="1" fill="#ffffff"/>
+    <rect x="42" y="44" width="2" height="6" rx="1" fill="#ffffff"/>
+  </g>
+</svg>
