@@ -44,11 +44,47 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" as="style">
     <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
     <style>
+        /* Prevent horizontal scroll */
+        html {
+            overflow-x: hidden;
+            scroll-behavior: smooth;
+        }
+
         body {
+            overflow-x: hidden;
             font-family: 'Raleway', sans-serif;
+            width: 100%;
+            position: relative;
+        }
+
+        /* Respect user's motion preferences */
+        @media (prefers-reduced-motion: reduce) {
+            html {
+                scroll-behavior: auto;
+            }
+            * {
+                animation-duration: 0.01ms !important;
+                animation-iteration-count: 1 !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
+        /* Ensure all containers respect viewport width */
+        * {
+            max-width: 100%;
+        }
+
+        /* Allow specific elements to use full width */
+        .max-w-7xl,
+        .max-w-3xl,
+        .max-w-full,
+        html,
+        body {
+            max-width: none;
         }
         .khmer-text {
             font-family: 'Kantumruy Pro', sans-serif;
@@ -58,6 +94,35 @@
         }
         .prose h3 {
             scroll-margin-top: 80px;
+        }
+
+        /* Skip to main content link for accessibility */
+        .skip-to-main {
+            position: absolute;
+            top: -100px;
+            left: 0;
+            background: #4f46e5;
+            color: white;
+            padding: 0.75rem 1.5rem;
+            text-decoration: none;
+            z-index: 100;
+            border-radius: 0 0 0.5rem 0;
+            font-weight: 600;
+            transition: top 0.3s;
+        }
+
+        .skip-to-main:focus {
+            top: 0;
+            outline: 3px solid #fbbf24;
+            outline-offset: 2px;
+        }
+
+        /* Improved focus styles for accessibility */
+        a:focus-visible,
+        button:focus-visible {
+            outline: 3px solid #6366f1;
+            outline-offset: 2px;
+            border-radius: 0.25rem;
         }
 
         /* Override highlight.js background to match our design */
@@ -76,6 +141,27 @@
             overflow-x: auto;
             -webkit-overflow-scrolling: touch;
             max-width: 100%;
+            scrollbar-width: thin;
+            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
+            position: relative;
+        }
+
+        pre::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        pre::-webkit-scrollbar-track {
+            background: rgba(0, 0, 0, 0.1);
+            border-radius: 4px;
+        }
+
+        pre::-webkit-scrollbar-thumb {
+            background: rgba(156, 163, 175, 0.5);
+            border-radius: 4px;
+        }
+
+        pre::-webkit-scrollbar-thumb:hover {
+            background: rgba(156, 163, 175, 0.7);
         }
 
         pre code {
@@ -83,33 +169,193 @@
             display: block;
             white-space: pre;
             word-wrap: normal;
+            line-height: 1.6;
+        }
+
+        /* Scroll fade indicators for code blocks */
+        .code-block-wrapper::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(to left, rgba(17, 24, 39, 0.9), transparent);
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .code-block-wrapper.has-scroll::after {
+            opacity: 1;
         }
 
         /* Mobile code block improvements */
         @media (max-width: 640px) {
+            /* Ensure main containers don't overflow */
+            .max-w-7xl {
+                padding-left: 1rem;
+                padding-right: 1rem;
+            }
+
+            /* Fix grid layouts on mobile */
+            .grid {
+                gap: 0.75rem;
+            }
+
+            .grid-cols-2 > div {
+                min-width: 0;
+                word-break: break-word;
+            }
+
+            /* Ensure all rounded containers fit */
+            .rounded-lg,
+            .rounded {
+                margin-left: 0;
+                margin-right: 0;
+            }
+
+            /* Code block container adjustments */
+            .bg-gray-900.rounded-lg {
+                border-radius: 0.5rem;
+                padding: 0.875rem !important;
+                margin-left: 0;
+                margin-right: 0;
+                overflow: visible;
+            }
+
+            /* Pre element mobile styles */
+            pre {
+                margin: 0;
+                padding: 0.75rem !important;
+                border-radius: 0.375rem;
+                background: transparent !important;
+                /* Enable smooth horizontal scrolling */
+                overflow-x: auto;
+                overflow-y: hidden;
+                -webkit-overflow-scrolling: touch;
+                /* Prevent text wrapping */
+                white-space: nowrap;
+            }
+
             pre code {
-                font-size: 0.7rem;
-                line-height: 1.4;
+                font-size: 0.8125rem;
+                line-height: 1.6;
+                white-space: pre;
+                display: inline-block;
+                min-width: 100%;
             }
 
-            /* Reduce padding on code block containers for mobile */
-            .bg-gray-900 {
-                padding: 1rem !important;
+            /* Better scrollbar for mobile */
+            pre::-webkit-scrollbar {
+                height: 6px;
             }
 
-            .code-block-container {
-                padding: 1rem !important;
+            pre::-webkit-scrollbar-track {
+                background: rgba(255, 255, 255, 0.05);
+                border-radius: 3px;
+            }
+
+            pre::-webkit-scrollbar-thumb {
+                background: rgba(255, 255, 255, 0.2);
+                border-radius: 3px;
+            }
+
+            /* Adjust copy button for mobile */
+            .copy-button {
+                top: 0.5rem;
+                right: 0.5rem;
+                padding: 0.25rem 0.5rem;
+                font-size: 0.75rem;
+                gap: 0.25rem;
+            }
+
+            .copy-button svg {
+                width: 0.875rem;
+                height: 0.875rem;
+            }
+
+            .copy-button span {
+                display: none;
+            }
+
+            /* Show only icon on mobile */
+            .copy-button.copied span {
+                display: inline;
             }
 
             /* Better spacing for documentation content on mobile */
             .bg-white.rounded-lg.shadow-md.p-8 {
-                padding: 1.5rem !important;
+                padding: 1rem !important;
+            }
+
+            /* Make inline code more readable on mobile */
+            code:not(pre code) {
+                word-break: break-word;
+                font-size: 0.8125rem;
+                padding: 0.125rem 0.375rem;
+            }
+
+            /* Scroll fade indicator more visible on mobile */
+            .code-block-wrapper::after {
+                width: 30px;
+                background: linear-gradient(to left, rgba(17, 24, 39, 1), transparent);
+            }
+
+            /* Fix all potential overflow sources */
+            section,
+            nav,
+            main,
+            footer {
+                max-width: 100vw;
+                overflow-x: hidden;
+            }
+
+            /* Allow table containers to scroll horizontally */
+            .overflow-x-auto {
+                overflow-x: auto !important;
+            }
+
+            /* Specifically fix content areas */
+            .bg-white.rounded-lg.shadow-md {
+                margin-left: 0;
+                margin-right: 0;
+                width: 100%;
+            }
+
+            /* Fix flex containers */
+            .flex {
+                flex-wrap: wrap;
+                max-width: 100%;
+            }
+
+            /* Ensure images don't overflow */
+            img {
+                max-width: 100%;
+                height: auto;
+            }
+
+            /* Fix list items with long text */
+            li {
+                word-wrap: break-word;
+                overflow-wrap: break-word;
+            }
+
+            /* Fix alert/info boxes */
+            .border-l-4 {
+                margin-left: 0;
+                margin-right: 0;
             }
         }
 
-        @media (max-width: 768px) {
+        /* Tablet improvements */
+        @media (min-width: 641px) and (max-width: 768px) {
             pre code {
-                font-size: 0.75rem;
+                font-size: 0.875rem;
+            }
+
+            .bg-gray-900.rounded-lg {
+                padding: 1rem !important;
             }
         }
         .copy-button {
@@ -174,6 +420,150 @@
         .gradient-bg-docs {
             background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
         }
+
+        /* Mobile menu animations */
+        #mobile-menu {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        #mobile-menu.show {
+            max-height: 500px;
+        }
+
+        /* Sidebar toggle animations */
+        #sidebar-content {
+            transition: max-height 0.3s ease-in-out;
+        }
+
+        /* Scroll to top button */
+        .scroll-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 50;
+            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+        }
+
+        .scroll-to-top.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .scroll-to-top:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+        }
+
+        .scroll-to-top:active {
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 640px) {
+            .scroll-to-top {
+                bottom: 1rem;
+                right: 1rem;
+                width: 2.5rem;
+                height: 2.5rem;
+            }
+        }
+
+        /* Better touch targets for mobile */
+        @media (max-width: 768px) {
+            a, button {
+                min-height: 44px;
+                min-width: 44px;
+            }
+        }
+
+        /* Screen reader only content */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border-width: 0;
+        }
+
+        /* Improve link hover states */
+        a {
+            transition: color 0.2s ease, background-color 0.2s ease;
+        }
+
+        /* Improved copy button */
+        .copy-button {
+            transition: all 0.2s ease;
+        }
+
+        .copy-button:focus-visible {
+            outline: 2px solid #fbbf24;
+            outline-offset: 2px;
+        }
+
+        /* Better table responsiveness */
+        table {
+            width: 100%;
+            table-layout: auto;
+        }
+
+        @media (max-width: 640px) {
+            /* Table container fixes */
+            .overflow-x-auto {
+                margin-left: 0 !important;
+                margin-right: 0 !important;
+                overflow-x: auto;
+                -webkit-overflow-scrolling: touch;
+            }
+
+            table {
+                font-size: 0.6875rem;
+                min-width: 100%;
+                display: table;
+            }
+
+            th, td {
+                padding: 0.5rem 0.75rem !important;
+                white-space: nowrap;
+            }
+
+            /* Make table scrollable without breaking layout */
+            .overflow-x-auto > .inline-block {
+                min-width: 0;
+                width: 100%;
+            }
+
+            /* Reduce shadow/ring on mobile for better performance */
+            .shadow {
+                box-shadow: none;
+            }
+
+            .ring-1 {
+                box-shadow: none;
+            }
+        }
+
+        @media (max-width: 768px) {
+            th, td {
+                padding: 0.625rem 1rem !important;
+            }
+        }
     </style>
 
     <!-- Structured Data (JSON-LD) -->
@@ -211,6 +601,9 @@
     </script>
 </head>
 <body class="bg-gray-50">
+    <!-- Skip to main content for accessibility -->
+    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+
     <!-- Peace Banner for Cambodia -->
     <div
         class="w-full shadow-lg flex-shrink-0 sticky top-0 z-50"
@@ -244,34 +637,34 @@
     </div>
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm">
+    <nav class="bg-white shadow-sm" role="navigation" aria-label="Main navigation">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group">
+                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group" aria-label="Chhankitek Home">
                     <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
                     <span class="text-xl sm:text-2xl font-bold text-indigo-600 transition-colors group-hover:text-indigo-700">Chhankitek</span>
                 </a>
                 <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-6 lg:space-x-8">
-                    <a href="index.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Home</a>
-                    <a href="index.html#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">Features</a>
-                    <a href="documentation.html" class="text-sm lg:text-base text-indigo-600 font-semibold">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors">GitHub</a>
+                <div class="hidden md:flex space-x-6 lg:space-x-8" role="menubar">
+                    <a href="index.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Home</a>
+                    <a href="index.html#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Features</a>
+                    <a href="documentation.html" class="text-sm lg:text-base text-indigo-600 font-semibold" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">GitHub</a>
                 </div>
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
+                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
                 </button>
             </div>
             <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="hidden md:hidden pb-4">
+            <div id="mobile-menu" class="md:hidden" role="menu" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-3">
-                    <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Home</a>
-                    <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100">Features</a>
-                    <a href="documentation.html" class="text-indigo-600 font-semibold py-2 border-b border-gray-100">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-700 hover:text-indigo-600 transition-colors py-2">GitHub</a>
+                    <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Home</a>
+                    <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
+                    <a href="documentation.html" class="text-indigo-600 font-semibold py-2 border-b border-gray-100" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-600 transition-colors py-2" role="menuitem">GitHub</a>
                 </div>
             </div>
         </div>
@@ -297,21 +690,22 @@
         </div>
     </section>
 
+    <main id="main-content">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Mobile Sidebar Toggle Button -->
-        <button id="sidebar-toggle" class="lg:hidden mb-4 w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-between hover:bg-indigo-700 transition-colors">
+        <button id="sidebar-toggle" class="lg:hidden mb-4 w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-between hover:bg-indigo-700 transition-colors" aria-expanded="false" aria-controls="sidebar-content" aria-label="Toggle table of contents">
             <span>Table of Contents</span>
-            <svg class="h-5 w-5 transform transition-transform" id="sidebar-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <svg class="h-5 w-5 transform transition-transform" id="sidebar-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
             </svg>
         </button>
 
         <div class="grid lg:grid-cols-4 gap-8">
             <!-- Sidebar -->
-            <aside class="lg:col-span-1">
+            <aside class="lg:col-span-1" role="complementary" aria-label="Table of contents">
                 <div id="sidebar-content" class="hidden lg:block lg:sticky top-20 bg-white rounded-lg shadow-md p-6">
                     <h3 class="font-semibold text-gray-900 mb-4">Contents</h3>
-                    <nav class="space-y-2">
+                    <nav class="space-y-2" role="navigation" aria-label="Documentation sections">
                         <a href="#installation" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Installation</a>
                         <a href="#basic-usage" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Basic Usage</a>
                         <a href="#available-methods" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Available Methods</a>
@@ -732,9 +1126,17 @@ public function index()
             </main>
         </div>
     </div>
+    </main>
+
+    <!-- Scroll to top button -->
+    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
+        </svg>
+    </button>
 
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12 mt-16">
+    <footer class="bg-gray-900 text-white py-12 mt-16" role="contentinfo">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
                 <div>
@@ -801,8 +1203,9 @@ public function index()
 
                 const button = document.createElement('button');
                 button.className = 'copy-button';
+                button.setAttribute('aria-label', 'Copy code to clipboard');
                 button.innerHTML = `
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                     </svg>
                     <span>Copy</span>
@@ -811,8 +1214,9 @@ public function index()
                 button.addEventListener('click', function() {
                     const code = codeBlock.textContent;
                     navigator.clipboard.writeText(code).then(function() {
+                        button.setAttribute('aria-label', 'Code copied to clipboard');
                         button.innerHTML = `
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
                             </svg>
                             <span>Copied!</span>
@@ -820,18 +1224,58 @@ public function index()
                         button.classList.add('copied');
 
                         setTimeout(function() {
+                            button.setAttribute('aria-label', 'Copy code to clipboard');
                             button.innerHTML = `
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
                                 </svg>
                                 <span>Copy</span>
                             `;
                             button.classList.remove('copied');
                         }, 2000);
+                    }).catch(function(err) {
+                        console.error('Failed to copy code:', err);
+                        button.innerHTML = `
+                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
+                            </svg>
+                            <span>Failed</span>
+                        `;
+                        setTimeout(function() {
+                            button.setAttribute('aria-label', 'Copy code to clipboard');
+                            button.innerHTML = `
+                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
+                                </svg>
+                                <span>Copy</span>
+                            `;
+                        }, 2000);
                     });
                 });
 
                 wrapper.appendChild(button);
+
+                // Detect if code block has horizontal scroll and add indicator
+                function checkScroll() {
+                    if (pre.scrollWidth > pre.clientWidth) {
+                        wrapper.classList.add('has-scroll');
+                    } else {
+                        wrapper.classList.remove('has-scroll');
+                    }
+                }
+
+                // Check on load and resize
+                checkScroll();
+                window.addEventListener('resize', checkScroll);
+
+                // Update scroll indicator when user scrolls
+                pre.addEventListener('scroll', function() {
+                    if (pre.scrollLeft >= (pre.scrollWidth - pre.clientWidth - 10)) {
+                        wrapper.classList.remove('has-scroll');
+                    } else {
+                        wrapper.classList.add('has-scroll');
+                    }
+                });
             });
         });
 
@@ -849,31 +1293,53 @@ public function index()
             });
         });
 
-        // Mobile menu toggle
+        // Mobile menu toggle with improved accessibility
         const mobileMenuButton = document.getElementById('mobile-menu-button');
         const mobileMenu = document.getElementById('mobile-menu');
 
         if (mobileMenuButton && mobileMenu) {
             mobileMenuButton.addEventListener('click', function() {
-                mobileMenu.classList.toggle('hidden');
+                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
+                mobileMenu.classList.toggle('show');
             });
 
             // Close mobile menu when clicking on a link
             const mobileMenuLinks = mobileMenu.querySelectorAll('a');
             mobileMenuLinks.forEach(link => {
                 link.addEventListener('click', function() {
-                    mobileMenu.classList.add('hidden');
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
                 });
+            });
+
+            // Close mobile menu when pressing Escape
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
+                    mobileMenuButton.focus();
+                }
+            });
+
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && mobileMenu.classList.contains('show')) {
+                    mobileMenuButton.setAttribute('aria-expanded', 'false');
+                    mobileMenu.classList.remove('show');
+                }
             });
         }
 
-        // Sidebar toggle for mobile
+        // Sidebar toggle for mobile with improved accessibility
         const sidebarToggle = document.getElementById('sidebar-toggle');
         const sidebarContent = document.getElementById('sidebar-content');
         const sidebarToggleIcon = document.getElementById('sidebar-toggle-icon');
 
         if (sidebarToggle && sidebarContent) {
             sidebarToggle.addEventListener('click', function() {
+                const isExpanded = sidebarToggle.getAttribute('aria-expanded') === 'true';
+                sidebarToggle.setAttribute('aria-expanded', !isExpanded);
                 sidebarContent.classList.toggle('hidden');
                 sidebarToggleIcon.classList.toggle('rotate-180');
             });
@@ -883,12 +1349,75 @@ public function index()
             sidebarLinks.forEach(link => {
                 link.addEventListener('click', function() {
                     if (window.innerWidth < 1024) {
+                        sidebarToggle.setAttribute('aria-expanded', 'false');
                         sidebarContent.classList.add('hidden');
                         sidebarToggleIcon.classList.remove('rotate-180');
                     }
                 });
             });
+
+            // Close sidebar when pressing Escape (mobile only)
+            document.addEventListener('keydown', function(e) {
+                if (e.key === 'Escape' && !sidebarContent.classList.contains('hidden') && window.innerWidth < 1024) {
+                    sidebarToggle.setAttribute('aria-expanded', 'false');
+                    sidebarContent.classList.add('hidden');
+                    sidebarToggleIcon.classList.remove('rotate-180');
+                    sidebarToggle.focus();
+                }
+            });
         }
+
+        // Scroll to top button
+        const scrollToTopButton = document.getElementById('scroll-to-top');
+
+        if (scrollToTopButton) {
+            // Show/hide scroll to top button based on scroll position
+            window.addEventListener('scroll', function() {
+                if (window.pageYOffset > 300) {
+                    scrollToTopButton.classList.add('show');
+                } else {
+                    scrollToTopButton.classList.remove('show');
+                }
+            });
+
+            // Scroll to top when clicked
+            scrollToTopButton.addEventListener('click', function() {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+
+            // Handle keyboard navigation
+            scrollToTopButton.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter' || e.key === ' ') {
+                    e.preventDefault();
+                    window.scrollTo({
+                        top: 0,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        }
+
+        // Improve copy button accessibility and feedback
+        document.addEventListener('DOMContentLoaded', function() {
+            // Announce copy success to screen readers
+            const copyAnnouncer = document.createElement('div');
+            copyAnnouncer.setAttribute('role', 'status');
+            copyAnnouncer.setAttribute('aria-live', 'polite');
+            copyAnnouncer.className = 'sr-only';
+            document.body.appendChild(copyAnnouncer);
+
+            document.querySelectorAll('.copy-button').forEach(button => {
+                button.addEventListener('click', function() {
+                    copyAnnouncer.textContent = 'Code copied to clipboard';
+                    setTimeout(() => {
+                        copyAnnouncer.textContent = '';
+                    }, 3000);
+                });
+            });
+        });
     </script>
 </body>
 </html>
