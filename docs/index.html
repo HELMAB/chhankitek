@@ -413,7 +413,7 @@
 
         /* Gradient background animation */
         .gradient-bg {
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background: linear-gradient(-45deg, #5E509C, #E4711F, #F0DAB8, #4E5244);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
         }
@@ -491,10 +491,10 @@
         /* Feature badge animation */
         @keyframes badgePulse {
             0%, 100% {
-                box-shadow: 0 0 0 0 rgba(99, 102, 241, 0.4);
+                box-shadow: 0 0 0 0 rgba(94, 80, 156, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 8px rgba(99, 102, 241, 0);
+                box-shadow: 0 0 0 8px rgba(94, 80, 156, 0);
             }
         }
 
@@ -513,7 +513,7 @@
         }
 
         .gradient-text-animated {
-            background: linear-gradient(-45deg, #667eea, #764ba2, #f093fb, #4facfe);
+            background: linear-gradient(-45deg, #5E509C, #E4711F, #F0DAB8, #4E5244);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -592,7 +592,7 @@
             right: 2rem;
             width: 3rem;
             height: 3rem;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #5E509C 0%, #E4711F 100%);
             color: white;
             border-radius: 50%;
             display: flex;
@@ -603,7 +603,7 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 50;
-            box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 4px 12px rgba(94, 80, 156, 0.4);
         }
 
         .scroll-to-top.show {
@@ -613,7 +613,7 @@
 
         .scroll-to-top:hover {
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.6);
+            box-shadow: 0 6px 20px rgba(94, 80, 156, 0.6);
         }
 
         .scroll-to-top:active {
@@ -811,7 +811,7 @@
                 <!-- Main heading -->
                 <h1 class="animate-fade-in-up animate-delay-1 text-5xl md:text-7xl font-bold tracking-tight">
                     Chhankitek
-                    <span class="block mt-2 bg-gradient-to-r from-yellow-200 to-pink-200 bg-clip-text text-transparent">
+                    <span class="block mt-2 bg-gradient-to-r from-[#F0DAB8] to-[#E4711F] bg-clip-text text-transparent">
                         for Laravel
                     </span>
                 </h1>
@@ -823,7 +823,7 @@
 
                 <!-- CTA Buttons -->
                 <div class="animate-fade-in-up animate-delay-2 flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                    <a href="#installation" class="group relative inline-flex items-center justify-center gap-2 bg-white text-indigo-600 px-8 py-4 rounded-xl font-semibold hover:bg-gray-50 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <a href="#installation" class="group relative inline-flex items-center justify-center gap-2 bg-[#F0DAB8] text-[#4E5244] px-8 py-4 rounded-xl font-semibold hover:bg-[#FAF8F6] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
@@ -950,7 +950,7 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
             <!-- Section Header -->
             <div class="text-center mb-20">
                 <div class="inline-block mb-4">
-                    <span class="inline-flex items-center gap-2 bg-indigo-100 text-indigo-700 px-4 py-2 rounded-full text-sm font-semibold feature-badge">
+                    <span class="inline-flex items-center gap-2 bg-[#F0DAB8] text-[#4E5244] px-4 py-2 rounded-full text-sm font-semibold feature-badge">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                         </svg>
@@ -997,8 +997,8 @@ echo $date->toString();</code></pre>
 
                     <!-- Description -->
                     <div class="order-1 md:order-2">
-                        <div class="inline-flex items-center gap-2 text-indigo-600 font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-indigo-100 text-indigo-700 text-sm font-bold">1</span>
+                        <div class="inline-flex items-center gap-2 text-[#5E509C] font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#F0DAB8] text-[#4E5244] text-sm font-bold">1</span>
                             <span class="text-sm uppercase tracking-wider">Trait Method</span>
                         </div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">
@@ -1010,8 +1010,8 @@ echo $date->toString();</code></pre>
 
                         <!-- Benefits -->
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1022,8 +1022,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1034,8 +1034,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-indigo-50 rounded-lg border border-indigo-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-indigo-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1048,14 +1048,14 @@ echo $date->toString();</code></pre>
                         </div>
 
                         <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-indigo-500 to-purple-500 rounded-lg text-white">
+                        <div class="mt-8 p-4 bg-gradient-to-r from-[#5E509C] to-[#E4711F] rounded-lg text-white">
                             <div class="flex items-center gap-2 mb-1">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
                                 <span class="font-semibold">Best For:</span>
                             </div>
-                            <p class="text-indigo-100 text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
+                            <p class="text-[#FAF8F6] text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
                         </div>
                     </div>
                 </div>
@@ -1073,8 +1073,8 @@ echo $date->toString();</code></pre>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <!-- Description -->
                     <div>
-                        <div class="inline-flex items-center gap-2 text-purple-600 font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-purple-100 text-purple-700 text-sm font-bold">2</span>
+                        <div class="inline-flex items-center gap-2 text-[#E4711F] font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#F0DAB8] text-[#4E5244] text-sm font-bold">2</span>
                             <span class="text-sm uppercase tracking-wider">Helper Function</span>
                         </div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">
@@ -1086,8 +1086,8 @@ echo $date->toString();</code></pre>
 
                         <!-- Benefits -->
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1098,8 +1098,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1110,8 +1110,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-purple-50 rounded-lg border border-purple-100">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-purple-600 flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1124,14 +1124,14 @@ echo $date->toString();</code></pre>
                         </div>
 
                         <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-purple-500 to-pink-500 rounded-lg text-white">
+                        <div class="mt-8 p-4 bg-gradient-to-r from-[#E4711F] to-[#5E509C] rounded-lg text-white">
                             <div class="flex items-center gap-2 mb-1">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
                                 <span class="font-semibold">Best For:</span>
                             </div>
-                            <p class="text-purple-100 text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
+                            <p class="text-[#FAF8F6] text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
                         </div>
                     </div>
 
@@ -1169,7 +1169,7 @@ echo $lunarDate->toString();
                 <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
                     Check out our comprehensive documentation for advanced usage patterns, API reference, and detailed examples
                 </p>
-                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-600 to-purple-600 text-white px-10 py-4 rounded-xl font-semibold hover:from-indigo-700 hover:to-purple-700 transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#5E509C] to-[#E4711F] text-white px-10 py-4 rounded-xl font-semibold hover:from-[#4E5244] hover:to-[#E4711F] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -1200,7 +1200,7 @@ echo $lunarDate->toString();
             <!-- Section Header -->
             <div class="text-center mb-20 about-item" data-order="header">
                 <div class="inline-block mb-6">
-                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-indigo-100 to-purple-100 text-indigo-700 px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
+                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-[#F0DAB8] to-[#FAF8F6] text-[#4E5244] px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
                         </svg>
@@ -1221,7 +1221,7 @@ echo $lunarDate->toString();
                 <div class="about-item" data-order="1">
                     <div class="bg-white rounded-3xl p-10 shadow-md border border-gray-100 h-full hover:shadow-lg transition-shadow duration-300">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-indigo-500 via-purple-500 to-pink-500 rounded-2xl flex items-center justify-center shadow">
+                            <div class="w-14 h-14 bg-gradient-to-br from-[#5E509C] via-[#E4711F] to-[#F0DAB8] rounded-2xl flex items-center justify-center shadow">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                 </svg>
@@ -1238,9 +1238,9 @@ echo $lunarDate->toString();
                                 This lunisolar system masterfully synchronizes two celestial cycles: the <strong>lunar month</strong> (29-30 days) based on moon phases, and the <strong>solar year</strong> (approximately 365.25 days) tracking Earth's orbit around the sun.
                             </p>
 
-                            <div class="bg-gradient-to-br from-indigo-50 to-purple-50 rounded-2xl p-6 border-l-4 border-indigo-500">
+                            <div class="bg-gradient-to-br from-[#FAF8F6] to-[#F0DAB8] rounded-2xl p-6 border-l-4 border-[#5E509C]">
                                 <div class="flex items-start gap-3">
-                                    <svg class="w-6 h-6 text-indigo-600 flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-6 h-6 text-[#5E509C] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                     </svg>
                                     <div>
@@ -1255,7 +1255,7 @@ echo $lunarDate->toString();
 
                         <div class="pt-6 mt-8 border-t border-gray-200">
                             <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
-                               class="inline-flex items-center gap-2 text-indigo-600 hover:text-indigo-700 font-bold transition-all group">
+                               class="inline-flex items-center gap-2 text-[#5E509C] hover:text-[#E4711F] font-bold transition-all group">
                                 <span>Explore Interactive Calendar</span>
                                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -1267,9 +1267,9 @@ echo $lunarDate->toString();
 
                 <!-- Right Column: Technical Components -->
                 <div class="about-item" data-order="2">
-                    <div class="bg-gradient-to-br from-indigo-50 via-purple-50 to-pink-50 rounded-3xl p-10 shadow-md border border-indigo-100 h-full hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-gradient-to-br from-[#FAF8F6] via-[#F0DAB8] to-[#FAF8F6] rounded-3xl p-10 shadow-md border border-[#F0DAB8] h-full hover:shadow-lg transition-shadow duration-300">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-purple-600 via-pink-500 to-rose-500 rounded-2xl flex items-center justify-center shadow">
+                            <div class="w-14 h-14 bg-gradient-to-br from-[#E4711F] via-[#5E509C] to-[#4E5244] rounded-2xl flex items-center justify-center shadow">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -1280,7 +1280,7 @@ echo $lunarDate->toString();
                         <div class="space-y-4">
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-indigo-600 flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#5E509C] to-[#4E5244] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">BE</span>
                                     </div>
                                     <div class="flex-1">
@@ -1294,7 +1294,7 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-purple-500 to-purple-600 flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#E4711F] to-[#5E509C] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">13</span>
                                     </div>
                                     <div class="flex-1">
@@ -1308,8 +1308,8 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-pink-500 to-pink-600 flex items-center justify-center shadow">
-                                        <span class="text-white font-bold text-sm">🐉</span>
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#F0DAB8] to-[#E4711F] flex items-center justify-center shadow">
+                                        <span class="text-[#4E5244] font-bold text-sm">🐉</span>
                                     </div>
                                     <div class="flex-1">
                                         <h4 class="font-bold text-gray-900 mb-2 text-lg">Zodiac Animal Cycle</h4>
@@ -1322,7 +1322,7 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-indigo-500 to-purple-600 flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#5E509C] to-[#E4711F] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">🌙</span>
                                     </div>
                                     <div class="flex-1">
@@ -1340,7 +1340,7 @@ echo $lunarDate->toString();
 
             <!-- Implementation Highlight -->
             <div class="about-item" data-order="3">
-                <div class="bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 rounded-3xl p-12 shadow-md text-white">
+                <div class="bg-gradient-to-r from-[#5E509C] via-[#E4711F] to-[#4E5244] rounded-3xl p-12 shadow-md text-white">
                     <div class="max-w-4xl mx-auto text-center">
                         <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
