@@ -6,7 +6,7 @@ namespace Asorasoft\Chhankitek\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 
-final class TestCase extends Orchestra
+abstract class TestCase extends Orchestra
 {
     /**
      * Get package providers.

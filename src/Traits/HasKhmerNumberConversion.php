@@ -13,7 +13,7 @@ trait HasKhmerNumberConversion
      */
     public function convertToKhmerNumber(int|string $number): string
     {
-        $constant = new Constant();
+        $constant = new Constant;
         $strNumbers = (string) $number;
 
         foreach ($constant->khmerNumbers as $key => $value) {

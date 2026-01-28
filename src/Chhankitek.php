@@ -230,7 +230,7 @@ final class Chhankitek
      */
     public function getNumberOfDayInKhmerMonth(int $beMonth, int $beYear): int
     {
-        $lunarMonths = (new Constant())->getLunarMonths();
+        $lunarMonths = (new Constant)->getLunarMonths();
 
         if ($beMonth === $lunarMonths['ជេស្ឋ'] && $this->isKhmerLeapDay($beYear)) {
             return 30;
@@ -340,7 +340,7 @@ final class Chhankitek
      */
     public function getVisakhaBochea(int $gregorianYear): CarbonImmutable
     {
-        $lunarMonths = (new Constant())->lunarMonths;
+        $lunarMonths = (new Constant)->lunarMonths;
         $date = CarbonImmutable::createFromFormat('d/m/Y', "1/1/{$gregorianYear}")
             ->setTimezone('Asia/Phnom_Penh');
 
@@ -393,7 +393,7 @@ final class Chhankitek
      */
     public function getMaybeBEYear(CarbonImmutable $date): int
     {
-        $solarMonths = (new Constant())->getSolarMonths();
+        $solarMonths = (new Constant)->getSolarMonths();
 
         // If the date is before or around April (month 4), it's considered part of the current BE year.
         if ($date->month <= $solarMonths['មេសា'] + 1) {
@@ -453,7 +453,7 @@ final class Chhankitek
      */
     public function getKhmerLunarDay(int $day): LunarDay
     {
-        $moonStatuses = (new Constant())->getMoonStatuses();
+        $moonStatuses = (new Constant)->getMoonStatuses();
 
         return new LunarDay(
             ($day % 15) + 1,
@@ -499,7 +499,7 @@ final class Chhankitek
      */
     public function khmerLunarDate(CarbonImmutable $target): KhmerLunarDate
     {
-        $constant = new Constant();
+        $constant = new Constant;
 
         $current = $target->copy();
         $lunar = $this->findLunarDate($current);
@@ -555,7 +555,7 @@ final class Chhankitek
      */
     public function nextMonthOf(int $khmerMonth, int $BEYear): int
     {
-        $lunarMonths = (new Constant())->getLunarMonths();
+        $lunarMonths = (new Constant)->getLunarMonths();
 
         // Store month keys for readability
         $MK = $lunarMonths;
@@ -590,7 +590,7 @@ final class Chhankitek
      */
     public function findLunarDate(CarbonImmutable $target): LunarDate
     {
-        $constant = new Constant();
+        $constant = new Constant;
         $lunarMonths = $constant->getLunarMonths();
 
         $epochDateTime = CarbonImmutable::createFromFormat('d/m/Y', '1/1/1900')

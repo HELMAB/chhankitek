@@ -14,7 +14,7 @@ final class ConstantTest extends TestCase
      */
     public function test_animal_years_contain_correct_values(): void
     {
-        $constant = new Constant();
+        $constant = new Constant;
         $animalYears = $constant->getAnimalYears();
 
         // Verify the expected animal years are present
