@@ -20,6 +20,7 @@
         "illuminate/support": "^10.0|^11.0|^12.0"
     },
     "require-dev": {
+        "laravel/pint": "^1.0",
         "orchestra/testbench": "^8.0",
         "phpunit/phpunit": "^10.0"
     },
@@ -38,8 +39,9 @@
     },
     "scripts": {
         "test": "vendor/bin/phpunit",
-        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
-
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage",
+        "format": "vendor/bin/pint",
+        "format-test": "vendor/bin/pint --test"
     },
     "config": {
         "sort-packages": true

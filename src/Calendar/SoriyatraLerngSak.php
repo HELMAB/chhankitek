@@ -151,7 +151,7 @@ final class SoriyatraLerngSak
      */
     public function getLunarDateLerngSak(): LunarDateLerngSak
     {
-        $lunarMonths = (new Constant())->getLunarMonths();
+        $lunarMonths = (new Constant)->getLunarMonths();
         $bodithey = $this->info->getBodithey();
 
         if (
