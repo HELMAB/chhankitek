@@ -347,7 +347,7 @@ final class Chhankitek
         return Cache::remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
             for ($i = 0; $i < 365; $i++) {
                 $lunarDate = $this->findLunarDate($date);
-                if ($lunarDate->getMonth() == $lunarMonths['ពិសាខ'] && $lunarDate->getDay() == 14) {
+                if ($lunarDate->getMonth() === $lunarMonths['ពិសាខ'] && $lunarDate->getDay() === 14) {
                     return $lunarDate->getEpochMoved();
                 }
 
@@ -598,7 +598,7 @@ final class Chhankitek
 
         $khmerMonth = $lunarMonths['បុស្ស'];
 
-        return Cache::remember('chhakitek_lunar_date_' . $target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
+        return Cache::remember('chhakitek_lunar_date_'.$target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
             // Move epoch close to the target year
             if ($target->greaterThan($epochDateTime)) {
                 while (true) {

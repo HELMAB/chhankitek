@@ -4,20 +4,18 @@ declare(strict_types=1);
 
 namespace Asorasoft\Chhankitek\Tests\Unit;
 
-use Asorasoft\Chhankitek\Traits\HasChhankitek;
 use Asorasoft\Chhankitek\Tests\TestCase;
+use Asorasoft\Chhankitek\Traits\HasChhankitek;
 use Carbon\CarbonImmutable;
 
-class VisakBocheaTest extends TestCase
+final class VisakBocheaTest extends TestCase
 {
     use HasChhankitek;
 
     /**
      * Test if a specific date is Visak Bochea.
-     *
-     * @return void
      */
-    public function testIsVisakBochea(): void
+    public function test_is_visak_bochea(): void
     {
         // Set the date known to be Visak Bochea in 2025
         $date = '2025-05-11';
@@ -44,7 +42,7 @@ class VisakBocheaTest extends TestCase
         // Set the date known to be Visak Bochea in 2025
         $date = '2025-05-12';
         $toLunarDate = $this->chhankiteck(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
-        
+
         // Assert lunar year
         $this->assertEquals('២៥៦៩', $toLunarDate->getLunarYear(), 'Failed to verify lunar year');
     }

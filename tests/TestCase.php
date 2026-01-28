@@ -6,7 +6,7 @@ namespace Asorasoft\Chhankitek\Tests;
 
 use Orchestra\Testbench\TestCase as Orchestra;
 
-class TestCase extends Orchestra
+final class TestCase extends Orchestra
 {
     /**
      * Get package providers.
@@ -25,7 +25,6 @@ class TestCase extends Orchestra
      * Define environment setup.
      *
      * @param  \Illuminate\Foundation\Application  $app
-     * @return void
      */
     protected function defineEnvironment($app): void
     {
