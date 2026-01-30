@@ -9,7 +9,7 @@ use Carbon\CarbonImmutable;
 
 trait HasChhankitek
 {
-    public function chhankiteck(CarbonImmutable $target)
+    public function chhankitek(CarbonImmutable $target)
     {
         return (new Chhankitek($target))->formatKhmerDate;
     }
