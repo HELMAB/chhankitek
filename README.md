@@ -40,7 +40,7 @@ composer require asorasoft/chhankitek
 use HasChhankitek;
 
 // Convert a date to lunar format
-$toLunarDate = $this->chhankiteck(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
+$toLunarDate = $this->chhankitek(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
 $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
@@ -50,7 +50,7 @@ $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែប
 // In your Laravel controller, use this trait
 use HasChhankitek;
 
-$toLunarDate = $this->chhankiteck(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
+$toLunarDate = $this->chhankitek(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
 
 // Get specific lunar date components
 $toLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
