@@ -19,7 +19,7 @@ final class VisakBocheaTest extends TestCase
     {
         // Set the date known to be Visak Bochea in 2025
         $date = '2025-05-11';
-        $toLunarDate = $this->chhankiteck(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
+        $toLunarDate = $this->chhankitek(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
 
         // Assert day of week
         $this->assertEquals('អាទិត្យ', $toLunarDate->getDayOfWeek(), 'Failed to verify day of week');
@@ -41,7 +41,7 @@ final class VisakBocheaTest extends TestCase
 
         // Set the date known to be Visak Bochea in 2025
         $date = '2025-05-12';
-        $toLunarDate = $this->chhankiteck(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
+        $toLunarDate = $this->chhankitek(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
 
         // Assert lunar year
         $this->assertEquals('២៥៦៩', $toLunarDate->getLunarYear(), 'Failed to verify lunar year');

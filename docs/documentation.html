@@ -755,7 +755,7 @@ class YourController extends Controller
 
     public function index()
     {
-        $lunarDate = $this->chhankiteck(
+        $lunarDate = $this->chhankitek(
             CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
         );
 
@@ -1037,7 +1037,7 @@ public function index()
 
                         <h3 class="text-xl sm:text-2xl font-semibold text-gray-900 mb-3 mt-6">HasChhankitek Trait</h3>
                         <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden mb-4">
-                            <pre><code class="language-php">chhankiteck(CarbonImmutable $target): KhmerLunarDate</code></pre>
+                            <pre><code class="language-php">chhankitek(CarbonImmutable $target): KhmerLunarDate</code></pre>
                         </div>
                         <p class="text-gray-600 mb-6">
                             Converts a Gregorian date to Khmer lunar date format.
