@@ -359,7 +359,420 @@
             padding-left: 1rem !important;
         }
 
-        /* Hero animations */
+        /* Hero Section - Digital Luminescence Theme */
+        .hero-section {
+            background: #0a0a0f;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animated grid background */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(63, 255, 150, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(63, 255, 150, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Glowing orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(63, 255, 150, 0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(45, 212, 122, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(63, 255, 150, 0.08) 0%, transparent 70%);
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: -8s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 10px) scale(1.02); }
+        }
+
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #3FFF96;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleRise 8s linear infinite;
+        }
+
+        .particle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to top, #3FFF96, transparent);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+        }
+
+        @keyframes particleRise {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0.5);
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Staggered particle delays */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1.5s; animation-duration: 9s; }
+        .particle:nth-child(3) { left: 35%; animation-delay: 3s; animation-duration: 6s; }
+        .particle:nth-child(4) { left: 50%; animation-delay: 0.5s; animation-duration: 8s; }
+        .particle:nth-child(5) { left: 65%; animation-delay: 2s; animation-duration: 7.5s; }
+        .particle:nth-child(6) { left: 80%; animation-delay: 4s; animation-duration: 9s; }
+        .particle:nth-child(7) { left: 90%; animation-delay: 1s; animation-duration: 6.5s; }
+        .particle:nth-child(8) { left: 5%; animation-delay: 2.5s; animation-duration: 8.5s; }
+        .particle:nth-child(9) { left: 45%; animation-delay: 3.5s; animation-duration: 7s; }
+        .particle:nth-child(10) { left: 75%; animation-delay: 0.8s; animation-duration: 8s; }
+
+        /* Hero content animations */
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(63, 255, 150, 0.5),
+                             0 0 40px rgba(63, 255, 150, 0.3),
+                             0 0 60px rgba(63, 255, 150, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(63, 255, 150, 0.8),
+                             0 0 60px rgba(63, 255, 150, 0.5),
+                             0 0 90px rgba(63, 255, 150, 0.2);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(63, 255, 150, 0.3),
+                            inset 0 0 20px rgba(63, 255, 150, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(63, 255, 150, 0.5),
+                            inset 0 0 30px rgba(63, 255, 150, 0.1);
+            }
+        }
+
+        @keyframes lineExpand {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-animate-1 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-animate-2 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .hero-animate-3 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        .hero-animate-4 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+
+        .hero-animate-5 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        /* Glowing text */
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .hero-title-accent {
+            color: #3FFF96;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        /* Badge styling */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(63, 255, 150, 0.1);
+            border: 1px solid rgba(63, 255, 150, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: #3FFF96;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #3FFF96;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* CTA Buttons */
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #3FFF96;
+            color: #0a0a0f;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(63, 255, 150, 0.3),
+                        0 0 60px rgba(63, 255, 150, 0.2);
+        }
+
+        .hero-btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .hero-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(63, 255, 150, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Stats cards */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            background: rgba(63, 255, 150, 0.05);
+            border-color: rgba(63, 255, 150, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .hero-stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #3FFF96;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Decorative line */
+        .hero-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #3FFF96, transparent);
+            margin: 2rem auto;
+            animation: lineExpand 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* Scroll indicator */
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+
+        .hero-scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(63, 255, 150, 0.5), transparent);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(10px); opacity: 0.5; }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: auto;
+                padding: 6rem 0 4rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hero-orb-1, .hero-orb-2 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* Legacy animations for other sections */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -377,15 +790,6 @@
             }
             50% {
                 transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
             }
         }
 
@@ -411,7 +815,7 @@
             animation: pulse 4s ease-in-out infinite;
         }
 
-        /* Gradient background animation */
+        /* Gradient background for other sections */
         .gradient-bg {
             background: linear-gradient(-45deg, #3FFF96, #2dd47a, #1a1a2e, #0d4f3c);
             background-size: 400% 400%;
@@ -783,53 +1187,64 @@
 
     <!-- Hero Section -->
     <main id="main-content">
-    <section class="gradient-bg text-white py-24 md:py-32 relative overflow-hidden">
-        <!-- Decorative elements -->
-        <div class="absolute top-20 right-10 opacity-20 float-animation">
-            <svg class="w-32 h-32 moon-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
-        </div>
-        <div class="absolute bottom-20 left-10 opacity-20 float-animation" style="animation-delay: 2s;">
-            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
+    <section class="hero-section">
+        <!-- Animated grid background -->
+        <div class="hero-grid"></div>
+
+        <!-- Glowing orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <!-- Floating particles -->
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center space-y-8">
+        <!-- Main content -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+            <div class="text-center">
                 <!-- Badge -->
-                <div class="animate-fade-in-up inline-block">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
-                        </svg>
+                <div class="hero-animate-1">
+                    <span class="hero-badge">
                         Laravel Package for Khmer Calendar
                     </span>
                 </div>
 
+                <!-- Decorative line -->
+                <div class="hero-line"></div>
+
                 <!-- Main heading -->
-                <h1 class="animate-fade-in-up animate-delay-1 text-5xl md:text-7xl font-bold tracking-tight">
-                    Chhankitek
-                    <span class="block mt-2 bg-gradient-to-r from-[#d4fff0] to-[#0d4f3c] bg-clip-text text-transparent">
-                        for Laravel
-                    </span>
+                <h1 class="hero-title hero-animate-2">
+                    <span class="hero-title-accent">Chhankitek</span>
                 </h1>
+                <p class="hero-animate-2 text-xl md:text-2xl text-white/60 font-light mt-4 tracking-wide">
+                    for Laravel
+                </p>
 
                 <!-- Description -->
-                <p class="animate-fade-in-up animate-delay-2 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/90">
-                    Convert Gregorian dates to Khmer Lunar calendar format with precision. Built with traditional astronomical algorithms.
+                <p class="hero-animate-3 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-white/70 mt-8">
+                    Convert Gregorian dates to <span class="text-[#3FFF96]">Khmer Lunar calendar</span> format with precision. Built with traditional Cambodian astronomical algorithms.
                 </p>
 
                 <!-- CTA Buttons -->
-                <div class="animate-fade-in-up animate-delay-2 flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                    <a href="#installation" class="group relative inline-flex items-center justify-center gap-2 bg-[#d4fff0] text-[#1a1a2e] px-8 py-4 rounded-xl font-semibold hover:bg-[#f0fff8] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <div class="hero-animate-4 flex flex-col sm:flex-row justify-center gap-4 mt-10">
+                    <a href="#installation" class="hero-btn-primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                         Get Started
                     </a>
-                    <a href="documentation.html" class="group relative inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <a href="documentation.html" class="hero-btn-secondary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
@@ -837,22 +1252,27 @@
                     </a>
                 </div>
 
-                <!-- Stats/Features -->
-                <div class="animate-fade-in-up animate-delay-2 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto pt-12">
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">PHP 8.2+</div>
-                        <div class="text-sm text-white/70 mt-1">Modern PHP</div>
+                <!-- Stats -->
+                <div class="hero-stats hero-animate-5 max-w-3xl mx-auto">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">PHP 8.2+</div>
+                        <div class="hero-stat-label">Modern PHP</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">Laravel 10+</div>
-                        <div class="text-sm text-white/70 mt-1">Framework</div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">Laravel 10+</div>
+                        <div class="hero-stat-label">Framework</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">MIT</div>
-                        <div class="text-sm text-white/70 mt-1">Open Source</div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">MIT</div>
+                        <div class="hero-stat-label">Open Source</div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
         </div>
     </section>
 
