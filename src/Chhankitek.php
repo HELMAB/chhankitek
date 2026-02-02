@@ -41,7 +41,9 @@ final class Chhankitek
 
         $this->target = $formatted->setTimezone('Asia/Phnom_Penh');
         $this->formatKhmerDate = $this->khmerLunarDate($this->target);
-        $this->khNewYearDateTime = $this->getKhmerNewYearDateTime($this->target->year);
+
+        /** @TODO needs to recheck khmer new year date time calculation */
+        // $this->khNewYearDateTime = $this->getKhmerNewYearDateTime($this->target->year);
     }
 
     /**
@@ -531,8 +533,6 @@ final class Chhankitek
         }
 
         $lunarDay = $this->convertToKhmerNumber($moonDay->getMoonCount()).' '.$lunarMonthKey;
-
-        $khmerNewYearDate = $this->getKhmerNewYearDateTime($target->year);
 
         return new KhmerLunarDate(
             $dayOfWeekName,

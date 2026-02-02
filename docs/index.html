@@ -30,14 +30,14 @@
     <meta name="twitter:image" content="https://chhankitek.netlify.app/art.png">
 
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#3FFF96">
     <meta name="language" content="English">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.svg">
-    <link rel="mask-icon" href="favicon.svg" color="#667eea">
+    <link rel="mask-icon" href="favicon.svg" color="#3FFF96">
     <link rel="apple-touch-icon" href="apple-touch-icon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -98,8 +98,8 @@
             position: absolute;
             top: -100px;
             left: 0;
-            background: #4f46e5;
-            color: white;
+            background: #3FFF96;
+            color: #1a1a2e;
             padding: 0.75rem 1.5rem;
             text-decoration: none;
             z-index: 100;
@@ -117,7 +117,7 @@
         /* Improved focus styles for accessibility */
         a:focus-visible,
         button:focus-visible {
-            outline: 3px solid #6366f1;
+            outline: 3px solid #3FFF96;
             outline-offset: 2px;
             border-radius: 0.25rem;
         }
@@ -359,7 +359,420 @@
             padding-left: 1rem !important;
         }
 
-        /* Hero animations */
+        /* Hero Section - Digital Luminescence Theme */
+        .hero-section {
+            background: #0a0a0f;
+            position: relative;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            overflow: hidden;
+        }
+
+        /* Animated grid background */
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(63, 255, 150, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(63, 255, 150, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            animation: gridPulse 8s ease-in-out infinite;
+        }
+
+        @keyframes gridPulse {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
+        }
+
+        /* Glowing orbs */
+        .hero-orb {
+            position: absolute;
+            border-radius: 50%;
+            filter: blur(80px);
+            animation: orbFloat 12s ease-in-out infinite;
+        }
+
+        .hero-orb-1 {
+            width: 500px;
+            height: 500px;
+            background: radial-gradient(circle, rgba(63, 255, 150, 0.15) 0%, transparent 70%);
+            top: -150px;
+            right: -100px;
+            animation-delay: 0s;
+        }
+
+        .hero-orb-2 {
+            width: 400px;
+            height: 400px;
+            background: radial-gradient(circle, rgba(45, 212, 122, 0.1) 0%, transparent 70%);
+            bottom: -100px;
+            left: -100px;
+            animation-delay: -4s;
+        }
+
+        .hero-orb-3 {
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(63, 255, 150, 0.08) 0%, transparent 70%);
+            top: 40%;
+            left: 50%;
+            transform: translateX(-50%);
+            animation-delay: -8s;
+        }
+
+        @keyframes orbFloat {
+            0%, 100% { transform: translate(0, 0) scale(1); }
+            25% { transform: translate(30px, -30px) scale(1.05); }
+            50% { transform: translate(-20px, 20px) scale(0.95); }
+            75% { transform: translate(20px, 10px) scale(1.02); }
+        }
+
+        /* Floating particles */
+        .hero-particles {
+            position: absolute;
+            inset: 0;
+            overflow: hidden;
+        }
+
+        .particle {
+            position: absolute;
+            width: 4px;
+            height: 4px;
+            background: #3FFF96;
+            border-radius: 50%;
+            opacity: 0;
+            animation: particleRise 8s linear infinite;
+        }
+
+        .particle::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to top, #3FFF96, transparent);
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            opacity: 0.5;
+        }
+
+        @keyframes particleRise {
+            0% {
+                opacity: 0;
+                transform: translateY(100vh) scale(0.5);
+            }
+            10% { opacity: 0.8; }
+            90% { opacity: 0.8; }
+            100% {
+                opacity: 0;
+                transform: translateY(-100px) scale(1);
+            }
+        }
+
+        /* Staggered particle delays */
+        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
+        .particle:nth-child(2) { left: 20%; animation-delay: 1.5s; animation-duration: 9s; }
+        .particle:nth-child(3) { left: 35%; animation-delay: 3s; animation-duration: 6s; }
+        .particle:nth-child(4) { left: 50%; animation-delay: 0.5s; animation-duration: 8s; }
+        .particle:nth-child(5) { left: 65%; animation-delay: 2s; animation-duration: 7.5s; }
+        .particle:nth-child(6) { left: 80%; animation-delay: 4s; animation-duration: 9s; }
+        .particle:nth-child(7) { left: 90%; animation-delay: 1s; animation-duration: 6.5s; }
+        .particle:nth-child(8) { left: 5%; animation-delay: 2.5s; animation-duration: 8.5s; }
+        .particle:nth-child(9) { left: 45%; animation-delay: 3.5s; animation-duration: 7s; }
+        .particle:nth-child(10) { left: 75%; animation-delay: 0.8s; animation-duration: 8s; }
+
+        /* Hero content animations */
+        @keyframes heroFadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(40px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes heroSlideIn {
+            from {
+                opacity: 0;
+                transform: translateX(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateX(0);
+            }
+        }
+
+        @keyframes glowPulse {
+            0%, 100% {
+                text-shadow: 0 0 20px rgba(63, 255, 150, 0.5),
+                             0 0 40px rgba(63, 255, 150, 0.3),
+                             0 0 60px rgba(63, 255, 150, 0.1);
+            }
+            50% {
+                text-shadow: 0 0 30px rgba(63, 255, 150, 0.8),
+                             0 0 60px rgba(63, 255, 150, 0.5),
+                             0 0 90px rgba(63, 255, 150, 0.2);
+            }
+        }
+
+        @keyframes borderGlow {
+            0%, 100% {
+                box-shadow: 0 0 20px rgba(63, 255, 150, 0.3),
+                            inset 0 0 20px rgba(63, 255, 150, 0.05);
+            }
+            50% {
+                box-shadow: 0 0 40px rgba(63, 255, 150, 0.5),
+                            inset 0 0 30px rgba(63, 255, 150, 0.1);
+            }
+        }
+
+        @keyframes lineExpand {
+            from { transform: scaleX(0); }
+            to { transform: scaleX(1); }
+        }
+
+        @keyframes countUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-animate-1 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.2s;
+            opacity: 0;
+        }
+
+        .hero-animate-2 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.4s;
+            opacity: 0;
+        }
+
+        .hero-animate-3 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.6s;
+            opacity: 0;
+        }
+
+        .hero-animate-4 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.8s;
+            opacity: 0;
+        }
+
+        .hero-animate-5 {
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1s;
+            opacity: 0;
+        }
+
+        /* Glowing text */
+        .hero-title {
+            font-size: clamp(3rem, 10vw, 7rem);
+            font-weight: 800;
+            letter-spacing: -0.03em;
+            line-height: 1;
+            color: #ffffff;
+        }
+
+        .hero-title-accent {
+            color: #3FFF96;
+            animation: glowPulse 3s ease-in-out infinite;
+        }
+
+        /* Badge styling */
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(63, 255, 150, 0.1);
+            border: 1px solid rgba(63, 255, 150, 0.3);
+            border-radius: 100px;
+            font-size: 0.875rem;
+            color: #3FFF96;
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-badge::before {
+            content: '';
+            width: 8px;
+            height: 8px;
+            background: #3FFF96;
+            border-radius: 50%;
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.5; transform: scale(0.8); }
+        }
+
+        /* CTA Buttons */
+        .hero-btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: #3FFF96;
+            color: #0a0a0f;
+            font-weight: 600;
+            border-radius: 12px;
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero-btn-primary::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .hero-btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 20px 40px rgba(63, 255, 150, 0.3),
+                        0 0 60px rgba(63, 255, 150, 0.2);
+        }
+
+        .hero-btn-primary:hover::before {
+            opacity: 1;
+        }
+
+        .hero-btn-secondary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 1rem 2rem;
+            background: transparent;
+            color: #ffffff;
+            font-weight: 600;
+            border-radius: 12px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+            backdrop-filter: blur(10px);
+        }
+
+        .hero-btn-secondary:hover {
+            background: rgba(255, 255, 255, 0.1);
+            border-color: rgba(63, 255, 150, 0.5);
+            transform: translateY(-3px);
+        }
+
+        /* Stats cards */
+        .hero-stats {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 1.5rem;
+            margin-top: 4rem;
+        }
+
+        .hero-stat {
+            text-align: center;
+            padding: 1.5rem;
+            background: rgba(255, 255, 255, 0.02);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            border-radius: 16px;
+            transition: all 0.3s ease;
+        }
+
+        .hero-stat:hover {
+            background: rgba(63, 255, 150, 0.05);
+            border-color: rgba(63, 255, 150, 0.2);
+            transform: translateY(-5px);
+        }
+
+        .hero-stat-value {
+            font-size: 1.75rem;
+            font-weight: 700;
+            color: #3FFF96;
+            margin-bottom: 0.25rem;
+        }
+
+        .hero-stat-label {
+            font-size: 0.875rem;
+            color: rgba(255, 255, 255, 0.5);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* Decorative line */
+        .hero-line {
+            width: 60px;
+            height: 2px;
+            background: linear-gradient(90deg, #3FFF96, transparent);
+            margin: 2rem auto;
+            animation: lineExpand 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 0.5s;
+            transform-origin: left;
+            transform: scaleX(0);
+        }
+
+        /* Scroll indicator */
+        .hero-scroll-indicator {
+            position: absolute;
+            bottom: 2rem;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            color: rgba(255, 255, 255, 0.4);
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.1em;
+            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+            animation-delay: 1.5s;
+            opacity: 0;
+        }
+
+        .hero-scroll-indicator::after {
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, rgba(63, 255, 150, 0.5), transparent);
+            animation: scrollBounce 2s ease-in-out infinite;
+        }
+
+        @keyframes scrollBounce {
+            0%, 100% { transform: translateY(0); opacity: 1; }
+            50% { transform: translateY(10px); opacity: 0.5; }
+        }
+
+        /* Mobile responsiveness */
+        @media (max-width: 768px) {
+            .hero-section {
+                min-height: auto;
+                padding: 6rem 0 4rem;
+            }
+
+            .hero-title {
+                font-size: clamp(2.5rem, 12vw, 4rem);
+            }
+
+            .hero-stats {
+                grid-template-columns: 1fr;
+                gap: 1rem;
+            }
+
+            .hero-orb-1, .hero-orb-2 {
+                width: 250px;
+                height: 250px;
+            }
+
+            .hero-scroll-indicator {
+                display: none;
+            }
+        }
+
+        /* Legacy animations for other sections */
         @keyframes fadeInUp {
             from {
                 opacity: 0;
@@ -377,15 +790,6 @@
             }
             50% {
                 transform: translateY(-20px);
-            }
-        }
-
-        @keyframes pulse {
-            0%, 100% {
-                opacity: 1;
-            }
-            50% {
-                opacity: 0.5;
             }
         }
 
@@ -411,9 +815,9 @@
             animation: pulse 4s ease-in-out infinite;
         }
 
-        /* Gradient background animation */
+        /* Gradient background for other sections */
         .gradient-bg {
-            background: linear-gradient(-45deg, #5E509C, #E4711F, #F0DAB8, #4E5244);
+            background: linear-gradient(-45deg, #3FFF96, #2dd47a, #1a1a2e, #0d4f3c);
             background-size: 400% 400%;
             animation: gradientShift 15s ease infinite;
         }
@@ -491,10 +895,10 @@
         /* Feature badge animation */
         @keyframes badgePulse {
             0%, 100% {
-                box-shadow: 0 0 0 0 rgba(94, 80, 156, 0.4);
+                box-shadow: 0 0 0 0 rgba(63, 255, 150, 0.4);
             }
             50% {
-                box-shadow: 0 0 0 8px rgba(94, 80, 156, 0);
+                box-shadow: 0 0 0 8px rgba(63, 255, 150, 0);
             }
         }
 
@@ -513,7 +917,7 @@
         }
 
         .gradient-text-animated {
-            background: linear-gradient(-45deg, #5E509C, #E4711F, #F0DAB8, #4E5244);
+            background: linear-gradient(-45deg, #3FFF96, #2dd47a, #0d4f3c, #1a1a2e);
             background-size: 300% 300%;
             -webkit-background-clip: text;
             background-clip: text;
@@ -592,8 +996,8 @@
             right: 2rem;
             width: 3rem;
             height: 3rem;
-            background: linear-gradient(135deg, #5E509C 0%, #E4711F 100%);
-            color: white;
+            background: linear-gradient(135deg, #3FFF96 0%, #2dd47a 100%);
+            color: #1a1a2e;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -603,7 +1007,7 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 50;
-            box-shadow: 0 4px 12px rgba(94, 80, 156, 0.4);
+            box-shadow: 0 4px 12px rgba(63, 255, 150, 0.4);
         }
 
         .scroll-to-top.show {
@@ -613,7 +1017,7 @@
 
         .scroll-to-top:hover {
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(94, 80, 156, 0.6);
+            box-shadow: 0 6px 20px rgba(63, 255, 150, 0.6);
         }
 
         .scroll-to-top:active {
@@ -753,17 +1157,17 @@
             <div class="flex justify-between h-16 items-center">
                 <a href="index.html" class="flex items-center gap-2 sm:gap-3 group" aria-label="Chhankitek Home">
                     <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
-                    <span class="text-xl sm:text-2xl font-bold text-indigo-600 transition-colors group-hover:text-indigo-700">Chhankitek</span>
+                    <span class="text-xl sm:text-2xl font-bold text-[#3FFF96] transition-colors group-hover:text-[#2dd47a]">Chhankitek</span>
                 </a>
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-6 lg:space-x-8" role="menubar">
-                    <a href="#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Features</a>
-                    <a href="#installation" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Installation</a>
-                    <a href="documentation.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">GitHub</a>
+                    <a href="#features" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Features</a>
+                    <a href="#installation" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">GitHub</a>
                 </div>
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-[#3FFF96] hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -772,10 +1176,10 @@
             <!-- Mobile Navigation -->
             <div id="mobile-menu" class="md:hidden" role="menu" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-3">
-                    <a href="#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
-                    <a href="#installation" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Installation</a>
-                    <a href="documentation.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-600 transition-colors py-2" role="menuitem">GitHub</a>
+                    <a href="#features" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
+                    <a href="#installation" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2" role="menuitem">GitHub</a>
                 </div>
             </div>
         </div>
@@ -783,53 +1187,64 @@
 
     <!-- Hero Section -->
     <main id="main-content">
-    <section class="gradient-bg text-white py-24 md:py-32 relative overflow-hidden">
-        <!-- Decorative elements -->
-        <div class="absolute top-20 right-10 opacity-20 float-animation">
-            <svg class="w-32 h-32 moon-icon" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
-        </div>
-        <div class="absolute bottom-20 left-10 opacity-20 float-animation" style="animation-delay: 2s;">
-            <svg class="w-24 h-24" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
+    <section class="hero-section">
+        <!-- Animated grid background -->
+        <div class="hero-grid"></div>
+
+        <!-- Glowing orbs -->
+        <div class="hero-orb hero-orb-1"></div>
+        <div class="hero-orb hero-orb-2"></div>
+        <div class="hero-orb hero-orb-3"></div>
+
+        <!-- Floating particles -->
+        <div class="hero-particles">
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
+            <div class="particle"></div>
         </div>
 
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div class="text-center space-y-8">
+        <!-- Main content -->
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
+            <div class="text-center">
                 <!-- Badge -->
-                <div class="animate-fade-in-up inline-block">
-                    <span class="inline-flex items-center gap-2 bg-white/10 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-medium border border-white/20">
-                        <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 20 20">
-                            <path d="M10 2a6 6 0 00-6 6v3.586l-.707.707A1 1 0 004 14h12a1 1 0 00.707-1.707L16 11.586V8a6 6 0 00-6-6zM10 18a3 3 0 01-3-3h6a3 3 0 01-3 3z"/>
-                        </svg>
+                <div class="hero-animate-1">
+                    <span class="hero-badge">
                         Laravel Package for Khmer Calendar
                     </span>
                 </div>
 
+                <!-- Decorative line -->
+                <div class="hero-line"></div>
+
                 <!-- Main heading -->
-                <h1 class="animate-fade-in-up animate-delay-1 text-5xl md:text-7xl font-bold tracking-tight">
-                    Chhankitek
-                    <span class="block mt-2 bg-gradient-to-r from-[#F0DAB8] to-[#E4711F] bg-clip-text text-transparent">
-                        for Laravel
-                    </span>
+                <h1 class="hero-title hero-animate-2">
+                    <span class="hero-title-accent">Chhankitek</span>
                 </h1>
+                <p class="hero-animate-2 text-xl md:text-2xl text-white/60 font-light mt-4 tracking-wide">
+                    for Laravel
+                </p>
 
                 <!-- Description -->
-                <p class="animate-fade-in-up animate-delay-2 text-xl md:text-2xl max-w-3xl mx-auto leading-relaxed text-white/90">
-                    Convert Gregorian dates to Khmer Lunar calendar format with precision. Built with traditional astronomical algorithms.
+                <p class="hero-animate-3 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-white/70 mt-8">
+                    Convert Gregorian dates to <span class="text-[#3FFF96]">Khmer Lunar calendar</span> format with precision. Built with traditional Cambodian astronomical algorithms.
                 </p>
 
                 <!-- CTA Buttons -->
-                <div class="animate-fade-in-up animate-delay-2 flex flex-col sm:flex-row justify-center gap-4 pt-4">
-                    <a href="#installation" class="group relative inline-flex items-center justify-center gap-2 bg-[#F0DAB8] text-[#4E5244] px-8 py-4 rounded-xl font-semibold hover:bg-[#FAF8F6] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <div class="hero-animate-4 flex flex-col sm:flex-row justify-center gap-4 mt-10">
+                    <a href="#installation" class="hero-btn-primary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                         Get Started
                     </a>
-                    <a href="documentation.html" class="group relative inline-flex items-center justify-center gap-2 bg-white/10 backdrop-blur-sm text-white px-8 py-4 rounded-xl font-semibold hover:bg-white/20 transition-all duration-300 border border-white/30 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                    <a href="documentation.html" class="hero-btn-secondary">
                         <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                         </svg>
@@ -837,22 +1252,27 @@
                     </a>
                 </div>
 
-                <!-- Stats/Features -->
-                <div class="animate-fade-in-up animate-delay-2 grid grid-cols-1 sm:grid-cols-3 gap-6 sm:gap-8 max-w-2xl mx-auto pt-12">
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">PHP 8.2+</div>
-                        <div class="text-sm text-white/70 mt-1">Modern PHP</div>
+                <!-- Stats -->
+                <div class="hero-stats hero-animate-5 max-w-3xl mx-auto">
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">PHP 8.2+</div>
+                        <div class="hero-stat-label">Modern PHP</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">Laravel 10+</div>
-                        <div class="text-sm text-white/70 mt-1">Framework</div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">Laravel 10+</div>
+                        <div class="hero-stat-label">Framework</div>
                     </div>
-                    <div class="text-center">
-                        <div class="text-2xl sm:text-3xl font-bold">MIT</div>
-                        <div class="text-sm text-white/70 mt-1">Open Source</div>
+                    <div class="hero-stat">
+                        <div class="hero-stat-value">MIT</div>
+                        <div class="hero-stat-label">Open Source</div>
                     </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Scroll indicator -->
+        <div class="hero-scroll-indicator">
+            <span>Scroll</span>
         </div>
     </section>
 
@@ -891,32 +1311,32 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
             </div>
             <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">📅</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">📅</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Accurate Conversions</h3>
                     <p class="text-sm sm:text-base text-gray-600">Based on traditional Khmer astronomical algorithms by Mr. Phylypo Tum</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">⚡</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">⚡</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Built-in Caching</h3>
                     <p class="text-sm sm:text-base text-gray-600">Results cached for 365 days for optimal performance</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">🎯</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">🎯</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Laravel Integration</h3>
                     <p class="text-sm sm:text-base text-gray-600">Seamlessly integrates with Laravel 10, 11, and 12</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">🌙</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">🌙</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Leap Year Support</h3>
                     <p class="text-sm sm:text-base text-gray-600">Handles leap months (Adhikameas) and leap days automatically</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">🔧</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">🔧</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Simple API</h3>
                     <p class="text-sm sm:text-base text-gray-600">Use via trait or global helper function - your choice</p>
                 </div>
                 <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-indigo-600 text-3xl mb-4">🐉</div>
+                    <div class="text-[#3FFF96] text-3xl mb-4">🐉</div>
                     <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Zodiac & Era</h3>
                     <p class="text-sm sm:text-base text-gray-600">Get animal year, era year, and Buddhist Era calculations</p>
                 </div>
@@ -950,7 +1370,7 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
             <!-- Section Header -->
             <div class="text-center mb-20">
                 <div class="inline-block mb-4">
-                    <span class="inline-flex items-center gap-2 bg-[#F0DAB8] text-[#4E5244] px-4 py-2 rounded-full text-sm font-semibold feature-badge">
+                    <span class="inline-flex items-center gap-2 bg-[#d4fff0] text-[#1a1a2e] px-4 py-2 rounded-full text-sm font-semibold feature-badge">
                         <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
                         </svg>
@@ -972,7 +1392,7 @@ echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
                     <div class="order-2 md:order-1">
                         <div class="code-block-container bg-gray-900 rounded-xl p-4 sm:p-6 md:p-8 shadow-2xl relative overflow-hidden">
                             <!-- Decorative gradient -->
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-indigo-500/10 to-purple-500/10 blur-3xl"></div>
+                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#3FFF96]/10 to-[#2dd47a]/10 blur-3xl"></div>
                             <div class="relative">
                                 <pre><code class="language-php">use HasChhankitek;
 
@@ -997,8 +1417,8 @@ echo $date->toString();</code></pre>
 
                     <!-- Description -->
                     <div class="order-1 md:order-2">
-                        <div class="inline-flex items-center gap-2 text-[#5E509C] font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#F0DAB8] text-[#4E5244] text-sm font-bold">1</span>
+                        <div class="inline-flex items-center gap-2 text-[#3FFF96] font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#d4fff0] text-[#1a1a2e] text-sm font-bold">1</span>
                             <span class="text-sm uppercase tracking-wider">Trait Method</span>
                         </div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">
@@ -1010,8 +1430,8 @@ echo $date->toString();</code></pre>
 
                         <!-- Benefits -->
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1022,8 +1442,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1034,8 +1454,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#5E509C] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1048,14 +1468,14 @@ echo $date->toString();</code></pre>
                         </div>
 
                         <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-[#5E509C] to-[#E4711F] rounded-lg text-white">
+                        <div class="mt-8 p-4 bg-gradient-to-r from-[#3FFF96] to-[#0d4f3c] rounded-lg text-white">
                             <div class="flex items-center gap-2 mb-1">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
                                 <span class="font-semibold">Best For:</span>
                             </div>
-                            <p class="text-[#FAF8F6] text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
+                            <p class="text-[#f0fff8] text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
                         </div>
                     </div>
                 </div>
@@ -1073,8 +1493,8 @@ echo $date->toString();</code></pre>
                 <div class="grid md:grid-cols-2 gap-12 items-center">
                     <!-- Description -->
                     <div>
-                        <div class="inline-flex items-center gap-2 text-[#E4711F] font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#F0DAB8] text-[#4E5244] text-sm font-bold">2</span>
+                        <div class="inline-flex items-center gap-2 text-[#0d4f3c] font-semibold mb-4">
+                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#d4fff0] text-[#1a1a2e] text-sm font-bold">2</span>
                             <span class="text-sm uppercase tracking-wider">Helper Function</span>
                         </div>
                         <h3 class="text-3xl font-bold text-gray-900 mb-6">
@@ -1086,8 +1506,8 @@ echo $date->toString();</code></pre>
 
                         <!-- Benefits -->
                         <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1098,8 +1518,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1110,8 +1530,8 @@ echo $date->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="flex items-start gap-3 p-4 bg-[#FAF8F6] rounded-lg border border-[#F0DAB8]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#E4711F] flex items-center justify-center mt-0.5">
+                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
+                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
                                     <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
                                     </svg>
@@ -1124,14 +1544,14 @@ echo $date->toString();</code></pre>
                         </div>
 
                         <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-[#E4711F] to-[#5E509C] rounded-lg text-white">
+                        <div class="mt-8 p-4 bg-gradient-to-r from-[#0d4f3c] to-[#3FFF96] rounded-lg text-white">
                             <div class="flex items-center gap-2 mb-1">
                                 <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
                                 </svg>
                                 <span class="font-semibold">Best For:</span>
                             </div>
-                            <p class="text-[#FAF8F6] text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
+                            <p class="text-[#f0fff8] text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
                         </div>
                     </div>
 
@@ -1139,7 +1559,7 @@ echo $date->toString();</code></pre>
                     <div>
                         <div class="code-block-container bg-gray-900 rounded-xl p-4 sm:p-6 md:p-8 shadow-2xl relative overflow-hidden">
                             <!-- Decorative gradient -->
-                            <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-purple-500/10 to-pink-500/10 blur-3xl"></div>
+                            <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#3FFF96]/10 to-[#0d4f3c]/10 blur-3xl"></div>
                             <div class="relative">
                                 <pre><code class="language-php">// One-line conversion
 $lunarDate = toLunarDate(
@@ -1169,7 +1589,7 @@ echo $lunarDate->toString();
                 <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
                     Check out our comprehensive documentation for advanced usage patterns, API reference, and detailed examples
                 </p>
-                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#5E509C] to-[#E4711F] text-white px-10 py-4 rounded-xl font-semibold hover:from-[#4E5244] hover:to-[#E4711F] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
+                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#3FFF96] to-[#0d4f3c] text-white px-10 py-4 rounded-xl font-semibold hover:from-[#1a1a2e] hover:to-[#0d4f3c] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
                     <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
                     </svg>
@@ -1200,7 +1620,7 @@ echo $lunarDate->toString();
             <!-- Section Header -->
             <div class="text-center mb-20 about-item" data-order="header">
                 <div class="inline-block mb-6">
-                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-[#F0DAB8] to-[#FAF8F6] text-[#4E5244] px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
+                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4fff0] to-[#f0fff8] text-[#1a1a2e] px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
                         <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
                             <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
                         </svg>
@@ -1221,7 +1641,7 @@ echo $lunarDate->toString();
                 <div class="about-item" data-order="1">
                     <div class="bg-white rounded-3xl p-10 shadow-md border border-gray-100 h-full hover:shadow-lg transition-shadow duration-300">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#5E509C] via-[#E4711F] to-[#F0DAB8] rounded-2xl flex items-center justify-center shadow">
+                            <div class="w-14 h-14 bg-gradient-to-br from-[#3FFF96] via-[#0d4f3c] to-[#d4fff0] rounded-2xl flex items-center justify-center shadow">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
                                 </svg>
@@ -1231,16 +1651,16 @@ echo $lunarDate->toString();
 
                         <div class="space-y-6">
                             <p class="text-gray-700 leading-relaxed text-lg">
-                                The Khmer lunar calendar, known as <span class="khmer-text font-semibold text-indigo-600">ចន្ទគតិ</span> (Chântôkôtĕ), represents centuries of astronomical observations and mathematical refinement by Cambodian scholars and monks.
+                                The Khmer lunar calendar, known as <span class="khmer-text font-semibold text-[#3FFF96]">ចន្ទគតិ</span> (Chântôkôtĕ), represents centuries of astronomical observations and mathematical refinement by Cambodian scholars and monks.
                             </p>
 
                             <p class="text-gray-700 leading-relaxed">
                                 This lunisolar system masterfully synchronizes two celestial cycles: the <strong>lunar month</strong> (29-30 days) based on moon phases, and the <strong>solar year</strong> (approximately 365.25 days) tracking Earth's orbit around the sun.
                             </p>
 
-                            <div class="bg-gradient-to-br from-[#FAF8F6] to-[#F0DAB8] rounded-2xl p-6 border-l-4 border-[#5E509C]">
+                            <div class="bg-gradient-to-br from-[#f0fff8] to-[#d4fff0] rounded-2xl p-6 border-l-4 border-[#3FFF96]">
                                 <div class="flex items-start gap-3">
-                                    <svg class="w-6 h-6 text-[#5E509C] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
+                                    <svg class="w-6 h-6 text-[#3FFF96] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
                                         <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
                                     </svg>
                                     <div>
@@ -1255,7 +1675,7 @@ echo $lunarDate->toString();
 
                         <div class="pt-6 mt-8 border-t border-gray-200">
                             <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
-                               class="inline-flex items-center gap-2 text-[#5E509C] hover:text-[#E4711F] font-bold transition-all group">
+                               class="inline-flex items-center gap-2 text-[#3FFF96] hover:text-[#0d4f3c] font-bold transition-all group">
                                 <span>Explore Interactive Calendar</span>
                                 <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
@@ -1267,9 +1687,9 @@ echo $lunarDate->toString();
 
                 <!-- Right Column: Technical Components -->
                 <div class="about-item" data-order="2">
-                    <div class="bg-gradient-to-br from-[#FAF8F6] via-[#F0DAB8] to-[#FAF8F6] rounded-3xl p-10 shadow-md border border-[#F0DAB8] h-full hover:shadow-lg transition-shadow duration-300">
+                    <div class="bg-gradient-to-br from-[#f0fff8] via-[#d4fff0] to-[#f0fff8] rounded-3xl p-10 shadow-md border border-[#d4fff0] h-full hover:shadow-lg transition-shadow duration-300">
                         <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#E4711F] via-[#5E509C] to-[#4E5244] rounded-2xl flex items-center justify-center shadow">
+                            <div class="w-14 h-14 bg-gradient-to-br from-[#0d4f3c] via-[#3FFF96] to-[#1a1a2e] rounded-2xl flex items-center justify-center shadow">
                                 <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
                                 </svg>
@@ -1280,7 +1700,7 @@ echo $lunarDate->toString();
                         <div class="space-y-4">
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#5E509C] to-[#4E5244] flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#3FFF96] to-[#1a1a2e] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">BE</span>
                                     </div>
                                     <div class="flex-1">
@@ -1294,7 +1714,7 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#E4711F] to-[#5E509C] flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#0d4f3c] to-[#3FFF96] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">13</span>
                                     </div>
                                     <div class="flex-1">
@@ -1308,8 +1728,8 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#F0DAB8] to-[#E4711F] flex items-center justify-center shadow">
-                                        <span class="text-[#4E5244] font-bold text-sm">🐉</span>
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#d4fff0] to-[#0d4f3c] flex items-center justify-center shadow">
+                                        <span class="text-[#1a1a2e] font-bold text-sm">🐉</span>
                                     </div>
                                     <div class="flex-1">
                                         <h4 class="font-bold text-gray-900 mb-2 text-lg">Zodiac Animal Cycle</h4>
@@ -1322,7 +1742,7 @@ echo $lunarDate->toString();
 
                             <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
                                 <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#5E509C] to-[#E4711F] flex items-center justify-center shadow">
+                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#3FFF96] to-[#0d4f3c] flex items-center justify-center shadow">
                                         <span class="text-white font-bold text-sm">🌙</span>
                                     </div>
                                     <div class="flex-1">
@@ -1340,7 +1760,7 @@ echo $lunarDate->toString();
 
             <!-- Implementation Highlight -->
             <div class="about-item" data-order="3">
-                <div class="bg-gradient-to-r from-[#5E509C] via-[#E4711F] to-[#4E5244] rounded-3xl p-12 shadow-md text-white">
+                <div class="bg-gradient-to-r from-[#3FFF96] via-[#0d4f3c] to-[#1a1a2e] rounded-3xl p-12 shadow-md text-white">
                     <div class="max-w-4xl mx-auto text-center">
                         <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
                             <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
