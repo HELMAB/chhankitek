@@ -30,14 +30,14 @@
     <meta name="twitter:image" content="https://chhankitek.netlify.app/art.png">
 
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#6366f1">
+    <meta name="theme-color" content="#3FFF96">
     <meta name="language" content="English">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="favicon.svg">
     <link rel="alternate icon" href="favicon.svg">
-    <link rel="mask-icon" href="favicon.svg" color="#667eea">
+    <link rel="mask-icon" href="favicon.svg" color="#3FFF96">
     <link rel="apple-touch-icon" href="apple-touch-icon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
@@ -101,8 +101,8 @@
             position: absolute;
             top: -100px;
             left: 0;
-            background: #4f46e5;
-            color: white;
+            background: #3FFF96;
+            color: #1a1a2e;
             padding: 0.75rem 1.5rem;
             text-decoration: none;
             z-index: 100;
@@ -120,7 +120,7 @@
         /* Improved focus styles for accessibility */
         a:focus-visible,
         button:focus-visible {
-            outline: 3px solid #6366f1;
+            outline: 3px solid #3FFF96;
             outline-offset: 2px;
             border-radius: 0.25rem;
         }
@@ -418,7 +418,7 @@
 
         /* Gradient background animation */
         .gradient-bg-docs {
-            background: linear-gradient(135deg, #5E509C 0%, #E4711F 100%);
+            background: linear-gradient(135deg, #3FFF96 0%, #0d4f3c 100%);
         }
 
         /* Mobile menu animations */
@@ -444,8 +444,8 @@
             right: 2rem;
             width: 3rem;
             height: 3rem;
-            background: linear-gradient(135deg, #5E509C 0%, #E4711F 100%);
-            color: white;
+            background: linear-gradient(135deg, #3FFF96 0%, #2dd47a 100%);
+            color: #1a1a2e;
             border-radius: 50%;
             display: flex;
             align-items: center;
@@ -455,7 +455,7 @@
             visibility: hidden;
             transition: all 0.3s ease;
             z-index: 50;
-            box-shadow: 0 4px 12px rgba(94, 80, 156, 0.4);
+            box-shadow: 0 4px 12px rgba(63, 255, 150, 0.4);
         }
 
         .scroll-to-top.show {
@@ -465,7 +465,7 @@
 
         .scroll-to-top:hover {
             transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(94, 80, 156, 0.6);
+            box-shadow: 0 6px 20px rgba(63, 255, 150, 0.6);
         }
 
         .scroll-to-top:active {
@@ -642,17 +642,17 @@
             <div class="flex justify-between h-16 items-center">
                 <a href="index.html" class="flex items-center gap-2 sm:gap-3 group" aria-label="Chhankitek Home">
                     <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
-                    <span class="text-xl sm:text-2xl font-bold text-indigo-600 transition-colors group-hover:text-indigo-700">Chhankitek</span>
+                    <span class="text-xl sm:text-2xl font-bold text-[#3FFF96] transition-colors group-hover:text-[#2dd47a]">Chhankitek</span>
                 </a>
                 <!-- Desktop Navigation -->
                 <div class="hidden md:flex space-x-6 lg:space-x-8" role="menubar">
-                    <a href="index.html" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Home</a>
-                    <a href="index.html#features" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">Features</a>
-                    <a href="documentation.html" class="text-sm lg:text-base text-indigo-600 font-semibold" role="menuitem" aria-current="page">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-indigo-600 transition-colors" role="menuitem">GitHub</a>
+                    <a href="index.html" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Home</a>
+                    <a href="index.html#features" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Features</a>
+                    <a href="documentation.html" class="text-sm lg:text-base text-[#3FFF96] font-semibold" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">GitHub</a>
                 </div>
                 <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-indigo-600 hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
+                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-[#3FFF96] hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
                     <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
                     </svg>
@@ -661,10 +661,10 @@
             <!-- Mobile Navigation -->
             <div id="mobile-menu" class="md:hidden" role="menu" aria-label="Mobile navigation">
                 <div class="flex flex-col space-y-3">
-                    <a href="index.html" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Home</a>
-                    <a href="index.html#features" class="text-gray-700 hover:text-indigo-600 transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
-                    <a href="documentation.html" class="text-indigo-600 font-semibold py-2 border-b border-gray-100" role="menuitem" aria-current="page">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-indigo-600 transition-colors py-2" role="menuitem">GitHub</a>
+                    <a href="index.html" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Home</a>
+                    <a href="index.html#features" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
+                    <a href="documentation.html" class="text-[#3FFF96] font-semibold py-2 border-b border-gray-100" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2" role="menuitem">GitHub</a>
                 </div>
             </div>
         </div>
@@ -693,7 +693,7 @@
     <main id="main-content">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <!-- Mobile Sidebar Toggle Button -->
-        <button id="sidebar-toggle" class="lg:hidden mb-4 w-full bg-[#5E509C] text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-between hover:bg-[#4E5244] transition-colors" aria-expanded="false" aria-controls="sidebar-content" aria-label="Toggle table of contents">
+        <button id="sidebar-toggle" class="lg:hidden mb-4 w-full bg-[#3FFF96] text-white px-4 py-3 rounded-lg font-semibold flex items-center justify-between hover:bg-[#1a1a2e] transition-colors" aria-expanded="false" aria-controls="sidebar-content" aria-label="Toggle table of contents">
             <span>Table of Contents</span>
             <svg class="h-5 w-5 transform transition-transform" id="sidebar-toggle-icon" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"/>
@@ -706,14 +706,14 @@
                 <div id="sidebar-content" class="hidden lg:block lg:sticky top-20 bg-white rounded-lg shadow-md p-6">
                     <h3 class="font-semibold text-gray-900 mb-4">Contents</h3>
                     <nav class="space-y-2" role="navigation" aria-label="Documentation sections">
-                        <a href="#installation" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Installation</a>
-                        <a href="#basic-usage" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Basic Usage</a>
-                        <a href="#available-methods" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Available Methods</a>
-                        <a href="#caching" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Caching</a>
-                        <a href="#requirements" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Requirements</a>
-                        <a href="#examples" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Examples</a>
-                        <a href="#understanding" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">Understanding the Calendar</a>
-                        <a href="#api-reference" class="block text-sm lg:text-base text-gray-600 hover:text-indigo-600 transition-colors py-1">API Reference</a>
+                        <a href="#installation" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Installation</a>
+                        <a href="#basic-usage" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Basic Usage</a>
+                        <a href="#available-methods" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Available Methods</a>
+                        <a href="#caching" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Caching</a>
+                        <a href="#requirements" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Requirements</a>
+                        <a href="#examples" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Examples</a>
+                        <a href="#understanding" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">Understanding the Calendar</a>
+                        <a href="#api-reference" class="block text-sm lg:text-base text-gray-600 hover:text-[#3FFF96] transition-colors py-1">API Reference</a>
                     </nav>
                 </div>
             </aside>
@@ -795,7 +795,7 @@ echo $lunarDate->toString();</code></pre>
                         </p>
 
                         <div class="space-y-6">
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getDayOfWeek()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer day of the week.</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -803,7 +803,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarDay()</h4>
                                 <p class="text-gray-600 mb-2">Returns the lunar day with moon status (កើត for waxing, រោច for waning).</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -811,7 +811,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarMonth()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Khmer lunar month name.</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -819,7 +819,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarZodiac()</h4>
                                 <p class="text-gray-600 mb-2">Returns the animal year (Khmer zodiac).</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -827,7 +827,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarEra()</h4>
                                 <p class="text-gray-600 mb-2">Returns the era year (10-year cycle).</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -835,7 +835,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">getLunarYear()</h4>
                                 <p class="text-gray-600 mb-2">Returns the Buddhist Era year in Khmer numerals.</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -843,7 +843,7 @@ echo $lunarDate->toString();</code></pre>
                                 </div>
                             </div>
 
-                            <div class="border-l-4 border-[#5E509C] pl-4">
+                            <div class="border-l-4 border-[#3FFF96] pl-4">
                                 <h4 class="font-semibold text-gray-900 mb-2">toString()</h4>
                                 <p class="text-gray-600 mb-2">Returns the complete lunar date as a formatted string.</p>
                                 <div class="bg-gray-900 rounded-lg p-3 sm:p-4 overflow-hidden">
@@ -1020,10 +1020,10 @@ public function index()
                             <li><strong>Regular Year:</strong> 354 days with 12 months</li>
                         </ul>
 
-                        <div class="bg-[#FAF8F6] border-l-4 border-[#5E509C] p-4">
-                            <p class="text-[#4E5244]">
+                        <div class="bg-[#f0fff8] border-l-4 border-[#3FFF96] p-4">
+                            <p class="text-[#1a1a2e]">
                                 <strong>Learn More:</strong> Visit
-                                <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" class="underline hover:text-[#E4711F]">
+                                <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" class="underline hover:text-[#0d4f3c]">
                                     Khmer Calendar
                                 </a>
                                 for detailed information about the Khmer calendar system.
@@ -1111,14 +1111,14 @@ public function index()
                         <h2 class="text-2xl font-bold text-gray-900 mb-4">Contributing</h2>
                         <p class="text-gray-600 mb-4">
                             Contributions are welcome! Please see the
-                            <a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" class="text-indigo-600 hover:text-indigo-700 underline">
+                            <a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" class="text-[#3FFF96] hover:text-[#2dd47a] underline">
                                 CONTRIBUTING.md
                             </a>
                             file for details.
                         </p>
                         <p class="text-gray-600">
                             Found a security issue? Please email
-                            <a href="mailto:mabhelitc@gmail.com" class="text-indigo-600 hover:text-indigo-700">mabhelitc@gmail.com</a>
+                            <a href="mailto:mabhelitc@gmail.com" class="text-[#3FFF96] hover:text-[#2dd47a]">mabhelitc@gmail.com</a>
                             instead of using the issue tracker.
                         </p>
                     </section>
