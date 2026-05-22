@@ -33,6 +33,13 @@ You can install the package via composer:
 composer require asorasoft/chhankitek
 ```
 
+If faced error: Call to undefined function Asorasoft\Chhankitek\Traits\mb_trim(), then try to following commands:
+```bash
+composer require symfony/polyfill-mbstring
+composer dump-autoload
+php artisan optimize:clear
+```
+
 ## Usage
 
 ```php
