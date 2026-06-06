@@ -2,6 +2,14 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
+## 2.0.4 - 2026-06-07
+
+- Fix non-deterministic date handling by normalizing dates to start of day in the `Asia/Phnom_Penh` timezone, preventing day-of-week and lunar-date shifts based on the current time of day
+- Replace the dependency on `mb_trim` with a new `mbTrimNumber` helper that also strips zero-width space (U+200B) and BOM (U+FEFF) characters
+- Use `mbTrimNumber` in `convertToKhmerNumber` for Khmer numeral conversion
+- Widen `orchestra/testbench` and `phpunit/phpunit` constraints to support Laravel 10, 11, and 12
+- Add tests for the `mbTrimNumber` helper and Khmer number conversion
+
 ## 1.0.0 - 2026-01-28
 
 - Refactor color scheme with updated gradient backgrounds and button styles
