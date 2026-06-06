@@ -20,6 +20,6 @@ trait HasKhmerNumberConversion
             $strNumbers = str_replace((string) $key, $value, $strNumbers);
         }
 
-        return mb_trim($strNumbers);
+        return mbTrimNumber($strNumbers);
     }
 }
