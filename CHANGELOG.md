@@ -2,6 +2,12 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
+## 2.1.0 - 2026-06-07
+
+- Add support for Laravel 13 by widening the `illuminate/support` constraint to include `^13.0`
+- Widen `orchestra/testbench` to `^11.0` and `phpunit/phpunit` to `^12.0` for Laravel 13 testing
+- Migrate the test suite from PHPUnit to Pest 4 (the `composer test` script now runs `pest`)
+
 ## 2.0.4 - 2026-06-07
 
 - Fix non-deterministic date handling by normalizing dates to start of day in the `Asia/Phnom_Penh` timezone, preventing day-of-week and lunar-date shifts based on the current time of day

@@ -2,52 +2,26 @@
 
 declare(strict_types=1);
 
-namespace Asorasoft\Chhankitek\Tests\Unit;
-
-use Asorasoft\Chhankitek\Tests\TestCase;
 use Asorasoft\Chhankitek\Traits\HasKhmerNumberConversion;
 
-final class HasKhmerNumberConversionTest extends TestCase
-{
-    use HasKhmerNumberConversion;
+uses(HasKhmerNumberConversion::class);
 
-    /**
-     * Test that an integer is converted to its Khmer numeral representation.
-     */
-    public function test_converts_integer_to_khmer_number(): void
-    {
-        $this->assertSame('១២៣៤៥៦៧៨៩០', $this->convertToKhmerNumber(1234567890));
-    }
+it('converts an integer to its Khmer numeral representation', function () {
+    expect($this->convertToKhmerNumber(1234567890))->toBe('១២៣៤៥៦៧៨៩០');
+});
 
-    /**
-     * Test that a numeric string is converted to its Khmer numeral representation.
-     */
-    public function test_converts_numeric_string_to_khmer_number(): void
-    {
-        $this->assertSame('២០២៦', $this->convertToKhmerNumber('2026'));
-    }
+it('converts a numeric string to its Khmer numeral representation', function () {
+    expect($this->convertToKhmerNumber('2026'))->toBe('២០២៦');
+});
 
-    /**
-     * Test that zero is converted to the Khmer zero numeral.
-     */
-    public function test_converts_zero(): void
-    {
-        $this->assertSame('០', $this->convertToKhmerNumber(0));
-    }
+it('converts zero to the Khmer zero numeral', function () {
+    expect($this->convertToKhmerNumber(0))->toBe('០');
+});
 
-    /**
-     * Test that a single digit is converted correctly.
-     */
-    public function test_converts_single_digit(): void
-    {
-        $this->assertSame('៥', $this->convertToKhmerNumber(5));
-    }
+it('converts a single digit', function () {
+    expect($this->convertToKhmerNumber(5))->toBe('៥');
+});
 
-    /**
-     * Test that surrounding whitespace and zero-width characters are trimmed from the result.
-     */
-    public function test_trims_surrounding_whitespace_from_result(): void
-    {
-        $this->assertSame('១២', $this->convertToKhmerNumber("\u{200B} 12 \u{FEFF}"));
-    }
-}
+it('trims surrounding whitespace and zero-width characters from the result', function () {
+    expect($this->convertToKhmerNumber("\u{200B} 12 \u{FEFF}"))->toBe('១២');
+});
