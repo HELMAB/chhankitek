@@ -33,13 +33,13 @@ final class Chhankitek
 
     public function __construct(CarbonImmutable $target)
     {
-        $formatted = CarbonImmutable::createFromFormat('d/m/Y', $target->format('d/m/Y'));
+        $formatted = CarbonImmutable::createFromFormat('!d/m/Y', $target->format('d/m/Y'), 'Asia/Phnom_Penh');
 
         if (! $formatted instanceof CarbonImmutable) {
             throw new InvalidArgumentException('Failed to create CarbonImmutable from given date.');
         }
 
-        $this->target = $formatted->setTimezone('Asia/Phnom_Penh');
+        $this->target = $formatted;
         $this->formatKhmerDate = $this->khmerLunarDate($this->target);
 
         /** @TODO needs to recheck khmer new year date time calculation */
@@ -343,8 +343,7 @@ final class Chhankitek
     public function getVisakhaBochea(int $gregorianYear): CarbonImmutable
     {
         $lunarMonths = (new Constant)->lunarMonths;
-        $date = CarbonImmutable::createFromFormat('d/m/Y', "1/1/{$gregorianYear}")
-            ->setTimezone('Asia/Phnom_Penh');
+        $date = CarbonImmutable::createFromFormat('!d/m/Y', "1/1/{$gregorianYear}", 'Asia/Phnom_Penh');
 
         return Cache::remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
             for ($i = 0; $i < 365; $i++) {
@@ -593,8 +592,7 @@ final class Chhankitek
         $constant = new Constant;
         $lunarMonths = $constant->getLunarMonths();
 
-        $epochDateTime = CarbonImmutable::createFromFormat('d/m/Y', '1/1/1900')
-            ->setTimezone('Asia/Phnom_Penh');
+        $epochDateTime = CarbonImmutable::createFromFormat('!d/m/Y', '1/1/1900', 'Asia/Phnom_Penh');
 
         $khmerMonth = $lunarMonths['បុស្ស'];
 
