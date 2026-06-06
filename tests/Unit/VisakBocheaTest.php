@@ -2,48 +2,24 @@
 
 declare(strict_types=1);
 
-namespace Asorasoft\Chhankitek\Tests\Unit;
-
-use Asorasoft\Chhankitek\Tests\TestCase;
 use Asorasoft\Chhankitek\Traits\HasChhankitek;
 use Carbon\CarbonImmutable;
 
-final class VisakBocheaTest extends TestCase
-{
-    use HasChhankitek;
+uses(HasChhankitek::class);
 
-    /**
-     * Test if a specific date is Visak Bochea.
-     */
-    public function test_is_visak_bochea(): void
-    {
-        // Set the date known to be Visak Bochea in 2025
-        $date = '2025-05-11';
-        $toLunarDate = $this->chhankitek(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
+it('resolves the lunar date for Visak Bochea', function () {
+    $toLunarDate = $this->chhankitek(CarbonImmutable::parse('2025-05-11')->setTimezone('Asia/Phnom_Penh'));
 
-        // Assert day of week
-        $this->assertEquals('អាទិត្យ', $toLunarDate->getDayOfWeek(), 'Failed to verify day of week');
+    expect($toLunarDate->getDayOfWeek())->toBe('អាទិត្យ')
+        ->and($toLunarDate->getLunarDay())->toBe('១៥ កើត')
+        ->and($toLunarDate->getLunarMonth())->toBe('ពិសាខ')
+        ->and($toLunarDate->getLunarZodiac())->toBe('ម្សាញ់')
+        ->and($toLunarDate->getLunarEra())->toBe('សប្តស័ក')
+        ->and($toLunarDate->getLunarYear())->toBe('២៥៦៨');
+});
 
-        // Assert lunar day
-        $this->assertEquals('១៥ កើត', $toLunarDate->getLunarDay(), 'Failed to verify lunar day');
+it('advances the lunar year on the following day', function () {
+    $toLunarDate = $this->chhankitek(CarbonImmutable::parse('2025-05-12')->setTimezone('Asia/Phnom_Penh'));
 
-        // Assert lunar month
-        $this->assertEquals('ពិសាខ', $toLunarDate->getLunarMonth(), 'Failed to verify lunar month');
-
-        // Assert lunar zodiac
-        $this->assertEquals('ម្សាញ់', $toLunarDate->getLunarZodiac(), 'Failed to verify lunar zodiac');
-
-        // Assert lunar era
-        $this->assertEquals('សប្តស័ក', $toLunarDate->getLunarEra(), 'Failed to verify lunar era');
-
-        // Assert lunar year
-        $this->assertEquals('២៥៦៨', $toLunarDate->getLunarYear(), 'Failed to verify lunar year');
-
-        // Set the date known to be Visak Bochea in 2025
-        $date = '2025-05-12';
-        $toLunarDate = $this->chhankitek(CarbonImmutable::parse($date)->setTimezone('Asia/Phnom_Penh'));
-
-        // Assert lunar year
-        $this->assertEquals('២៥៦៩', $toLunarDate->getLunarYear(), 'Failed to verify lunar year');
-    }
-}
+    expect($toLunarDate->getLunarYear())->toBe('២៥៦៩');
+});
