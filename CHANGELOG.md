@@ -2,13 +2,6 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
-<<<<<<< HEAD
-## 2.1.0 - 2026-06-08
-
-- Migrate the test suite from PHPUnit to Pest 3
-- Add tests for the `mbTrimNumber` helper
-- Widen `orchestra/testbench` constraint and let Pest manage `phpunit/phpunit` to fix `composer install` dependency resolution
-=======
 ## 2.1.0 - 2026-06-07
 
 - Add support for Laravel 13 by widening the `illuminate/support` constraint to include `^13.0`
@@ -22,7 +15,6 @@ All notable changes to `chhankitek` will be documented in this file
 - Use `mbTrimNumber` in `convertToKhmerNumber` for Khmer numeral conversion
 - Widen `orchestra/testbench` and `phpunit/phpunit` constraints to support Laravel 10, 11, and 12
 - Add tests for the `mbTrimNumber` helper and Khmer number conversion
->>>>>>> 97a00310c5ae7b316cfb052e6891ed353e6c7282
 
 ## 1.0.0 - 2026-01-28
 

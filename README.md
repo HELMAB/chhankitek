@@ -1,10 +1,6 @@
-<<<<<<< HEAD
-<h1 align="center">Chhankitek for Laravel</h1>
-=======
 <div align="center">
 
 # Chhankitek for Laravel
->>>>>>> 97a00310c5ae7b316cfb052e6891ed353e6c7282
 
 <p align="center">
     <a href="https://packagist.org/packages/asorasoft/chhankitek"><img src="https://img.shields.io/packagist/v/asorasoft/chhankitek.svg?style=flat-square" alt="Latest Version on Packagist"></a>
