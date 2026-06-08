@@ -1,9 +1,11 @@
-# Chhankitek for Laravel
+<h1 align="center">Chhankitek for Laravel</h1>
 
-[![Latest Version on Packagist](https://img.shields.io/packagist/v/asorasoft/chhankitek.svg?style=flat-square)](https://packagist.org/packages/asorasoft/chhankitek)
-[![Total Downloads](https://img.shields.io/packagist/dt/asorasoft/chhankitek.svg?style=flat-square)](https://packagist.org/packages/asorasoft/chhankitek)
+<p align="center">
+    <a href="https://packagist.org/packages/asorasoft/chhankitek"><img src="https://img.shields.io/packagist/v/asorasoft/chhankitek.svg?style=flat-square" alt="Latest Version on Packagist"></a>
+    <a href="https://packagist.org/packages/asorasoft/chhankitek"><img src="https://img.shields.io/packagist/dt/asorasoft/chhankitek.svg?style=flat-square" alt="Total Downloads"></a>
+</p>
 
-A Laravel package to convert dates to Lunar (Chhankitek) format. [Learn more about Khmer calendar](https://khmer-calendar.tovnah.com/calendar).
+<p align="center">A Laravel package to convert dates to Lunar (Chhankitek) format. <a href="https://khmer-calendar.tovnah.com/calendar">Learn more about Khmer calendar</a>.</p>
 
 ---
 

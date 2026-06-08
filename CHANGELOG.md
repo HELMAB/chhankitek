@@ -2,6 +2,12 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
+## 2.1.0 - 2026-06-08
+
+- Migrate the test suite from PHPUnit to Pest 3
+- Add tests for the `mbTrimNumber` helper
+- Widen `orchestra/testbench` constraint and let Pest manage `phpunit/phpunit` to fix `composer install` dependency resolution
+
 ## 1.0.0 - 2026-01-28
 
 - Refactor color scheme with updated gradient backgrounds and button styles

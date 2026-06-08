@@ -11,3 +11,14 @@ if (! function_exists('toLunarDate')) {
         return (new Chhankitek($target))->formatKhmerDate;
     }
 }
+
+if (! function_exists('mbTrimNumber')) {
+    function mbTrimNumber(string $value): string
+    {
+        return preg_replace(
+            '/^[\s\x{200B}\x{FEFF}]+|[\s\x{200B}\x{FEFF}]+$/u',
+            '',
+            $value
+        );
+    }
+}
