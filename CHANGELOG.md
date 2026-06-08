@@ -2,7 +2,7 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
-## 2.0.0 - 2026-06-08
+## 2.0.4 - 2026-06-08
 
 ### Pure PHP support & swappable cache
 
