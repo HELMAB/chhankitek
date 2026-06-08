@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
     <!-- Primary Meta Tags -->
-    <title>Chhankitek - Laravel Khmer Lunar Calendar Package</title>
-    <meta name="title" content="Chhankitek - Laravel Khmer Lunar Calendar Package">
-    <meta name="description" content="Convert Gregorian dates to Khmer Lunar calendar format with precision. Laravel package implementing traditional Cambodian astronomical algorithms for accurate Buddhist Era, zodiac years, and moon phases.">
-    <meta name="keywords" content="khmer calendar, cambodian calendar, lunar calendar, laravel package, buddhist era, chhankitek, khmer lunar date, php calendar, cambodia, lunar conversion">
+    <title>Chhankitek — Khmer Lunar Calendar PHP Package</title>
+    <meta name="title" content="Chhankitek — Khmer Lunar Calendar PHP Package">
+    <meta name="description" content="Convert Gregorian dates to the Khmer Lunar (Chhankitek) calendar with precision. A PHP package implementing traditional Cambodian astronomical algorithms — works with or without Laravel.">
+    <meta name="keywords" content="khmer calendar, cambodian calendar, lunar calendar, php package, pure php, laravel, buddhist era, chhankitek, khmer lunar date, lunar conversion">
     <meta name="author" content="Chhankitek">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://chhankitek.netlify.app/">
@@ -16,8 +16,8 @@
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://chhankitek.netlify.app/">
-    <meta property="og:title" content="Chhankitek - Laravel Khmer Lunar Calendar Package">
-    <meta property="og:description" content="Convert Gregorian dates to Khmer Lunar calendar format with precision. Laravel package implementing traditional Cambodian astronomical algorithms.">
+    <meta property="og:title" content="Chhankitek — Khmer Lunar Calendar PHP Package">
+    <meta property="og:description" content="Convert Gregorian dates to the Khmer Lunar calendar with precision. Works with or without Laravel.">
     <meta property="og:image" content="https://chhankitek.netlify.app/art.png">
     <meta property="og:site_name" content="Chhankitek">
     <meta property="og:locale" content="en_US">
@@ -25,12 +25,12 @@
     <!-- Twitter -->
     <meta name="twitter:card" content="summary_large_image">
     <meta name="twitter:url" content="https://chhankitek.netlify.app/">
-    <meta name="twitter:title" content="Chhankitek - Laravel Khmer Lunar Calendar Package">
-    <meta name="twitter:description" content="Convert Gregorian dates to Khmer Lunar calendar format with precision. Laravel package for traditional Cambodian calendar conversions.">
+    <meta name="twitter:title" content="Chhankitek — Khmer Lunar Calendar PHP Package">
+    <meta name="twitter:description" content="Convert Gregorian dates to the Khmer Lunar calendar. Works with or without Laravel.">
     <meta name="twitter:image" content="https://chhankitek.netlify.app/art.png">
 
     <!-- Additional Meta Tags -->
-    <meta name="theme-color" content="#3FFF96">
+    <meta name="theme-color" content="#ffffff">
     <meta name="language" content="English">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
 
@@ -41,1050 +41,30 @@
     <link rel="apple-touch-icon" href="apple-touch-icon.svg">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Kantumruy+Pro:ital,wght@0,100..700;1,100..700&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Raleway:wght@400;600;700&display=swap" as="style">
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    fontFamily: {
+                        sans: ['Baloo 2', 'Kantumruy Pro', 'Baloo 2 Fallback', 'Kantumruy Pro Fallback', 'sans-serif'],
+                        serif: ['Baloo 2', 'Kantumruy Pro', 'Baloo 2 Fallback', 'Kantumruy Pro Fallback', 'sans-serif'],
+                        mono: ['Dank Mono', 'Kantumruy Pro', 'ui-monospace', 'monospace'],
+                    },
+                    colors: {
+                        accent: '#3FFF96',
+                        ink: '#0a0a0a',
+                    },
+                    borderRadius: {
+                        none: '0',
+                    },
+                },
+            },
+        };
+    </script>
+    <link rel="stylesheet" href="fonts.css">
+
     <!-- Highlight.js -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/styles/github-dark.min.css">
-    <style>
-        /* Prevent horizontal scroll */
-        html {
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-        }
-
-        body {
-            overflow-x: hidden;
-            font-family: 'Raleway', sans-serif;
-            width: 100%;
-            position: relative;
-        }
-
-        /* Respect user's motion preferences */
-        @media (prefers-reduced-motion: reduce) {
-            html {
-                scroll-behavior: auto;
-            }
-            * {
-                animation-duration: 0.01ms !important;
-                animation-iteration-count: 1 !important;
-                transition-duration: 0.01ms !important;
-            }
-        }
-
-        /* Ensure all containers respect viewport width */
-        * {
-            max-width: 100%;
-        }
-
-        /* Allow specific elements to use full width */
-        .max-w-7xl,
-        .max-w-6xl,
-        .max-w-4xl,
-        .max-w-3xl,
-        .max-w-2xl,
-        .max-w-full,
-        html,
-        body {
-            max-width: none;
-        }
-        .khmer-text {
-            font-family: 'Kantumruy Pro', sans-serif;
-        }
-
-        /* Skip to main content link for accessibility */
-        .skip-to-main {
-            position: absolute;
-            top: -100px;
-            left: 0;
-            background: #3FFF96;
-            color: #1a1a2e;
-            padding: 0.75rem 1.5rem;
-            text-decoration: none;
-            z-index: 100;
-            border-radius: 0 0 0.5rem 0;
-            font-weight: 600;
-            transition: top 0.3s;
-        }
-
-        .skip-to-main:focus {
-            top: 0;
-            outline: 3px solid #fbbf24;
-            outline-offset: 2px;
-        }
-
-        /* Improved focus styles for accessibility */
-        a:focus-visible,
-        button:focus-visible {
-            outline: 3px solid #3FFF96;
-            outline-offset: 2px;
-            border-radius: 0.25rem;
-        }
-
-        /* Override highlight.js background to match our design */
-        pre code.hljs {
-            background: transparent;
-            padding: 0;
-        }
-
-        /* Code block container with copy button */
-        .code-block-wrapper {
-            position: relative;
-        }
-
-        /* Code block responsive handling */
-        pre {
-            overflow-x: auto;
-            -webkit-overflow-scrolling: touch;
-            max-width: 100%;
-            scrollbar-width: thin;
-            scrollbar-color: rgba(156, 163, 175, 0.5) transparent;
-            position: relative;
-        }
-
-        pre::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        pre::-webkit-scrollbar-track {
-            background: rgba(0, 0, 0, 0.1);
-            border-radius: 4px;
-        }
-
-        pre::-webkit-scrollbar-thumb {
-            background: rgba(156, 163, 175, 0.5);
-            border-radius: 4px;
-        }
-
-        pre::-webkit-scrollbar-thumb:hover {
-            background: rgba(156, 163, 175, 0.7);
-        }
-
-        pre code {
-            font-size: 0.875rem;
-            display: block;
-            white-space: pre;
-            word-wrap: normal;
-            line-height: 1.6;
-        }
-
-        /* Mobile code block improvements */
-        @media (max-width: 640px) {
-            /* Ensure main containers don't overflow */
-            .max-w-7xl,
-            .max-w-6xl,
-            .max-w-4xl {
-                padding-left: 1rem;
-                padding-right: 1rem;
-            }
-
-            /* Fix grid layouts on mobile */
-            .grid {
-                gap: 0.75rem;
-            }
-
-            .grid-cols-1 > div,
-            .grid-cols-2 > div,
-            .grid-cols-3 > div {
-                min-width: 0;
-                word-break: break-word;
-            }
-
-            /* Code block container adjustments */
-            .bg-gray-900,
-            .code-block-container {
-                padding: 0.875rem !important;
-                margin-left: 0;
-                margin-right: 0;
-                overflow: visible;
-            }
-
-            /* Pre element mobile styles */
-            pre {
-                margin: 0;
-                padding: 0.75rem !important;
-                border-radius: 0.375rem;
-                background: transparent !important;
-                overflow-x: auto;
-                overflow-y: hidden;
-                -webkit-overflow-scrolling: touch;
-                white-space: nowrap;
-            }
-
-            pre code {
-                font-size: 0.8125rem;
-                line-height: 1.6;
-                white-space: pre;
-                display: inline-block;
-                min-width: 100%;
-            }
-
-            /* Better scrollbar for mobile */
-            pre::-webkit-scrollbar {
-                height: 6px;
-            }
-
-            pre::-webkit-scrollbar-track {
-                background: rgba(255, 255, 255, 0.05);
-                border-radius: 3px;
-            }
-
-            pre::-webkit-scrollbar-thumb {
-                background: rgba(255, 255, 255, 0.2);
-                border-radius: 3px;
-            }
-
-            /* Adjust copy button for mobile */
-            .copy-button {
-                top: 0.5rem;
-                right: 0.5rem;
-                padding: 0.25rem 0.5rem;
-                font-size: 0.75rem;
-                gap: 0.25rem;
-            }
-
-            .copy-button svg {
-                width: 0.875rem;
-                height: 0.875rem;
-            }
-
-            .copy-button span {
-                display: none;
-            }
-
-            .copy-button.copied span {
-                display: inline;
-            }
-
-            /* Fix all potential overflow sources */
-            section,
-            nav,
-            main,
-            footer {
-                max-width: 100vw;
-                overflow-x: hidden;
-            }
-
-            /* Specifically fix content areas */
-            .bg-white,
-            .rounded-lg,
-            .rounded-xl,
-            .rounded-2xl,
-            .rounded-3xl {
-                margin-left: 0;
-                margin-right: 0;
-                width: 100%;
-            }
-
-            /* Fix flex containers */
-            .flex {
-                flex-wrap: wrap;
-                max-width: 100%;
-            }
-
-            /* Ensure images don't overflow */
-            img {
-                max-width: 100%;
-                height: auto;
-            }
-
-            /* Fix list items with long text */
-            li {
-                word-wrap: break-word;
-                overflow-wrap: break-word;
-            }
-
-            /* Fix gradient backgrounds */
-            .gradient-bg {
-                width: 100%;
-            }
-
-            /* Fix decorative elements */
-            .absolute {
-                max-width: none;
-            }
-        }
-
-        /* Tablet improvements */
-        @media (min-width: 641px) and (max-width: 768px) {
-            pre code {
-                font-size: 0.875rem;
-            }
-
-            .bg-gray-900,
-            .code-block-container {
-                padding: 1rem !important;
-            }
-        }
-        .copy-button {
-            position: absolute;
-            top: -0.5rem;
-            right: 0.5rem;
-            background: rgba(255, 255, 255, 0.1);
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            color: #fff;
-            padding: 0.375rem 0.75rem;
-            border-radius: 0.375rem;
-            font-size: 0.875rem;
-            cursor: pointer;
-            transition: all 0.2s;
-            display: flex;
-            align-items: center;
-            gap: 0.375rem;
-            z-index: 10;
-        }
-        .copy-button:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-        .copy-button.copied {
-            background: rgba(34, 197, 94, 0.2);
-            border-color: rgba(34, 197, 94, 0.3);
-        }
-        .copy-button svg {
-            width: 1rem;
-            height: 1rem;
-        }
-
-        /* Line numbers styling */
-        .hljs-ln-numbers {
-            text-align: right;
-            color: rgba(255, 255, 255, 0.3);
-            border-right: 1px solid rgba(255, 255, 255, 0.1);
-            padding-right: 1rem !important;
-            margin-right: 1rem;
-            user-select: none;
-        }
-        .hljs-ln-code {
-            padding-left: 1rem !important;
-        }
-
-        /* Hero Section - Digital Luminescence Theme */
-        .hero-section {
-            background: #0a0a0f;
-            position: relative;
-            min-height: 100vh;
-            display: flex;
-            align-items: center;
-            overflow: hidden;
-        }
-
-        /* Animated grid background */
-        .hero-grid {
-            position: absolute;
-            inset: 0;
-            background-image:
-                linear-gradient(rgba(63, 255, 150, 0.03) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(63, 255, 150, 0.03) 1px, transparent 1px);
-            background-size: 60px 60px;
-            animation: gridPulse 8s ease-in-out infinite;
-        }
-
-        @keyframes gridPulse {
-            0%, 100% { opacity: 0.5; }
-            50% { opacity: 1; }
-        }
-
-        /* Glowing orbs */
-        .hero-orb {
-            position: absolute;
-            border-radius: 50%;
-            filter: blur(80px);
-            animation: orbFloat 12s ease-in-out infinite;
-        }
-
-        .hero-orb-1 {
-            width: 500px;
-            height: 500px;
-            background: radial-gradient(circle, rgba(63, 255, 150, 0.15) 0%, transparent 70%);
-            top: -150px;
-            right: -100px;
-            animation-delay: 0s;
-        }
-
-        .hero-orb-2 {
-            width: 400px;
-            height: 400px;
-            background: radial-gradient(circle, rgba(45, 212, 122, 0.1) 0%, transparent 70%);
-            bottom: -100px;
-            left: -100px;
-            animation-delay: -4s;
-        }
-
-        .hero-orb-3 {
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(63, 255, 150, 0.08) 0%, transparent 70%);
-            top: 40%;
-            left: 50%;
-            transform: translateX(-50%);
-            animation-delay: -8s;
-        }
-
-        @keyframes orbFloat {
-            0%, 100% { transform: translate(0, 0) scale(1); }
-            25% { transform: translate(30px, -30px) scale(1.05); }
-            50% { transform: translate(-20px, 20px) scale(0.95); }
-            75% { transform: translate(20px, 10px) scale(1.02); }
-        }
-
-        /* Floating particles */
-        .hero-particles {
-            position: absolute;
-            inset: 0;
-            overflow: hidden;
-        }
-
-        .particle {
-            position: absolute;
-            width: 4px;
-            height: 4px;
-            background: #3FFF96;
-            border-radius: 50%;
-            opacity: 0;
-            animation: particleRise 8s linear infinite;
-        }
-
-        .particle::after {
-            content: '';
-            position: absolute;
-            width: 100%;
-            height: 20px;
-            background: linear-gradient(to top, #3FFF96, transparent);
-            top: 0;
-            left: 50%;
-            transform: translateX(-50%);
-            opacity: 0.5;
-        }
-
-        @keyframes particleRise {
-            0% {
-                opacity: 0;
-                transform: translateY(100vh) scale(0.5);
-            }
-            10% { opacity: 0.8; }
-            90% { opacity: 0.8; }
-            100% {
-                opacity: 0;
-                transform: translateY(-100px) scale(1);
-            }
-        }
-
-        /* Staggered particle delays */
-        .particle:nth-child(1) { left: 10%; animation-delay: 0s; animation-duration: 7s; }
-        .particle:nth-child(2) { left: 20%; animation-delay: 1.5s; animation-duration: 9s; }
-        .particle:nth-child(3) { left: 35%; animation-delay: 3s; animation-duration: 6s; }
-        .particle:nth-child(4) { left: 50%; animation-delay: 0.5s; animation-duration: 8s; }
-        .particle:nth-child(5) { left: 65%; animation-delay: 2s; animation-duration: 7.5s; }
-        .particle:nth-child(6) { left: 80%; animation-delay: 4s; animation-duration: 9s; }
-        .particle:nth-child(7) { left: 90%; animation-delay: 1s; animation-duration: 6.5s; }
-        .particle:nth-child(8) { left: 5%; animation-delay: 2.5s; animation-duration: 8.5s; }
-        .particle:nth-child(9) { left: 45%; animation-delay: 3.5s; animation-duration: 7s; }
-        .particle:nth-child(10) { left: 75%; animation-delay: 0.8s; animation-duration: 8s; }
-
-        /* Hero content animations */
-        @keyframes heroFadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(40px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes heroSlideIn {
-            from {
-                opacity: 0;
-                transform: translateX(-30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes glowPulse {
-            0%, 100% {
-                text-shadow: 0 0 20px rgba(63, 255, 150, 0.5),
-                             0 0 40px rgba(63, 255, 150, 0.3),
-                             0 0 60px rgba(63, 255, 150, 0.1);
-            }
-            50% {
-                text-shadow: 0 0 30px rgba(63, 255, 150, 0.8),
-                             0 0 60px rgba(63, 255, 150, 0.5),
-                             0 0 90px rgba(63, 255, 150, 0.2);
-            }
-        }
-
-        @keyframes borderGlow {
-            0%, 100% {
-                box-shadow: 0 0 20px rgba(63, 255, 150, 0.3),
-                            inset 0 0 20px rgba(63, 255, 150, 0.05);
-            }
-            50% {
-                box-shadow: 0 0 40px rgba(63, 255, 150, 0.5),
-                            inset 0 0 30px rgba(63, 255, 150, 0.1);
-            }
-        }
-
-        @keyframes lineExpand {
-            from { transform: scaleX(0); }
-            to { transform: scaleX(1); }
-        }
-
-        @keyframes countUp {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .hero-animate-1 {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.2s;
-            opacity: 0;
-        }
-
-        .hero-animate-2 {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.4s;
-            opacity: 0;
-        }
-
-        .hero-animate-3 {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.6s;
-            opacity: 0;
-        }
-
-        .hero-animate-4 {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.8s;
-            opacity: 0;
-        }
-
-        .hero-animate-5 {
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 1s;
-            opacity: 0;
-        }
-
-        /* Glowing text */
-        .hero-title {
-            font-size: clamp(3rem, 10vw, 7rem);
-            font-weight: 800;
-            letter-spacing: -0.03em;
-            line-height: 1;
-            color: #ffffff;
-        }
-
-        .hero-title-accent {
-            color: #3FFF96;
-            animation: glowPulse 3s ease-in-out infinite;
-        }
-
-        /* Badge styling */
-        .hero-badge {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.5rem 1rem;
-            background: rgba(63, 255, 150, 0.1);
-            border: 1px solid rgba(63, 255, 150, 0.3);
-            border-radius: 100px;
-            font-size: 0.875rem;
-            color: #3FFF96;
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-badge::before {
-            content: '';
-            width: 8px;
-            height: 8px;
-            background: #3FFF96;
-            border-radius: 50%;
-            animation: pulse 2s ease-in-out infinite;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; transform: scale(1); }
-            50% { opacity: 0.5; transform: scale(0.8); }
-        }
-
-        /* CTA Buttons */
-        .hero-btn-primary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: #3FFF96;
-            color: #0a0a0f;
-            font-weight: 600;
-            border-radius: 12px;
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .hero-btn-primary::before {
-            content: '';
-            position: absolute;
-            inset: 0;
-            background: linear-gradient(135deg, rgba(255,255,255,0.2) 0%, transparent 50%);
-            opacity: 0;
-            transition: opacity 0.3s;
-        }
-
-        .hero-btn-primary:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 20px 40px rgba(63, 255, 150, 0.3),
-                        0 0 60px rgba(63, 255, 150, 0.2);
-        }
-
-        .hero-btn-primary:hover::before {
-            opacity: 1;
-        }
-
-        .hero-btn-secondary {
-            display: inline-flex;
-            align-items: center;
-            gap: 0.75rem;
-            padding: 1rem 2rem;
-            background: transparent;
-            color: #ffffff;
-            font-weight: 600;
-            border-radius: 12px;
-            border: 1px solid rgba(255, 255, 255, 0.2);
-            transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-            backdrop-filter: blur(10px);
-        }
-
-        .hero-btn-secondary:hover {
-            background: rgba(255, 255, 255, 0.1);
-            border-color: rgba(63, 255, 150, 0.5);
-            transform: translateY(-3px);
-        }
-
-        /* Stats cards */
-        .hero-stats {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1.5rem;
-            margin-top: 4rem;
-        }
-
-        .hero-stat {
-            text-align: center;
-            padding: 1.5rem;
-            background: rgba(255, 255, 255, 0.02);
-            border: 1px solid rgba(255, 255, 255, 0.05);
-            border-radius: 16px;
-            transition: all 0.3s ease;
-        }
-
-        .hero-stat:hover {
-            background: rgba(63, 255, 150, 0.05);
-            border-color: rgba(63, 255, 150, 0.2);
-            transform: translateY(-5px);
-        }
-
-        .hero-stat-value {
-            font-size: 1.75rem;
-            font-weight: 700;
-            color: #3FFF96;
-            margin-bottom: 0.25rem;
-        }
-
-        .hero-stat-label {
-            font-size: 0.875rem;
-            color: rgba(255, 255, 255, 0.5);
-            text-transform: uppercase;
-            letter-spacing: 0.05em;
-        }
-
-        /* Decorative line */
-        .hero-line {
-            width: 60px;
-            height: 2px;
-            background: linear-gradient(90deg, #3FFF96, transparent);
-            margin: 2rem auto;
-            animation: lineExpand 1s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 0.5s;
-            transform-origin: left;
-            transform: scaleX(0);
-        }
-
-        /* Scroll indicator */
-        .hero-scroll-indicator {
-            position: absolute;
-            bottom: 2rem;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 0.5rem;
-            color: rgba(255, 255, 255, 0.4);
-            font-size: 0.75rem;
-            text-transform: uppercase;
-            letter-spacing: 0.1em;
-            animation: heroFadeIn 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
-            animation-delay: 1.5s;
-            opacity: 0;
-        }
-
-        .hero-scroll-indicator::after {
-            content: '';
-            width: 1px;
-            height: 40px;
-            background: linear-gradient(to bottom, rgba(63, 255, 150, 0.5), transparent);
-            animation: scrollBounce 2s ease-in-out infinite;
-        }
-
-        @keyframes scrollBounce {
-            0%, 100% { transform: translateY(0); opacity: 1; }
-            50% { transform: translateY(10px); opacity: 0.5; }
-        }
-
-        /* Mobile responsiveness */
-        @media (max-width: 768px) {
-            .hero-section {
-                min-height: auto;
-                padding: 6rem 0 4rem;
-            }
-
-            .hero-title {
-                font-size: clamp(2.5rem, 12vw, 4rem);
-            }
-
-            .hero-stats {
-                grid-template-columns: 1fr;
-                gap: 1rem;
-            }
-
-            .hero-orb-1, .hero-orb-2 {
-                width: 250px;
-                height: 250px;
-            }
-
-            .hero-scroll-indicator {
-                display: none;
-            }
-        }
-
-        /* Legacy animations for other sections */
-        @keyframes fadeInUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        @keyframes float {
-            0%, 100% {
-                transform: translateY(0px);
-            }
-            50% {
-                transform: translateY(-20px);
-            }
-        }
-
-        .animate-fade-in-up {
-            animation: fadeInUp 0.8s ease-out forwards;
-        }
-
-        .animate-delay-1 {
-            animation-delay: 0.2s;
-            opacity: 0;
-        }
-
-        .animate-delay-2 {
-            animation-delay: 0.4s;
-            opacity: 0;
-        }
-
-        .float-animation {
-            animation: float 6s ease-in-out infinite;
-        }
-
-        .moon-icon {
-            animation: pulse 4s ease-in-out infinite;
-        }
-
-        /* Gradient background for other sections */
-        .gradient-bg {
-            background: linear-gradient(-45deg, #3FFF96, #2dd47a, #1a1a2e, #0d4f3c);
-            background-size: 400% 400%;
-            animation: gradientShift 15s ease infinite;
-        }
-
-        @keyframes gradientShift {
-            0% { background-position: 0% 50%; }
-            50% { background-position: 100% 50%; }
-            100% { background-position: 0% 50%; }
-        }
-
-        /* Usage section animations */
-        @keyframes slideInLeft {
-            from {
-                opacity: 0;
-                transform: translateX(-50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes slideInRight {
-            from {
-                opacity: 0;
-                transform: translateX(50px);
-            }
-            to {
-                opacity: 1;
-                transform: translateX(0);
-            }
-        }
-
-        @keyframes scaleIn {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        .animate-slide-in-left {
-            animation: slideInLeft 0.8s ease-out forwards;
-        }
-
-        .animate-slide-in-right {
-            animation: slideInRight 0.8s ease-out forwards;
-        }
-
-        .animate-scale-in {
-            animation: scaleIn 0.6s ease-out forwards;
-        }
-
-        .usage-item {
-            opacity: 0;
-        }
-
-        .usage-item.visible {
-            opacity: 1;
-        }
-
-        /* Code block hover effect */
-        .code-block-container {
-            transition: all 0.3s ease;
-        }
-
-        .code-block-container:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.2), 0 10px 10px -5px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Feature badge animation */
-        @keyframes badgePulse {
-            0%, 100% {
-                box-shadow: 0 0 0 0 rgba(63, 255, 150, 0.4);
-            }
-            50% {
-                box-shadow: 0 0 0 8px rgba(63, 255, 150, 0);
-            }
-        }
-
-        .feature-badge {
-            animation: badgePulse 2s infinite;
-        }
-
-        /* Gradient text animation */
-        @keyframes gradientText {
-            0%, 100% {
-                background-position: 0% 50%;
-            }
-            50% {
-                background-position: 100% 50%;
-            }
-        }
-
-        .gradient-text-animated {
-            background: linear-gradient(-45deg, #3FFF96, #2dd47a, #0d4f3c, #1a1a2e);
-            background-size: 300% 300%;
-            -webkit-background-clip: text;
-            background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: gradientText 5s ease infinite;
-        }
-
-        /* About section animations */
-        @keyframes fadeInScale {
-            from {
-                opacity: 0;
-                transform: scale(0.95);
-            }
-            to {
-                opacity: 1;
-                transform: scale(1);
-            }
-        }
-
-        @keyframes slideUp {
-            from {
-                opacity: 0;
-                transform: translateY(30px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-
-        .animate-fade-in-scale {
-            animation: fadeInScale 0.8s ease-out forwards;
-        }
-
-        .animate-slide-up {
-            animation: slideUp 0.8s ease-out forwards;
-        }
-
-        .about-item {
-            opacity: 0;
-        }
-
-        .about-item.visible {
-            opacity: 1;
-        }
-
-        /* Decorative moon phases */
-        @keyframes rotateSlow {
-            from {
-                transform: rotate(0deg);
-            }
-            to {
-                transform: rotate(360deg);
-            }
-        }
-
-        .rotate-slow {
-            animation: rotateSlow 30s linear infinite;
-        }
-
-        /* Mobile menu animations */
-        #mobile-menu {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease-in-out;
-        }
-
-        #mobile-menu.show {
-            max-height: 500px;
-        }
-
-        /* Scroll to top button */
-        .scroll-to-top {
-            position: fixed;
-            bottom: 2rem;
-            right: 2rem;
-            width: 3rem;
-            height: 3rem;
-            background: linear-gradient(135deg, #3FFF96 0%, #2dd47a 100%);
-            color: #1a1a2e;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            opacity: 0;
-            visibility: hidden;
-            transition: all 0.3s ease;
-            z-index: 50;
-            box-shadow: 0 4px 12px rgba(63, 255, 150, 0.4);
-        }
-
-        .scroll-to-top.show {
-            opacity: 1;
-            visibility: visible;
-        }
-
-        .scroll-to-top:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 6px 20px rgba(63, 255, 150, 0.6);
-        }
-
-        .scroll-to-top:active {
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 640px) {
-            .scroll-to-top {
-                bottom: 1rem;
-                right: 1rem;
-                width: 2.5rem;
-                height: 2.5rem;
-            }
-        }
-
-        /* Better touch targets for mobile */
-        @media (max-width: 768px) {
-            a, button {
-                min-height: 44px;
-                min-width: 44px;
-            }
-        }
-
-        /* Loading state */
-        body.loading {
-            cursor: wait;
-        }
-
-        /* Improved copy button */
-        .copy-button {
-            transition: all 0.2s ease;
-        }
-
-        .copy-button:focus-visible {
-            outline: 2px solid #fbbf24;
-            outline-offset: 2px;
-        }
-
-        /* Screen reader only content */
-        .sr-only {
-            position: absolute;
-            width: 1px;
-            height: 1px;
-            padding: 0;
-            margin: -1px;
-            overflow: hidden;
-            clip: rect(0, 0, 0, 0);
-            white-space: nowrap;
-            border-width: 0;
-        }
-
-        /* Improve link hover states */
-        a {
-            transition: color 0.2s ease, background-color 0.2s ease;
-        }
-
-        /* Better button states */
-        button:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Smooth focus transitions */
-        * {
-            transition: outline 0.2s ease;
-        }
-    </style>
 
     <!-- Structured Data (JSON-LD) -->
     <script type="application/ld+json">
@@ -1094,198 +74,121 @@
         "name": "Chhankitek",
         "applicationCategory": "DeveloperApplication",
         "operatingSystem": "Cross-platform",
-        "description": "A Laravel package to convert Gregorian dates to Khmer Lunar calendar format with precision. Implements traditional Cambodian astronomical algorithms for accurate Buddhist Era, zodiac years, and moon phases.",
-        "offers": {
-            "@type": "Offer",
-            "price": "0",
-            "priceCurrency": "USD"
-        },
+        "description": "A PHP package to convert Gregorian dates to the Khmer Lunar calendar with precision. Implements traditional Cambodian astronomical algorithms for accurate Buddhist Era, zodiac years, and moon phases. Works with or without Laravel.",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "USD" },
         "programmingLanguage": "PHP",
-        "softwareVersion": "1.0",
+        "softwareVersion": "2.0",
         "url": "https://chhankitek.netlify.app/",
         "downloadUrl": "https://packagist.org/packages/asorasoft/chhankitek",
         "codeRepository": "https://github.com/HELMAB/chhankitek",
         "license": "https://opensource.org/licenses/MIT",
-        "softwareRequirements": "PHP 8.2+, Laravel 10+",
-        "keywords": "khmer calendar, cambodian calendar, lunar calendar, laravel, buddhist era, php",
-        "author": {
-            "@type": "Organization",
-            "name": "Asorasoft"
-        }
+        "softwareRequirements": "PHP 8.2+, nesbot/carbon (Laravel optional)",
+        "keywords": "khmer calendar, cambodian calendar, lunar calendar, laravel, pure php, buddhist era, php",
+        "author": { "@type": "Organization", "name": "Asorasoft" }
     }
     </script>
 </head>
-<body class="bg-gray-50">
-    <!-- Skip to main content for accessibility -->
-    <a href="#main-content" class="skip-to-main">Skip to main content</a>
+<body class="font-sans bg-white text-neutral-900 antialiased">
+    <!-- Skip to main content -->
+    <a href="#main-content" class="sr-only focus:not-sr-only focus:absolute focus:top-0 focus:left-0 focus:z-50 focus:bg-accent focus:text-neutral-900 focus:px-4 focus:py-2 focus:font-mono focus:text-sm">Skip to main content</a>
 
     <!-- Peace Banner for Cambodia -->
-    <div
-        class="w-full shadow-lg flex-shrink-0 sticky top-0 z-50"
-        style="background: linear-gradient(135deg, #032ea1 0%, #1e40af 50%, #032ea1 100%)"
-    >
-        <!-- Red top stripe (Cambodian flag inspired) -->
-        <div class="w-full h-1.5 bg-red-600"></div>
-
-        <div class="py-3 px-4 text-white">
-            <div class="max-w-full mx-auto text-center">
-                <!-- Main message -->
-                <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-1 sm:gap-3">
-                    <div class="flex items-center justify-center gap-2">
-                        <span class="text-lg sm:text-xl font-bold khmer-text">🕊️ កម្ពុជាត្រូវការសន្តិភាព</span>
-                    </div>
-                    <span class="hidden sm:inline text-white/60">•</span>
-                    <div class="flex items-center justify-center gap-2">
-                        <span class="text-base sm:text-lg font-semibold">CAMBODIA NEEDS PEACE 🇰🇭</span>
-                    </div>
-                </div>
-
-                <!-- Support message -->
-                <p class="text-xs sm:text-sm text-white/90 mt-1 khmer-text">
-                    យើងគាំទ្រដល់ទាហានខ្មែរទាំងអស់ដែលការពារទឹកដីជាតិ • We stand with our brave soldiers defending our homeland
-                </p>
+    <div class="w-full bg-[#032ea1] text-white">
+        <div class="h-1 w-full bg-red-600"></div>
+        <div class="max-w-6xl mx-auto px-6 py-2.5 text-center">
+            <div class="flex flex-col sm:flex-row sm:items-center justify-center gap-x-3 gap-y-0.5">
+                <span class="text-sm font-semibold">🕊️ កម្ពុជាត្រូវការសន្តិភាព</span>
+                <span class="hidden sm:inline text-white/40">/</span>
+                <span class="text-sm font-medium">CAMBODIA NEEDS PEACE 🇰🇭</span>
             </div>
+            <p class="text-xs text-white/70 mt-0.5">
+                យើងគាំទ្រដល់ទាហានខ្មែរទាំងអស់ដែលការពារទឹកដីជាតិ · We stand with our brave soldiers defending our homeland
+            </p>
         </div>
-
-        <!-- Red bottom stripe -->
-        <div class="w-full h-1.5 bg-red-600"></div>
+        <div class="h-1 w-full bg-red-600"></div>
     </div>
 
     <!-- Navigation -->
-    <nav class="bg-white shadow-sm" role="navigation" aria-label="Main navigation">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <nav class="sticky top-0 z-40 bg-white border-b border-neutral-200" role="navigation" aria-label="Main navigation">
+        <div class="max-w-6xl mx-auto px-6">
             <div class="flex justify-between h-16 items-center">
-                <a href="index.html" class="flex items-center gap-2 sm:gap-3 group" aria-label="Chhankitek Home">
-                    <img src="favicon.svg" alt="Chhankitek Logo" class="h-8 w-8 sm:h-10 sm:w-10 transition-transform group-hover:scale-110">
-                    <span class="text-xl sm:text-2xl font-bold text-[#3FFF96] transition-colors group-hover:text-[#2dd47a]">Chhankitek</span>
+                <a href="index.html" class="flex items-center gap-2.5" aria-label="Chhankitek Home">
+                    <img src="favicon.svg" alt="" class="h-7 w-7">
+                    <span class="font-mono text-sm font-semibold uppercase">Chhankitek</span>
                 </a>
-                <!-- Desktop Navigation -->
-                <div class="hidden md:flex space-x-6 lg:space-x-8" role="menubar">
-                    <a href="#features" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Features</a>
-                    <a href="#installation" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Installation</a>
-                    <a href="documentation.html" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-sm lg:text-base text-gray-700 hover:text-[#3FFF96] transition-colors" role="menuitem">GitHub</a>
+                <div class="hidden md:flex items-center gap-8" role="menubar">
+                    <a href="#features" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">Features</a>
+                    <a href="#installation" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm font-medium text-neutral-900 border-b-2 border-accent" role="menuitem">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                 </div>
-                <!-- Mobile Menu Button -->
-                <button id="mobile-menu-button" class="md:hidden p-2 rounded-md text-gray-700 hover:text-[#3FFF96] hover:bg-gray-100 transition-colors" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle mobile menu">
-                    <svg class="h-6 w-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"/>
-                    </svg>
+                <button id="mobile-menu-button" class="md:hidden p-2 text-neutral-700" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
+                    <i data-lucide="menu" class="h-6 w-6" aria-hidden="true"></i>
                 </button>
             </div>
-            <!-- Mobile Navigation -->
-            <div id="mobile-menu" class="md:hidden" role="menu" aria-label="Mobile navigation">
-                <div class="flex flex-col space-y-3">
-                    <a href="#features" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Features</a>
-                    <a href="#installation" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Installation</a>
-                    <a href="documentation.html" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2 border-b border-gray-100" role="menuitem">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="text-gray-700 hover:text-[#3FFF96] transition-colors py-2" role="menuitem">GitHub</a>
+            <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-200 py-3" role="menu">
+                <div class="flex flex-col">
+                    <a href="#features" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem">Features</a>
+                    <a href="#installation" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem">Installation</a>
+                    <a href="documentation.html" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem">Documentation</a>
+                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-neutral-700 py-2.5" role="menuitem">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
                 </div>
             </div>
         </div>
     </nav>
 
-    <!-- Hero Section -->
     <main id="main-content">
-    <section class="hero-section">
-        <!-- Animated grid background -->
-        <div class="hero-grid"></div>
-
-        <!-- Glowing orbs -->
-        <div class="hero-orb hero-orb-1"></div>
-        <div class="hero-orb hero-orb-2"></div>
-        <div class="hero-orb hero-orb-3"></div>
-
-        <!-- Floating particles -->
-        <div class="hero-particles">
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
-            <div class="particle"></div>
+    <!-- Hero -->
+    <section class="relative isolate overflow-hidden border-b border-neutral-200">
+        <div class="grid-spotlight absolute inset-0 z-0 pointer-events-none" aria-hidden="true"></div>
+        <div class="relative z-10 max-w-6xl mx-auto px-6 pt-20 pb-16 md:pt-28 md:pb-24">
+            <div class="flex items-center gap-2 mb-8">
+                <span class="inline-block w-2 h-2 bg-accent"></span>
+                <span class="font-mono text-xs uppercase text-neutral-500">PHP · Khmer Lunar Calendar</span>
+            </div>
+            <h1 class="font-serif text-6xl md:text-8xl leading-[0.95]">Chhankitek</h1>
+            <p class="mt-6 max-w-2xl text-lg md:text-xl text-neutral-600 leading-relaxed">
+                Convert Gregorian dates to the <span class="text-neutral-900 font-medium">Khmer Lunar</span> calendar with precision — built on traditional Cambodian astronomical algorithms. Works in any PHP project, with or without Laravel.
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-3">
+                <a href="#installation" class="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-7 py-3.5 text-sm font-medium hover:bg-neutral-700">Get Started</a>
+                <a href="documentation.html" class="inline-flex items-center justify-center gap-2 border border-neutral-300 px-7 py-3.5 text-sm font-medium hover:border-neutral-900">Documentation</a>
+            </div>
         </div>
-
-        <!-- Main content -->
-        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 py-20">
-            <div class="text-center">
-                <!-- Badge -->
-                <div class="hero-animate-1">
-                    <span class="hero-badge">
-                        Laravel Package for Khmer Calendar
-                    </span>
-                </div>
-
-                <!-- Decorative line -->
-                <div class="hero-line"></div>
-
-                <!-- Main heading -->
-                <h1 class="hero-title hero-animate-2">
-                    <span class="hero-title-accent">Chhankitek</span>
-                </h1>
-                <p class="hero-animate-2 text-xl md:text-2xl text-white/60 font-light mt-4 tracking-wide">
-                    for Laravel
-                </p>
-
-                <!-- Description -->
-                <p class="hero-animate-3 text-lg md:text-xl max-w-2xl mx-auto leading-relaxed text-white/70 mt-8">
-                    Convert Gregorian dates to <span class="text-[#3FFF96]">Khmer Lunar calendar</span> format with precision. Built with traditional Cambodian astronomical algorithms.
-                </p>
-
-                <!-- CTA Buttons -->
-                <div class="hero-animate-4 flex flex-col sm:flex-row justify-center gap-4 mt-10">
-                    <a href="#installation" class="hero-btn-primary">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                        </svg>
-                        Get Started
-                    </a>
-                    <a href="documentation.html" class="hero-btn-secondary">
-                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                        </svg>
-                        Documentation
-                    </a>
-                </div>
-
-                <!-- Stats -->
-                <div class="hero-stats hero-animate-5 max-w-3xl mx-auto">
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">PHP 8.2+</div>
-                        <div class="hero-stat-label">Modern PHP</div>
+        <!-- Stat row -->
+        <div class="relative z-10 border-t border-neutral-200">
+            <div class="max-w-6xl mx-auto px-6">
+                <div class="grid grid-cols-1 sm:grid-cols-3 sm:divide-x divide-neutral-200">
+                    <div class="py-8 sm:pr-8">
+                        <div class="font-serif text-3xl">PHP 8.2+</div>
+                        <div class="font-mono text-xs uppercase text-neutral-500 mt-1">Modern PHP</div>
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">Laravel 10+</div>
-                        <div class="hero-stat-label">Framework</div>
+                    <div class="py-8 sm:px-8 border-t border-neutral-200 sm:border-t-0">
+                        <div class="font-serif text-3xl">Pure PHP</div>
+                        <div class="font-mono text-xs uppercase text-neutral-500 mt-1">No framework needed</div>
                     </div>
-                    <div class="hero-stat">
-                        <div class="hero-stat-value">MIT</div>
-                        <div class="hero-stat-label">Open Source</div>
+                    <div class="py-8 sm:pl-8 border-t border-neutral-200 sm:border-t-0">
+                        <div class="font-serif text-3xl">MIT</div>
+                        <div class="font-mono text-xs uppercase text-neutral-500 mt-1">Open source</div>
                     </div>
                 </div>
             </div>
-        </div>
-
-        <!-- Scroll indicator -->
-        <div class="hero-scroll-indicator">
-            <span>Scroll</span>
         </div>
     </section>
 
     <!-- Quick Example -->
-    <section class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Simple and Powerful</h2>
-                <p class="text-lg sm:text-xl text-gray-600">Convert dates in just one line of code</p>
-            </div>
-            <div class="max-w-4xl mx-auto">
-                <div class="bg-gray-900 rounded-lg p-4 sm:p-6 shadow-xl overflow-hidden">
-                    <pre><code class="language-php">// Using the trait
+    <section class="border-b border-neutral-200">
+        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                <div class="lg:col-span-4">
+                    <div class="font-mono text-xs uppercase text-neutral-500 mb-4">Quick start</div>
+                    <h2 class="font-serif text-4xl md:text-5xl leading-tight">Simple and precise</h2>
+                    <p class="mt-5 text-neutral-600 leading-relaxed">Convert a date in a single line — via the Laravel trait, the global helper, or pure PHP.</p>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="relative bg-neutral-900" data-copy>
+                        <div class="overflow-x-auto">
+                            <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">// In Laravel — using the trait
 use HasChhankitek;
 
 $lunarDate = $this->chhankitek(
@@ -1293,108 +196,118 @@ $lunarDate = $this->chhankitek(
 );
 
 echo $lunarDate->toString();
-// Output: ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+// ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 
-// Or use the helper function
-echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));</code></pre>
+// Or the global helper
+echo toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
+
+// Pure PHP — no Laravel required
+use Asorasoft\Chhankitek\Chhankitek;
+
+echo (new Chhankitek(
+    Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')
+))->formatKhmerDate->toString();</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Features Section -->
-    <section id="features" class="py-16 bg-gray-50">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Features</h2>
-                <p class="text-lg sm:text-xl text-gray-600">Everything you need for Khmer calendar conversions</p>
+    <!-- Features -->
+    <section id="features" class="scroll-mt-20 border-b border-neutral-200">
+        <div class="max-w-6xl mx-auto px-6 pt-20 md:pt-28">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="inline-block w-2 h-2 bg-accent"></span>
+                <span class="font-mono text-xs uppercase text-neutral-500">Features</span>
             </div>
-            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">📅</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Accurate Conversions</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Based on traditional Khmer astronomical algorithms by Mr. Phylypo Tum</p>
+            <h2 class="font-serif text-4xl md:text-5xl leading-tight max-w-2xl">Everything you need for Khmer calendar conversions</h2>
+        </div>
+        <div class="max-w-6xl mx-auto px-6 mt-12 md:mt-16">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 border-t border-l border-neutral-200">
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="target" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Accurate Conversions</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Based on traditional Khmer astronomical algorithms by Mr. Phylypo Tum.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">⚡</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Built-in Caching</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Results cached for 365 days for optimal performance</p>
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="database" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Swappable Caching</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Results cached for 365 days; plug in your own cache or use the built-in one.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">🎯</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Laravel Integration</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Seamlessly integrates with Laravel 10, 11, and 12</p>
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="package" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Framework Agnostic</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Works in any PHP project — with optional Laravel integration (10–13).</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">🌙</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Leap Year Support</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Handles leap months (Adhikameas) and leap days automatically</p>
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="calendar-days" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Leap Year Support</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Handles leap months (Adhikameas) and leap days automatically.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">🔧</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Simple API</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Use via trait or global helper function - your choice</p>
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="code" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Simple API</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Use via trait, global helper, or direct instantiation — your choice.</p>
                 </div>
-                <div class="bg-white p-6 rounded-lg shadow-md hover:shadow-xl transition-shadow">
-                    <div class="text-[#3FFF96] text-3xl mb-4">🐉</div>
-                    <h3 class="text-lg sm:text-xl font-semibold mb-2 text-gray-900">Zodiac & Era</h3>
-                    <p class="text-sm sm:text-base text-gray-600">Get animal year, era year, and Buddhist Era calculations</p>
+                <div class="border-r border-b border-neutral-200 p-8">
+                    <div class="mb-5"><i data-lucide="moon-star" class="h-6 w-6 text-neutral-900"></i></div>
+                    <h3 class="font-serif text-2xl mb-2">Zodiac &amp; Era</h3>
+                    <p class="text-sm text-neutral-600 leading-relaxed">Get animal year, era year, and Buddhist Era calculations.</p>
+                </div>
+            </div>
+        </div>
+        <div class="h-20 md:h-28"></div>
+    </section>
+
+    <!-- Installation -->
+    <section id="installation" class="scroll-mt-20 border-b border-neutral-200">
+        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
+                <div class="lg:col-span-4">
+                    <div class="font-mono text-xs uppercase text-neutral-500 mb-4">Installation</div>
+                    <h2 class="font-serif text-4xl md:text-5xl leading-tight">Get started in seconds</h2>
+                    <p class="mt-5 text-neutral-600 leading-relaxed">The only runtime dependency is <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">nesbot/carbon</code>. Inside Laravel, the service provider registers automatically — no configuration needed.</p>
+                </div>
+                <div class="lg:col-span-8">
+                    <div class="relative bg-neutral-900" data-copy>
+                        <div class="overflow-x-auto">
+                            <pre class="p-5 text-sm leading-relaxed"><code class="language-bash !bg-neutral-900 !p-0 !text-neutral-100">composer require asorasoft/chhankitek</code></pre>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Installation Section -->
-    <section id="installation" class="py-16 bg-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="text-center mb-12">
-                <h2 class="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Installation</h2>
-                <p class="text-lg sm:text-xl text-gray-600">Get started in seconds</p>
+    <!-- Usage -->
+    <section class="border-b border-neutral-200">
+        <div class="max-w-6xl mx-auto px-6 pt-20 md:pt-28">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="inline-block w-2 h-2 bg-accent"></span>
+                <span class="font-mono text-xs uppercase text-neutral-500">Two approaches</span>
             </div>
-            <div class="max-w-3xl mx-auto">
-                <div class="bg-gray-900 rounded-lg p-4 sm:p-6 shadow-xl mb-8 overflow-hidden">
-                    <pre><code class="language-bash">composer require asorasoft/chhankitek</code></pre>
-                </div>
-                <div class="prose prose-lg max-w-none">
-                    <p class="text-gray-600 text-center">
-                        The package will automatically register its service provider. No additional configuration needed!
-                    </p>
-                </div>
-            </div>
+            <h2 class="font-serif text-4xl md:text-5xl leading-tight max-w-2xl">Choose the method that fits your workflow</h2>
+            <p class="mt-5 max-w-2xl text-neutral-600 leading-relaxed">Both deliver the same accurate Khmer lunar conversions.</p>
         </div>
-    </section>
 
-    <!-- Usage Section -->
-    <section class="py-20 bg-gradient-to-b from-gray-50 to-white">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <!-- Section Header -->
-            <div class="text-center mb-20">
-                <div class="inline-block mb-4">
-                    <span class="inline-flex items-center gap-2 bg-[#d4fff0] text-[#1a1a2e] px-4 py-2 rounded-full text-sm font-semibold feature-badge">
-                        <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"/>
-                        </svg>
-                        Two Powerful Methods
-                    </span>
+        <!-- Approach 1: Trait -->
+        <div class="max-w-6xl mx-auto px-6 mt-14 md:mt-20">
+            <div class="grid lg:grid-cols-2 border-t border-l border-neutral-200">
+                <div class="border-r border-b border-neutral-200 p-8 md:p-10">
+                    <div class="font-mono text-xs uppercase text-neutral-500 mb-4">01 — Trait method</div>
+                    <h3 class="font-serif text-3xl mb-4">Component-level control</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-6">For controllers, models, and services where you need granular access to each calendar component.</p>
+                    <ul class="space-y-3 text-sm text-neutral-700">
+                        <li class="flex gap-3"><span class="text-accent">—</span> Retrieve day, month, zodiac, era, and year independently</li>
+                        <li class="flex gap-3"><span class="text-accent">—</span> Type-safe and IDE-friendly with full autocomplete</li>
+                        <li class="flex gap-3"><span class="text-accent">—</span> Clean object-oriented integration</li>
+                    </ul>
+                    <p class="mt-6 pt-6 border-t border-neutral-200 text-sm text-neutral-500"><span class="font-medium text-neutral-900">Best for:</span> API responses, complex date manipulation, custom displays.</p>
                 </div>
-                <h2 class="text-4xl md:text-5xl font-bold text-gray-900 mb-6">
-                    <span class="gradient-text-animated">Choose Your Approach</span>
-                </h2>
-                <p class="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed">
-                    Pick the method that best fits your workflow — both deliver the same accurate Khmer lunar calendar conversions
-                </p>
-            </div>
-
-            <!-- Example 1: Trait Method -->
-            <div class="mb-24 usage-item" data-order="1">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <!-- Code Block -->
-                    <div class="order-2 md:order-1">
-                        <div class="code-block-container bg-gray-900 rounded-xl p-4 sm:p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                            <!-- Decorative gradient -->
-                            <div class="absolute top-0 right-0 w-40 h-40 bg-gradient-to-br from-[#3FFF96]/10 to-[#2dd47a]/10 blur-3xl"></div>
-                            <div class="relative">
-                                <pre><code class="language-php">use HasChhankitek;
+                <div class="border-r border-b border-neutral-200 bg-neutral-900 relative" data-copy>
+                    <div class="overflow-x-auto h-full">
+                        <pre class="p-8 md:p-10 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">use HasChhankitek;
 
 $date = $this->chhankitek(
     CarbonImmutable::now()
@@ -1402,166 +315,26 @@ $date = $this->chhankitek(
 );
 
 // Access individual components
-$dayOfWeek = $date->getDayOfWeek();
-$lunarDay = $date->getLunarDay();
+$dayOfWeek  = $date->getDayOfWeek();
+$lunarDay   = $date->getLunarDay();
 $lunarMonth = $date->getLunarMonth();
-$zodiac = $date->getLunarZodiac();
-$era = $date->getLunarEra();
-$year = $date->getLunarYear();
+$zodiac     = $date->getLunarZodiac();
+$era        = $date->getLunarEra();
+$year       = $date->getLunarYear();
 
-// Or get the complete formatted string
+// Or the complete formatted string
 echo $date->toString();</code></pre>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- Description -->
-                    <div class="order-1 md:order-2">
-                        <div class="inline-flex items-center gap-2 text-[#3FFF96] font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#d4fff0] text-[#1a1a2e] text-sm font-bold">1</span>
-                            <span class="text-sm uppercase tracking-wider">Trait Method</span>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-900 mb-6">
-                            Component-Level Control
-                        </h3>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                            Perfect for <strong>controllers, models, and services</strong> where you need granular access to individual calendar components. This approach gives you complete flexibility to format and manipulate each piece of the lunar date separately.
-                        </p>
-
-                        <!-- Benefits -->
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Granular Component Access</h4>
-                                    <p class="text-gray-600 text-sm">Retrieve day, month, zodiac, era, and year independently for custom formatting</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Type-Safe & IDE-Friendly</h4>
-                                    <p class="text-gray-600 text-sm">Full IDE autocomplete support with proper type hints and documentation</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#3FFF96] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Clean Object-Oriented Design</h4>
-                                    <p class="text-gray-600 text-sm">Integrate seamlessly with your Laravel application architecture</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-[#3FFF96] to-[#0d4f3c] rounded-lg text-white">
-                            <div class="flex items-center gap-2 mb-1">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                                <span class="font-semibold">Best For:</span>
-                            </div>
-                            <p class="text-[#f0fff8] text-sm">API responses, complex date manipulation, custom calendar displays, and data transformations</p>
-                        </div>
                     </div>
                 </div>
             </div>
+        </div>
 
-            <!-- Divider -->
-            <div class="flex items-center justify-center my-16">
-                <div class="flex-grow border-t border-gray-300"></div>
-                <span class="flex-shrink mx-4 text-gray-400 font-medium">OR</span>
-                <div class="flex-grow border-t border-gray-300"></div>
-            </div>
-
-            <!-- Example 2: Helper Function -->
-            <div class="mb-16 usage-item" data-order="2">
-                <div class="grid md:grid-cols-2 gap-12 items-center">
-                    <!-- Description -->
-                    <div>
-                        <div class="inline-flex items-center gap-2 text-[#0d4f3c] font-semibold mb-4">
-                            <span class="flex items-center justify-center w-8 h-8 rounded-full bg-[#d4fff0] text-[#1a1a2e] text-sm font-bold">2</span>
-                            <span class="text-sm uppercase tracking-wider">Helper Function</span>
-                        </div>
-                        <h3 class="text-3xl font-bold text-gray-900 mb-6">
-                            Quick & Simple Conversion
-                        </h3>
-                        <p class="text-gray-600 text-lg leading-relaxed mb-8">
-                            Ideal for <strong>Blade templates, views, and rapid prototyping</strong>. Get a beautifully formatted Khmer lunar date string instantly with a single function call — no setup required.
-                        </p>
-
-                        <!-- Benefits -->
-                        <div class="space-y-4">
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Zero Configuration</h4>
-                                    <p class="text-gray-600 text-sm">Available globally throughout your application — just call and use</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Instant Formatted Output</h4>
-                                    <p class="text-gray-600 text-sm">Returns a complete, properly formatted Khmer date string ready to display</p>
-                                </div>
-                            </div>
-
-                            <div class="flex items-start gap-3 p-4 bg-[#f0fff8] rounded-lg border border-[#d4fff0]">
-                                <div class="flex-shrink-0 w-6 h-6 rounded-full bg-[#0d4f3c] flex items-center justify-center mt-0.5">
-                                    <svg class="w-4 h-4 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path>
-                                    </svg>
-                                </div>
-                                <div>
-                                    <h4 class="font-semibold text-gray-900 mb-1">Perfect for Views</h4>
-                                    <p class="text-gray-600 text-sm">Clean, readable syntax ideal for Blade templates and frontend display</p>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Use Case Badge -->
-                        <div class="mt-8 p-4 bg-gradient-to-r from-[#0d4f3c] to-[#3FFF96] rounded-lg text-white">
-                            <div class="flex items-center gap-2 mb-1">
-                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
-                                </svg>
-                                <span class="font-semibold">Best For:</span>
-                            </div>
-                            <p class="text-[#f0fff8] text-sm">Blade templates, quick displays, email templates, PDF generation, and rapid development</p>
-                        </div>
-                    </div>
-
-                    <!-- Code Block -->
-                    <div>
-                        <div class="code-block-container bg-gray-900 rounded-xl p-4 sm:p-6 md:p-8 shadow-2xl relative overflow-hidden">
-                            <!-- Decorative gradient -->
-                            <div class="absolute top-0 left-0 w-40 h-40 bg-gradient-to-br from-[#3FFF96]/10 to-[#0d4f3c]/10 blur-3xl"></div>
-                            <div class="relative">
-                                <pre><code class="language-php">// One-line conversion
+        <!-- Approach 2: Helper -->
+        <div class="max-w-6xl mx-auto px-6 mt-10">
+            <div class="grid lg:grid-cols-2 border-t border-l border-neutral-200">
+                <div class="border-r border-b border-neutral-200 bg-neutral-900 relative order-2 lg:order-1" data-copy>
+                    <div class="overflow-x-auto h-full">
+                        <pre class="p-8 md:p-10 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">// One-line conversion
 $lunarDate = toLunarDate(
     CarbonImmutable::now()
         ->setTimezone('Asia/Phnom_Penh')
@@ -1570,208 +343,92 @@ $lunarDate = toLunarDate(
 // Display the formatted string
 echo $lunarDate->toString();
 
-// Output example:
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ
-// ឆ្នាំឆ្លូវ ត្រីស័ក
-// ពុទ្ធសករាជ ២៥៦៥
+// ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 
 // Use directly in Blade
 {{ toLunarDate($date)->toString() }}</code></pre>
-                            </div>
-                        </div>
                     </div>
                 </div>
+                <div class="border-r border-b border-neutral-200 p-8 md:p-10 order-1 lg:order-2">
+                    <div class="font-mono text-xs uppercase text-neutral-500 mb-4">02 — Helper function</div>
+                    <h3 class="font-serif text-3xl mb-4">Quick &amp; simple conversion</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-6">For Blade templates, views, and rapid prototyping. A single global call, no setup.</p>
+                    <ul class="space-y-3 text-sm text-neutral-700">
+                        <li class="flex gap-3"><span class="text-accent">—</span> Zero configuration, available globally</li>
+                        <li class="flex gap-3"><span class="text-accent">—</span> Returns a complete formatted Khmer date string</li>
+                        <li class="flex gap-3"><span class="text-accent">—</span> Clean, readable syntax for templates</li>
+                    </ul>
+                    <p class="mt-6 pt-6 border-t border-neutral-200 text-sm text-neutral-500"><span class="font-medium text-neutral-900">Best for:</span> Blade templates, quick displays, emails, PDF generation.</p>
+                </div>
             </div>
+        </div>
 
-            <!-- Call to Action -->
-            <div class="text-center mt-20 pt-12 border-t border-gray-200">
-                <h3 class="text-2xl font-bold text-gray-900 mb-4">Ready to explore more?</h3>
-                <p class="text-gray-600 mb-8 max-w-2xl mx-auto">
-                    Check out our comprehensive documentation for advanced usage patterns, API reference, and detailed examples
-                </p>
-                <a href="documentation.html" class="inline-flex items-center gap-2 bg-gradient-to-r from-[#3FFF96] to-[#0d4f3c] text-white px-10 py-4 rounded-xl font-semibold hover:from-[#1a1a2e] hover:to-[#0d4f3c] transition-all duration-300 shadow-lg hover:shadow-xl hover:-translate-y-1">
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"/>
-                    </svg>
-                    View Full Documentation
-                    <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                    </svg>
-                </a>
+        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <div class="border-t border-neutral-200 pt-12 flex flex-col sm:flex-row sm:items-end sm:justify-between gap-6">
+                <div>
+                    <h3 class="font-serif text-3xl">Ready to explore more?</h3>
+                    <p class="mt-2 text-neutral-600 max-w-xl">Advanced usage patterns, the full API reference, and detailed examples.</p>
+                </div>
+                <a href="documentation.html" class="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-7 py-3.5 text-sm font-medium hover:bg-neutral-700 whitespace-nowrap">View Documentation <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
             </div>
         </div>
     </section>
 
-    <!-- About Section -->
-    <section class="py-24 bg-gradient-to-b from-white via-gray-50 to-white relative overflow-hidden">
-        <!-- Decorative Background Elements -->
-        <div class="absolute top-20 right-10 opacity-5 rotate-slow">
-            <svg class="w-64 h-64" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-            </svg>
-        </div>
-        <div class="absolute bottom-20 left-10 opacity-5 rotate-slow" style="animation-direction: reverse;">
-            <svg class="w-48 h-48" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/>
-            </svg>
-        </div>
-
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <!-- Section Header -->
-            <div class="text-center mb-20 about-item" data-order="header">
-                <div class="inline-block mb-6">
-                    <span class="inline-flex items-center gap-2 bg-gradient-to-r from-[#d4fff0] to-[#f0fff8] text-[#1a1a2e] px-5 py-2.5 rounded-full text-sm font-semibold shadow-sm">
-                        <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24">
-                            <path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>
-                        </svg>
-                        Traditional Khmer Astronomy
-                    </span>
-                </div>
-                <h2 class="text-5xl md:text-6xl font-bold text-gray-900 mb-8">
-                    The Khmer <span class="khmer-text gradient-text-animated">ចន្ទគតិ</span> System
-                </h2>
-                <p class="text-xl md:text-2xl text-gray-600 max-w-4xl mx-auto leading-relaxed">
-                    For over a millennium, Cambodia has used a sophisticated lunisolar calendar that harmonizes the rhythms of the moon and sun, guiding everything from rice planting to sacred ceremonies
-                </p>
+    <!-- Understanding the Calendar -->
+    <section class="border-b border-neutral-200">
+        <div class="max-w-6xl mx-auto px-6 py-20 md:py-28">
+            <div class="flex items-center gap-2 mb-6">
+                <span class="inline-block w-2 h-2 bg-accent"></span>
+                <span class="font-mono text-xs uppercase text-neutral-500">Traditional Khmer astronomy</span>
             </div>
+            <h2 class="font-serif text-4xl md:text-6xl leading-tight">The Khmer ចន្ទគតិ system</h2>
+            <p class="mt-6 max-w-3xl text-lg text-neutral-600 leading-relaxed">
+                For over a millennium, Cambodia has used a sophisticated lunisolar calendar that harmonizes the rhythms of the moon and sun — guiding everything from rice planting to sacred ceremonies.
+            </p>
 
-            <!-- Main Content Grid -->
-            <div class="grid lg:grid-cols-2 gap-10 mb-16">
-                <!-- Left Column: Heritage & History -->
-                <div class="about-item" data-order="1">
-                    <div class="bg-white rounded-3xl p-10 shadow-md border border-gray-100 h-full hover:shadow-lg transition-shadow duration-300">
-                        <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#3FFF96] via-[#0d4f3c] to-[#d4fff0] rounded-2xl flex items-center justify-center shadow">
-                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253"/>
-                                </svg>
-                            </div>
-                            <h3 class="text-3xl font-bold text-gray-900">Heritage & Precision</h3>
-                        </div>
+            <div class="grid lg:grid-cols-2 gap-12 lg:gap-16 mt-16">
+                <div>
+                    <h3 class="font-serif text-3xl mb-5">Heritage &amp; precision</h3>
+                    <div class="space-y-4 text-neutral-600 leading-relaxed">
+                        <p>The Khmer lunar calendar, known as <span class="font-medium text-neutral-900">ចន្ទគតិ</span> (Chântôkôtĕ), represents centuries of astronomical observation and mathematical refinement by Cambodian scholars and monks.</p>
+                        <p>This lunisolar system synchronizes two cycles: the <span class="text-neutral-900 font-medium">lunar month</span> (29–30 days) based on moon phases, and the <span class="text-neutral-900 font-medium">solar year</span> (~365.25 days) tracking Earth's orbit.</p>
+                    </div>
+                    <div class="mt-6 border-l-2 border-accent pl-5 py-1">
+                        <h4 class="font-medium text-neutral-900 mb-1">Why it matters</h4>
+                        <p class="text-sm text-neutral-600 leading-relaxed">Traditional Cambodian life revolves around this calendar — determining planting seasons and celebrating បុណ្យភ្ជុំបិណ្ឌ (Pchum Ben), បុណ្យចូលឆ្នាំខ្មែរ (Khmer New Year), and countless cultural events.</p>
+                    </div>
+                    <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1.5 mt-6 text-sm font-medium border-b-2 border-accent pb-0.5 hover:border-neutral-900">Explore interactive calendar <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+                </div>
 
-                        <div class="space-y-6">
-                            <p class="text-gray-700 leading-relaxed text-lg">
-                                The Khmer lunar calendar, known as <span class="khmer-text font-semibold text-[#3FFF96]">ចន្ទគតិ</span> (Chântôkôtĕ), represents centuries of astronomical observations and mathematical refinement by Cambodian scholars and monks.
-                            </p>
-
-                            <p class="text-gray-700 leading-relaxed">
-                                This lunisolar system masterfully synchronizes two celestial cycles: the <strong>lunar month</strong> (29-30 days) based on moon phases, and the <strong>solar year</strong> (approximately 365.25 days) tracking Earth's orbit around the sun.
-                            </p>
-
-                            <div class="bg-gradient-to-br from-[#f0fff8] to-[#d4fff0] rounded-2xl p-6 border-l-4 border-[#3FFF96]">
-                                <div class="flex items-start gap-3">
-                                    <svg class="w-6 h-6 text-[#3FFF96] flex-shrink-0 mt-1" fill="currentColor" viewBox="0 0 20 20">
-                                        <path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"/>
-                                    </svg>
-                                    <div>
-                                        <h4 class="font-bold text-gray-900 mb-2">Why It Matters</h4>
-                                        <p class="text-gray-700 text-sm leading-relaxed">
-                                            Traditional Cambodian life revolves around this calendar—determining planting seasons, celebrating <span class="khmer-text">បុណ្យភ្ជុំបិណ្ឌ</span> (Pchum Ben), <span class="khmer-text">បុណ្យចូលឆ្នាំខ្មែរ</span> (Khmer New Year), and countless other cultural events.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-
-                        <div class="pt-6 mt-8 border-t border-gray-200">
-                            <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank"
-                               class="inline-flex items-center gap-2 text-[#3FFF96] hover:text-[#0d4f3c] font-bold transition-all group">
-                                <span>Explore Interactive Calendar</span>
-                                <svg class="w-5 h-5 group-hover:translate-x-1 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7l5 5m0 0l-5 5m5-5H6"/>
-                                </svg>
-                            </a>
+                <div class="border-t border-l border-neutral-200">
+                    <div class="border-r border-b border-neutral-200 p-6 flex gap-5">
+                        <span class="font-mono text-xs text-neutral-400 pt-1 shrink-0 w-8">BE</span>
+                        <div>
+                            <h4 class="font-medium text-neutral-900 mb-1">Buddhist Era years</h4>
+                            <p class="text-sm text-neutral-600 leading-relaxed">Counted from the parinirvana of Buddha (543 BCE) — 2025 CE equals BE 2568/2569. The transition occurs on Visakha Bochea, not January 1st.</p>
                         </div>
                     </div>
-                </div>
-
-                <!-- Right Column: Technical Components -->
-                <div class="about-item" data-order="2">
-                    <div class="bg-gradient-to-br from-[#f0fff8] via-[#d4fff0] to-[#f0fff8] rounded-3xl p-10 shadow-md border border-[#d4fff0] h-full hover:shadow-lg transition-shadow duration-300">
-                        <div class="flex items-center gap-4 mb-8">
-                            <div class="w-14 h-14 bg-gradient-to-br from-[#0d4f3c] via-[#3FFF96] to-[#1a1a2e] rounded-2xl flex items-center justify-center shadow">
-                                <svg class="w-7 h-7 text-white" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                                </svg>
-                            </div>
-                            <h3 class="text-3xl font-bold text-gray-900">Calendar Components</h3>
-                        </div>
-
-                        <div class="space-y-4">
-                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#3FFF96] to-[#1a1a2e] flex items-center justify-center shadow">
-                                        <span class="text-white font-bold text-sm">BE</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Buddhist Era Years</h4>
-                                        <p class="text-sm text-gray-600 leading-relaxed">
-                                            Counted from the parinirvana of Buddha (543 BCE), making 2025 CE equivalent to BE 2568/2569. The transition happens on Visakha Bochea day, not January 1st.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#0d4f3c] to-[#3FFF96] flex items-center justify-center shadow">
-                                        <span class="text-white font-bold text-sm">13</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Leap Months (Adhikameas)</h4>
-                                        <p class="text-sm text-gray-600 leading-relaxed">
-                                            To keep lunar and solar years aligned, a 13th month is added approximately every 2-3 years based on complex astronomical calculations. This prevents seasons from drifting over time.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#d4fff0] to-[#0d4f3c] flex items-center justify-center shadow">
-                                        <span class="text-[#1a1a2e] font-bold text-sm">🐉</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Zodiac Animal Cycle</h4>
-                                        <p class="text-sm text-gray-600 leading-relaxed">
-                                            Each year is associated with one of 12 animals (rat, ox, tiger, rabbit, dragon, snake, horse, goat, monkey, rooster, dog, pig) in a repeating cycle.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
-
-                            <div class="group bg-white/80 backdrop-blur-sm p-5 rounded-2xl shadow hover:shadow-sm transition-all duration-300 hover:-translate-y-1">
-                                <div class="flex items-start gap-4">
-                                    <div class="flex-shrink-0 w-8 h-8 rounded-xl bg-gradient-to-br from-[#3FFF96] to-[#0d4f3c] flex items-center justify-center shadow">
-                                        <span class="text-white font-bold text-sm">🌙</span>
-                                    </div>
-                                    <div class="flex-1">
-                                        <h4 class="font-bold text-gray-900 mb-2 text-lg">Moon Phases</h4>
-                                        <p class="text-sm text-gray-600 leading-relaxed">
-                                            Each month splits into <span class="khmer-text font-semibold">កើន</span> (waxing, days 1-15) and <span class="khmer-text font-semibold">រោច</span> (waning, days 1-14/15), marking the moon's journey from new to full and back.
-                                        </p>
-                                    </div>
-                                </div>
-                            </div>
+                    <div class="border-r border-b border-neutral-200 p-6 flex gap-5">
+                        <span class="font-mono text-xs text-neutral-400 pt-1 shrink-0 w-8">13</span>
+                        <div>
+                            <h4 class="font-medium text-neutral-900 mb-1">Leap months (Adhikameas)</h4>
+                            <p class="text-sm text-neutral-600 leading-relaxed">To keep lunar and solar years aligned, a 13th month is added roughly every 2–3 years, preventing seasonal drift.</p>
                         </div>
                     </div>
-                </div>
-            </div>
-
-            <!-- Implementation Highlight -->
-            <div class="about-item" data-order="3">
-                <div class="bg-gradient-to-r from-[#3FFF96] via-[#0d4f3c] to-[#1a1a2e] rounded-3xl p-12 shadow-md text-white">
-                    <div class="max-w-4xl mx-auto text-center">
-                        <div class="inline-flex items-center gap-2 bg-white/20 backdrop-blur-sm px-4 py-2 rounded-full text-sm font-semibold mb-6">
-                            <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20">
-                                <path fill-rule="evenodd" d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z" clip-rule="evenodd"/>
-                            </svg>
-                            Why Choose Chhankitek
+                    <div class="border-r border-b border-neutral-200 p-6 flex gap-5">
+                        <span class="font-mono text-xs text-neutral-400 pt-1 shrink-0 w-8">12</span>
+                        <div>
+                            <h4 class="font-medium text-neutral-900 mb-1">Zodiac animal cycle</h4>
+                            <p class="text-sm text-neutral-600 leading-relaxed">Each year maps to one of 12 animals — rat, ox, tiger, rabbit, dragon, snake, horse, goat, monkey, rooster, dog, pig.</p>
                         </div>
-                        <h3 class="text-4xl md:text-5xl font-bold mb-6">Precision Meets Tradition</h3>
-                        <p class="text-xl text-white/90 leading-relaxed mb-8 max-w-3xl mx-auto">
-                            Chhankitek faithfully implements traditional Khmer astronomical algorithms, preserving centuries of mathematical and celestial knowledge in modern PHP code. Every conversion accounts for complex leap year calculations, Buddhist Era year transitions, moon phase cycles, and zodiac animal years—delivering culturally accurate results your applications can depend on.
-                        </p>
+                    </div>
+                    <div class="border-r border-b border-neutral-200 p-6 flex gap-5">
+                        <span class="font-mono text-xs text-neutral-400 pt-1 shrink-0 w-8">☾</span>
+                        <div>
+                            <h4 class="font-medium text-neutral-900 mb-1">Moon phases</h4>
+                            <p class="text-sm text-neutral-600 leading-relaxed">Each month splits into <span class="font-medium">កើត</span> (waxing, days 1–15) and <span class="font-medium">រោច</span> (waning, days 1–14/15).</p>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -1779,341 +436,92 @@ echo $lunarDate->toString();
     </section>
     </main>
 
-    <!-- Scroll to top button -->
-    <button class="scroll-to-top" id="scroll-to-top" aria-label="Scroll to top">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"/>
-        </svg>
-    </button>
-
     <!-- Footer -->
-    <footer class="bg-gray-900 text-white py-12" role="contentinfo">
-        <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 gap-8 mb-8">
-                <div>
-                    <h3 class="text-lg sm:text-xl font-bold mb-4">Chhankitek</h3>
-                    <p class="text-gray-400 text-sm">
-                        Laravel package for Khmer Lunar calendar conversions
-                    </p>
+    <footer class="bg-neutral-900 text-neutral-400" role="contentinfo">
+        <div class="max-w-6xl mx-auto px-6 py-16">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-10">
+                <div class="col-span-2 md:col-span-1">
+                    <span class="font-mono text-sm font-semibold uppercase text-white">Chhankitek</span>
+                    <p class="text-sm mt-3 leading-relaxed">PHP package for Khmer Lunar calendar conversions — works with or without Laravel.</p>
                 </div>
                 <div>
-                    <h3 class="text-base sm:text-lg font-semibold mb-4">Resources</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="documentation.html" class="text-gray-400 hover:text-white transition-colors">Documentation</a></li>
-                        <li><a href="https://github.com/HELMAB/chhankitek" target="_blank" class="text-gray-400 hover:text-white transition-colors">GitHub</a></li>
-                        <li><a href="https://packagist.org/packages/asorasoft/chhankitek" target="_blank" class="text-gray-400 hover:text-white transition-colors">Packagist</a></li>
-                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CHANGELOG.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">Changelog</a></li>
+                    <h3 class="font-mono text-xs uppercase text-neutral-500 mb-4">Resources</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="documentation.html" class="hover:text-white">Documentation</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="hover:text-white">GitHub</a></li>
+                        <li><a href="https://packagist.org/packages/asorasoft/chhankitek" target="_blank" rel="noopener noreferrer" class="hover:text-white">Packagist</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="hover:text-white">Changelog</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">Community</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="https://github.com/HELMAB/chhankitek/issues" target="_blank" class="text-gray-400 hover:text-white transition-colors">Report Issues</a></li>
-                        <li><a href="https://github.com/HELMAB/chhankitek/discussions" target="_blank" class="text-gray-400 hover:text-white transition-colors">Discussions</a></li>
-                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">Contributing</a></li>
-                        <li><a href="mailto:mabhelitc@gmail.com" class="text-gray-400 hover:text-white transition-colors">Contact</a></li>
+                    <h3 class="font-mono text-xs uppercase text-neutral-500 mb-4">Community</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li><a href="https://github.com/HELMAB/chhankitek/issues" target="_blank" rel="noopener noreferrer" class="hover:text-white">Report Issues</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/discussions" target="_blank" rel="noopener noreferrer" class="hover:text-white">Discussions</a></li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="hover:text-white">Contributing</a></li>
+                        <li><a href="mailto:mabhelitc@gmail.com" class="hover:text-white">Contact</a></li>
                     </ul>
                 </div>
                 <div>
-                    <h3 class="text-lg font-semibold mb-4">About</h3>
-                    <ul class="space-y-2 text-sm">
-                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/LICENSE.md" target="_blank" class="text-gray-400 hover:text-white transition-colors">MIT License</a></li>
-                        <li><a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" class="text-gray-400 hover:text-white transition-colors">Khmer Calendar</a></li>
-                        <li class="text-gray-400">PHP ^8.2</li>
-                        <li class="text-gray-400">Laravel 10, 11, 12</li>
+                    <h3 class="font-mono text-xs uppercase text-neutral-500 mb-4">Requirements</h3>
+                    <ul class="space-y-2.5 text-sm">
+                        <li>PHP ^8.2</li>
+                        <li>Carbon ^2 | ^3</li>
+                        <li>Laravel 10–13 (optional)</li>
+                        <li><a href="https://github.com/HELMAB/chhankitek/blob/master/LICENSE.md" target="_blank" rel="noopener noreferrer" class="hover:text-white">MIT License</a></li>
                     </ul>
                 </div>
             </div>
-            <div class="border-t border-gray-800 pt-8 text-center">
-                <p class="text-gray-400 text-sm">
-                    &copy; 2024 Chhankitek. Released under the MIT License.
-                </p>
+            <div class="border-t border-neutral-800 mt-12 pt-8 flex flex-col sm:flex-row justify-between gap-2 text-sm">
+                <p>&copy; 2024 Chhankitek. Released under the MIT License.</p>
+                <p class="text-neutral-500"></p>
             </div>
         </div>
     </footer>
 
-    <!-- Highlight.js Script -->
+    <!-- Scripts -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/highlight.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/highlightjs-line-numbers.js/2.8.0/highlightjs-line-numbers.min.js"></script>
+    <script src="https://unpkg.com/lucide@latest"></script>
     <script>
-        // Initialize highlight.js
+        lucide.createIcons();
         hljs.highlightAll();
-        hljs.initLineNumbersOnLoad();
 
-        // Add copy buttons to code blocks
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('pre code').forEach(function(codeBlock) {
-                const pre = codeBlock.parentElement;
-                const wrapper = document.createElement('div');
-                wrapper.className = 'code-block-wrapper';
-
-                pre.parentNode.insertBefore(wrapper, pre);
-                wrapper.appendChild(pre);
-
-                const button = document.createElement('button');
-                button.className = 'copy-button';
-                button.setAttribute('aria-label', 'Copy code to clipboard');
-                button.innerHTML = `
-                    <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                    </svg>
-                    <span>Copy</span>
-                `;
-
-                button.addEventListener('click', function() {
-                    const code = codeBlock.textContent;
-                    navigator.clipboard.writeText(code).then(function() {
-                        button.setAttribute('aria-label', 'Code copied to clipboard');
-                        button.innerHTML = `
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"/>
-                            </svg>
-                            <span>Copied!</span>
-                        `;
-                        button.classList.add('copied');
-
-                        setTimeout(function() {
-                            button.setAttribute('aria-label', 'Copy code to clipboard');
-                            button.innerHTML = `
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Copy</span>
-                            `;
-                            button.classList.remove('copied');
-                        }, 2000);
-                    }).catch(function(err) {
-                        console.error('Failed to copy code:', err);
-                        button.innerHTML = `
-                            <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/>
-                            </svg>
-                            <span>Failed</span>
-                        `;
-                        setTimeout(function() {
-                            button.setAttribute('aria-label', 'Copy code to clipboard');
-                            button.innerHTML = `
-                                <svg fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16H6a2 2 0 01-2-2V6a2 2 0 012-2h8a2 2 0 012 2v2m-6 12h8a2 2 0 002-2v-8a2 2 0 00-2-2h-8a2 2 0 00-2 2v8a2 2 0 002 2z"/>
-                                </svg>
-                                <span>Copy</span>
-                            `;
-                        }, 2000);
-                    });
+        // Copy buttons (no transitions / motion)
+        document.querySelectorAll('[data-copy]').forEach(function (box) {
+            var pre = box.querySelector('pre');
+            if (!pre) return;
+            var btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = 'absolute top-2 right-2 z-10 font-mono text-[11px] uppercase text-neutral-400 hover:text-white border border-neutral-700 px-2 py-1';
+            btn.textContent = 'Copy';
+            btn.setAttribute('aria-label', 'Copy code to clipboard');
+            btn.addEventListener('click', function () {
+                navigator.clipboard.writeText(pre.innerText).then(function () {
+                    btn.textContent = 'Copied';
+                    setTimeout(function () { btn.textContent = 'Copy'; }, 2000);
                 });
-
-                wrapper.appendChild(button);
             });
+            box.appendChild(btn);
         });
 
-        // Smooth scrolling for anchor links
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // Intersection Observer for usage section animations
-        const observerOptions = {
-            threshold: 0.2,
-            rootMargin: '0px 0px -100px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const item = entry.target;
-                    const order = item.getAttribute('data-order');
-
-                    item.classList.add('visible');
-
-                    // Animate based on order
-                    if (order === '1') {
-                        const codeBlock = item.querySelector('.order-2');
-                        const description = item.querySelector('.order-1');
-
-                        setTimeout(() => {
-                            if (codeBlock) codeBlock.classList.add('animate-slide-in-left');
-                        }, 100);
-
-                        setTimeout(() => {
-                            if (description) description.classList.add('animate-slide-in-right');
-                        }, 300);
-                    } else if (order === '2') {
-                        const description = item.querySelector('.order-1, div:first-child');
-                        const codeBlock = item.querySelector('.order-2, div:last-child');
-
-                        setTimeout(() => {
-                            if (description) description.classList.add('animate-slide-in-left');
-                        }, 100);
-
-                        setTimeout(() => {
-                            if (codeBlock) codeBlock.classList.add('animate-slide-in-right');
-                        }, 300);
-                    }
-
-                    // Unobserve after animation
-                    observer.unobserve(item);
-                }
-            });
-        }, observerOptions);
-
-        // Observe all usage items
-        document.querySelectorAll('.usage-item').forEach(item => {
-            observer.observe(item);
-        });
-
-        // Intersection Observer for About section animations
-        const aboutObserverOptions = {
-            threshold: 0.15,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const aboutObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    const item = entry.target;
-                    const order = item.getAttribute('data-order');
-
-                    item.classList.add('visible');
-
-                    // Animate based on order
-                    if (order === 'header') {
-                        setTimeout(() => {
-                            item.classList.add('animate-fade-in-scale');
-                        }, 100);
-                    } else if (order === '1') {
-                        setTimeout(() => {
-                            item.classList.add('animate-slide-in-left');
-                        }, 200);
-                    } else if (order === '2') {
-                        setTimeout(() => {
-                            item.classList.add('animate-slide-in-right');
-                        }, 400);
-                    } else if (order === '3') {
-                        setTimeout(() => {
-                            item.classList.add('animate-slide-up');
-                        }, 600);
-                    } else if (order === '4') {
-                        setTimeout(() => {
-                            item.classList.add('animate-fade-in-scale');
-                        }, 800);
-                    }
-
-                    // Unobserve after animation
-                    aboutObserver.unobserve(item);
-                }
-            });
-        }, aboutObserverOptions);
-
-        // Observe all about items
-        document.querySelectorAll('.about-item').forEach(item => {
-            aboutObserver.observe(item);
-        });
-
-        // Mobile menu toggle with improved accessibility
-        const mobileMenuButton = document.getElementById('mobile-menu-button');
-        const mobileMenu = document.getElementById('mobile-menu');
-
+        // Mobile menu toggle
+        var mobileMenuButton = document.getElementById('mobile-menu-button');
+        var mobileMenu = document.getElementById('mobile-menu');
         if (mobileMenuButton && mobileMenu) {
-            mobileMenuButton.addEventListener('click', function() {
-                const isExpanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
-                mobileMenuButton.setAttribute('aria-expanded', !isExpanded);
-                mobileMenu.classList.toggle('show');
+            mobileMenuButton.addEventListener('click', function () {
+                var expanded = mobileMenuButton.getAttribute('aria-expanded') === 'true';
+                mobileMenuButton.setAttribute('aria-expanded', String(!expanded));
+                mobileMenu.classList.toggle('hidden');
             });
-
-            // Close mobile menu when clicking on a link
-            const mobileMenuLinks = mobileMenu.querySelectorAll('a');
-            mobileMenuLinks.forEach(link => {
-                link.addEventListener('click', function() {
+            mobileMenu.querySelectorAll('a').forEach(function (link) {
+                link.addEventListener('click', function () {
                     mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    mobileMenu.classList.remove('show');
+                    mobileMenu.classList.add('hidden');
                 });
-            });
-
-            // Close mobile menu when pressing Escape
-            document.addEventListener('keydown', function(e) {
-                if (e.key === 'Escape' && mobileMenu.classList.contains('show')) {
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    mobileMenu.classList.remove('show');
-                    mobileMenuButton.focus();
-                }
-            });
-
-            // Close mobile menu when clicking outside
-            document.addEventListener('click', function(e) {
-                if (!mobileMenu.contains(e.target) && !mobileMenuButton.contains(e.target) && mobileMenu.classList.contains('show')) {
-                    mobileMenuButton.setAttribute('aria-expanded', 'false');
-                    mobileMenu.classList.remove('show');
-                }
             });
         }
-
-        // Scroll to top button
-        const scrollToTopButton = document.getElementById('scroll-to-top');
-
-        if (scrollToTopButton) {
-            // Show/hide scroll to top button based on scroll position
-            window.addEventListener('scroll', function() {
-                if (window.pageYOffset > 300) {
-                    scrollToTopButton.classList.add('show');
-                } else {
-                    scrollToTopButton.classList.remove('show');
-                }
-            });
-
-            // Scroll to top when clicked
-            scrollToTopButton.addEventListener('click', function() {
-                window.scrollTo({
-                    top: 0,
-                    behavior: 'smooth'
-                });
-            });
-
-            // Handle keyboard navigation
-            scrollToTopButton.addEventListener('keydown', function(e) {
-                if (e.key === 'Enter' || e.key === ' ') {
-                    e.preventDefault();
-                    window.scrollTo({
-                        top: 0,
-                        behavior: 'smooth'
-                    });
-                }
-            });
-        }
-
-        // Improve copy button accessibility and feedback
-        document.addEventListener('DOMContentLoaded', function() {
-            // Announce copy success to screen readers
-            const copyAnnouncer = document.createElement('div');
-            copyAnnouncer.setAttribute('role', 'status');
-            copyAnnouncer.setAttribute('aria-live', 'polite');
-            copyAnnouncer.className = 'sr-only';
-            document.body.appendChild(copyAnnouncer);
-
-            document.querySelectorAll('.copy-button').forEach(button => {
-                button.addEventListener('click', function() {
-                    copyAnnouncer.textContent = 'Code copied to clipboard';
-                    setTimeout(() => {
-                        copyAnnouncer.textContent = '';
-                    }, 3000);
-                });
-            });
-        });
-
-        // Preload critical resources
-        window.addEventListener('load', function() {
-            document.body.classList.remove('loading');
-        });
     </script>
 </body>
 </html>

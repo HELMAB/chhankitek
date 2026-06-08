@@ -17,13 +17,17 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0|^11.0|^12.0|^13.0"
+        "nesbot/carbon": "^2.0|^3.0"
     },
     "require-dev": {
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0",
         "laravel/pint": "^1.0",
         "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
         "pestphp/pest": "^3.0",
         "phpunit/phpunit": "^10.0|^11.0|^12.0"
+    },
+    "suggest": {
+        "illuminate/support": "Enables the Laravel facade, service provider, and persistent cache (LaravelCache)."
     },
     "autoload": {
         "psr-4": {

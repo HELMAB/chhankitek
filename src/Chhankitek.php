@@ -4,6 +4,9 @@ declare(strict_types=1);
 
 namespace Asorasoft\Chhankitek;
 
+use Asorasoft\Chhankitek\Cache\ArrayCache;
+use Asorasoft\Chhankitek\Cache\CacheRepository;
+use Asorasoft\Chhankitek\Cache\LaravelCache;
 use Asorasoft\Chhankitek\Calendar\Constant;
 use Asorasoft\Chhankitek\Calendar\KhmerLunarDate;
 use Asorasoft\Chhankitek\Calendar\LunarDate;
@@ -17,6 +20,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Support\Facades\Cache;
 use InvalidArgumentException;
 use RuntimeException;
+use Throwable;
 
 /**
  * Class Chhankitek
@@ -31,7 +35,9 @@ final class Chhankitek
 
     public CarbonImmutable $khNewYearDateTime;
 
-    public function __construct(CarbonImmutable $target)
+    private CacheRepository $cache;
+
+    public function __construct(CarbonImmutable $target, ?CacheRepository $cache = null)
     {
         $formatted = CarbonImmutable::createFromFormat('!d/m/Y', $target->format('d/m/Y'), 'Asia/Phnom_Penh');
 
@@ -39,6 +45,7 @@ final class Chhankitek
             throw new InvalidArgumentException('Failed to create CarbonImmutable from given date.');
         }
 
+        $this->cache = $cache ?? $this->resolveDefaultCache();
         $this->target = $formatted;
         $this->formatKhmerDate = $this->khmerLunarDate($this->target);
 
@@ -345,7 +352,7 @@ final class Chhankitek
         $lunarMonths = (new Constant)->lunarMonths;
         $date = CarbonImmutable::createFromFormat('!d/m/Y', "1/1/{$gregorianYear}", 'Asia/Phnom_Penh');
 
-        return Cache::remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
+        return $this->cache->remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
             for ($i = 0; $i < 365; $i++) {
                 $lunarDate = $this->findLunarDate($date);
                 if ($lunarDate->getMonth() === $lunarMonths['ពិសាខ'] && $lunarDate->getDay() === 14) {
@@ -596,7 +603,7 @@ final class Chhankitek
 
         $khmerMonth = $lunarMonths['បុស្ស'];
 
-        return Cache::remember('chhakitek_lunar_date_'.$target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
+        return $this->cache->remember('chhakitek_lunar_date_'.$target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
             // Move epoch close to the target year
             if ($target->greaterThan($epochDateTime)) {
                 while (true) {
@@ -682,5 +689,22 @@ final class Chhankitek
             - ((($lunarLerngSakMonth - 4) * 30) + $lunarLerngSakDay);
 
         return $epochLerngSak->subDays($diffFromEpoch + $numberNewYearDay - 1);
+    }
+
+    /**
+     * Use Laravel's persistent cache when running inside a bound application,
+     * otherwise fall back to the framework-free in-memory cache.
+     */
+    private function resolveDefaultCache(): CacheRepository
+    {
+        try {
+            if (class_exists(Cache::class) && Cache::getFacadeApplication() !== null) {
+                return new LaravelCache;
+            }
+        } catch (Throwable) {
+            // Laravel is unavailable; fall through to the in-memory cache.
+        }
+
+        return new ArrayCache;
     }
 }

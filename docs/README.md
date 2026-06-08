@@ -1,6 +1,6 @@
 # Chhankitek Documentation Site
 
-This directory contains the static documentation website for the Chhankitek Laravel package.
+This directory contains the static documentation website for the Chhankitek PHP package.
 
 ## Tech Stack
 

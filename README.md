@@ -8,7 +8,7 @@
     <a href="LICENSE.md"><img src="https://img.shields.io/packagist/l/asorasoft/chhankitek.svg?style=flat-square" alt="License"></a>
 </p>
 
-<p align="center">A Laravel package to convert dates to Lunar (Chhankitek) format. <a href="https://khmer-calendar.tovnah.com/calendar">Learn more about Khmer calendar</a>.</p>
+<p align="center">A PHP package to convert dates to Lunar (Chhankitek) format — works with or without Laravel. <a href="https://khmer-calendar.tovnah.com/calendar">Learn more about Khmer calendar</a>.</p>
 
 </div>
 
@@ -74,6 +74,37 @@ Alternatively, you can use the `toLunarDate` helper function:
 toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
+## Pure PHP Usage (without Laravel)
+
+The package works in any PHP project — Laravel is **not** required. The only runtime dependency is [`nesbot/carbon`](https://github.com/briannesbitt/Carbon).
+
+```bash
+composer require asorasoft/chhankitek
+```
+
+Instantiate `Chhankitek` directly and read the lunar date from the `formatKhmerDate` property:
+
+```php
+require 'vendor/autoload.php';
+
+use Asorasoft\Chhankitek\Chhankitek;
+use Carbon\CarbonImmutable;
+
+$target = CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh');
+
+$toLunarDate = (new Chhankitek($target))->formatKhmerDate;
+
+$toLunarDate->toString();      // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
+$toLunarDate->getLunarMonth(); // ចេត្រ...
+$toLunarDate->getLunarYear();  // ២៥៦៥...
+```
+
+The `toLunarDate()` helper is also available outside Laravel:
+
+```php
+toLunarDate(CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
+```
+
 ## Khmer Numerals
 
 Convert Arabic numerals to their Khmer representation with the `HasKhmerNumberConversion` trait:
@@ -95,18 +126,58 @@ class SomeController
 
 ## Caching
 
-The Chhankitek package implements caching to improve performance when converting dates to lunar format. When you convert a date using the package, the result is cached for one year (365 days) to minimize computational overhead for frequently accessed dates.
+The package caches converted dates for one year (365 days) to minimize computational overhead for frequently accessed dates. The cache is **swappable** via the `CacheRepository` interface, so it works the same whether or not you use Laravel.
 
-### How caching works
+### Default behavior
 
-- Each converted date is cached
-- Cache duration: 365 days (60 * 60 * 24 * 365 seconds)
-- The package leverages Laravel's cache system, so it will use whatever cache driver you've configured for your application
+- **Inside Laravel** — automatically uses Laravel's cache system (`LaravelCache`), so it respects whatever cache driver your application is configured with. No setup required.
+- **Pure PHP** — falls back to an in-memory cache (`ArrayCache`) that de-duplicates lookups within a single request or script run.
+
+### Providing your own cache
+
+Pass any implementation of `Asorasoft\Chhankitek\Cache\CacheRepository` as the second constructor argument:
+
+```php
+use Asorasoft\Chhankitek\Cache\ArrayCache;
+use Asorasoft\Chhankitek\Cache\CacheRepository;
+use Asorasoft\Chhankitek\Chhankitek;
+use Carbon\CarbonImmutable;
+
+// Use the bundled in-memory cache explicitly
+$toLunarDate = (new Chhankitek($target, new ArrayCache))->formatKhmerDate;
+
+// Or wire up your own (e.g. a PSR-16 adapter)
+final class Psr16Cache implements CacheRepository
+{
+    public function __construct(private \Psr\SimpleCache\CacheInterface $cache) {}
+
+    public function remember(string $key, int $ttl, callable $callback): mixed
+    {
+        if ($this->cache->has($key)) {
+            return $this->cache->get($key);
+        }
+
+        $value = $callback();
+        $this->cache->set($key, $value, $ttl);
+
+        return $value;
+    }
+}
+
+$toLunarDate = (new Chhankitek($target, new Psr16Cache($yourCache)))->formatKhmerDate;
+```
 
 ## Testing
 
 ```bash
 composer test
+```
+
+The test suite is split into two groups — run them individually if needed:
+
+```bash
+vendor/bin/pest --testsuite=PurePhp  # framework-free tests (no Laravel)
+vendor/bin/pest --testsuite=Laravel  # Laravel integration tests
 ```
 
 ## Changelog

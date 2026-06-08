@@ -2,13 +2,14 @@
 
 declare(strict_types=1);
 
+use Asorasoft\Chhankitek\Cache\CacheRepository;
 use Asorasoft\Chhankitek\Chhankitek;
 use Carbon\CarbonImmutable;
 
 if (! function_exists('toLunarDate')) {
-    function toLunarDate(CarbonImmutable $target)
+    function toLunarDate(CarbonImmutable $target, ?CacheRepository $cache = null)
     {
-        return (new Chhankitek($target))->formatKhmerDate;
+        return (new Chhankitek($target, $cache))->formatKhmerDate;
     }
 }
 
