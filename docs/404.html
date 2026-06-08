@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Language preference (set early to avoid a flash of untranslated content) -->
+    <script>
+        (function () {
+            var lang = localStorage.getItem('chhankitek.lang') || 'km';
+            document.documentElement.lang = lang;
+            document.documentElement.classList.add('i18n-pending');
+        })();
+    </script>
+    <style>html.i18n-pending body { visibility: hidden; }</style>
+
     <!-- Primary Meta Tags -->
-    <title>404 — Page Not Found | Chhankitek</title>
+    <title data-i18n="e404.title">404 — Page Not Found | Chhankitek</title>
     <meta name="title" content="404 — Page Not Found | Chhankitek">
     <meta name="description" content="Sorry, the page you're looking for doesn't exist. Return to the Chhankitek homepage or explore the documentation for Khmer Lunar calendar conversions.">
     <meta name="robots" content="noindex, nofollow">
@@ -84,14 +94,28 @@
                     <img src="favicon.svg" alt="" class="h-7 w-7">
                     <span class="font-mono text-sm font-semibold uppercase">Chhankitek</span>
                 </a>
-                <div class="hidden md:flex items-center gap-8">
-                    <a href="index.html" class="text-sm text-neutral-600 hover:text-neutral-900">Home</a>
-                    <a href="documentation.html" class="text-sm text-neutral-600 hover:text-neutral-900">Documentation</a>
-                    <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+                <div class="flex items-center gap-4 md:gap-8">
+                    <div class="hidden md:flex items-center gap-8">
+                        <a href="index.html" class="text-sm text-neutral-600 hover:text-neutral-900" data-i18n="nav.home">Home</a>
+                        <a href="documentation.html" class="text-sm text-neutral-600 hover:text-neutral-900" data-i18n="nav.documentation">Documentation</a>
+                        <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+                    </div>
+                    <div class="flex items-center border border-neutral-300 font-mono text-[11px]" role="group" data-i18n-attr="aria-label:lang.aria" aria-label="Select language">
+                        <button type="button" data-lang-btn="km" class="px-2.5 py-1">ខ្មែរ</button>
+                        <button type="button" data-lang-btn="en" class="px-2.5 py-1">EN</button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- AI translation notice (shown only for Khmer) -->
+    <div id="ai-translation-notice" class="hidden bg-accent/15 border-b border-neutral-200" role="status">
+        <div class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-center gap-2 text-center">
+            <i data-lucide="languages" class="h-4 w-4 text-neutral-600 shrink-0" aria-hidden="true"></i>
+            <p class="text-xs text-neutral-700" data-i18n="ai.notice">This Khmer text was translated by AI and may contain errors.</p>
+        </div>
+    </div>
 
     <!-- 404 Content -->
     <div class="relative isolate overflow-hidden flex-grow flex items-center border-b border-neutral-200">
@@ -99,15 +123,15 @@
         <div class="relative z-10 max-w-6xl mx-auto px-6 py-24 w-full">
             <div class="flex items-center gap-2 mb-6">
                 <span class="inline-block w-2 h-2 bg-accent"></span>
-                <span class="font-mono text-xs uppercase text-neutral-500">Error 404</span>
+                <span class="font-mono text-xs uppercase text-neutral-500" data-i18n="e404.kicker">Error 404</span>
             </div>
-            <h1 class="font-serif text-7xl sm:text-8xl md:text-9xl leading-[0.9]">Page not found</h1>
-            <p class="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed">
+            <h1 class="font-serif text-7xl sm:text-8xl md:text-9xl leading-[0.9]" data-i18n="e404.h1">Page not found</h1>
+            <p class="mt-6 max-w-xl text-lg text-neutral-600 leading-relaxed" data-i18n="e404.lead">
                 The page you're looking for doesn't exist. It may have been moved or deleted.
             </p>
             <div class="mt-10 flex flex-col sm:flex-row gap-3">
-                <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-7 py-3.5 text-sm font-medium hover:bg-neutral-700">Go Home</a>
-                <a href="documentation.html" class="inline-flex items-center justify-center gap-2 border border-neutral-300 px-7 py-3.5 text-sm font-medium hover:border-neutral-900">View Documentation <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
+                <a href="index.html" class="inline-flex items-center justify-center gap-2 bg-neutral-900 text-white px-7 py-3.5 text-sm font-medium hover:bg-neutral-700" data-i18n="e404.home">Go Home</a>
+                <a href="documentation.html" class="inline-flex items-center justify-center gap-2 border border-neutral-300 px-7 py-3.5 text-sm font-medium hover:border-neutral-900"><span data-i18n="e404.docs">View Documentation</span> <i data-lucide="arrow-right" class="h-4 w-4"></i></a>
             </div>
         </div>
     </div>
@@ -115,12 +139,13 @@
     <!-- Footer -->
     <footer class="bg-neutral-900 text-neutral-400" role="contentinfo">
         <div class="max-w-6xl mx-auto px-6 py-10 text-center">
-            <p class="text-sm">Chhankitek — PHP package for the Khmer Lunar calendar.</p>
-            <p class="text-sm text-neutral-500 mt-1">Released under the MIT License.</p>
+            <p class="text-sm" data-i18n="e404.ftr1">Chhankitek — PHP package for the Khmer Lunar calendar.</p>
+            <p class="text-sm text-neutral-500 mt-1" data-i18n="e404.ftr2">Released under the MIT License.</p>
         </div>
     </footer>
 
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="i18n.js"></script>
     <script>
         lucide.createIcons();
     </script>

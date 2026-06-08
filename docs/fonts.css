@@ -98,3 +98,18 @@ body {
         radial-gradient(circle at 40px 40px, rgba(55, 65, 81, 0.12) 2px, transparent 2px);
     background-size: 40px 40px, 40px 40px, 40px 40px, 40px 40px;
 }
+
+/* Grid/flex children default to min-width: auto, so a wide code block would
+   stretch its column past the viewport instead of scrolling. Allowing them to
+   shrink keeps the layout within the screen and lets the <pre> scroll. */
+.grid > *,
+.flex > * {
+    min-width: 0;
+}
+
+/* Code blocks: keep long lines on one line and scroll horizontally
+   within the <pre> itself rather than wrapping or overflowing the page. */
+pre {
+    overflow-x: auto;
+    white-space: pre;
+}
