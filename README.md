@@ -51,13 +51,15 @@ $toLunarDate = $this->chhankitek(Carbon\CarbonImmutable::now()->setTimezone('Asi
 $toLunarDate->toString(); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
+> **Timezone note:** `->setTimezone('Asia/Phnom_Penh')` ensures the correct Cambodian **date** is used when your server runs in a different timezone (e.g. UTC). Near midnight UTC, the calendar date differs from Cambodia's. You can omit it if `app.timezone` in `config/app.php` is already set to `Asia/Phnom_Penh`.
+
 ## Available Methods
 
 ```php
 // In your Laravel controller, use this trait
 use HasChhankitek;
 
-$toLunarDate = $this->chhankitek(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh'));
+$toLunarDate = $this->chhankitek(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')); // see timezone note above
 
 // Get specific lunar date components
 $toLunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ...
