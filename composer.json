@@ -17,13 +17,19 @@
     ],
     "require": {
         "php": "^8.2",
-        "illuminate/support": "^10.0|^11.0|^12.0"
+        "illuminate/support": "^10.0|^11.0|^12.0|^13.0"
     },
     "require-dev": {
         "laravel/pint": "^1.0",
+<<<<<<< HEAD
         "orchestra/testbench": "^9.0|^10.0",
         "pestphp/pest": "^3.0",
         "pestphp/pest-plugin-laravel": "^3.0"
+=======
+        "orchestra/testbench": "^8.0|^9.0|^10.0|^11.0",
+        "pestphp/pest": "^4.0",
+        "phpunit/phpunit": "^10.0|^11.0|^12.0"
+>>>>>>> 97a00310c5ae7b316cfb052e6891ed353e6c7282
     },
     "autoload": {
         "psr-4": {
@@ -40,15 +46,26 @@
     },
     "scripts": {
         "test": "vendor/bin/pest",
+<<<<<<< HEAD
         "test-coverage": "vendor/bin/pest --coverage",
+=======
+        "test-coverage": "vendor/bin/pest --coverage-html coverage",
+>>>>>>> 97a00310c5ae7b316cfb052e6891ed353e6c7282
         "format": "vendor/bin/pint",
         "format-test": "vendor/bin/pint --test"
     },
     "config": {
+<<<<<<< HEAD
         "allow-plugins": {
             "pestphp/pest-plugin": true
         },
         "sort-packages": true
+=======
+        "sort-packages": true,
+        "allow-plugins": {
+            "pestphp/pest-plugin": true
+        }
+>>>>>>> 97a00310c5ae7b316cfb052e6891ed353e6c7282
     },
     "extra": {
         "laravel": {
