@@ -12,7 +12,7 @@ All notable changes to `chhankitek` will be documented in this file
 - `Chhankitek` now accepts an optional `CacheRepository` as its second constructor argument and auto-detects Laravel, falling back to `ArrayCache` when no application is bound
 - Add an optional `CacheRepository` argument to the `toLunarDate()` helper and the `HasChhankitek::chhankitek()` trait method
 
-### Laravel 13 & tooling
+### Laravel 13 & tooling 
 
 - Add support for Laravel 13 by widening the `illuminate/support` constraint to include `^13.0`
 - Widen `orchestra/testbench` to `^11.0` and `phpunit/phpunit` to `^12.0`
