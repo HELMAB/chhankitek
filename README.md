@@ -3,6 +3,7 @@
 <p align="center">
     <a href="https://packagist.org/packages/asorasoft/chhankitek"><img src="https://img.shields.io/packagist/v/asorasoft/chhankitek.svg?style=flat-square" alt="Latest Version on Packagist"></a>
     <a href="https://packagist.org/packages/asorasoft/chhankitek"><img src="https://img.shields.io/packagist/dt/asorasoft/chhankitek.svg?style=flat-square" alt="Total Downloads"></a>
+    <a href="LICENSE.md"><img src="https://img.shields.io/packagist/l/asorasoft/chhankitek.svg?style=flat-square" alt="License"></a>
 </p>
 
 <p align="center">A Laravel package to convert dates to Lunar (Chhankitek) format. <a href="https://khmer-calendar.tovnah.com/calendar">Learn more about Khmer calendar</a>.</p>
@@ -69,6 +70,25 @@ Alternatively, you can use the `toLunarDate` helper function:
 toLunarDate(Carbon\CarbonImmutable::now()->setTimezone('Asia/Phnom_Penh')); // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥
 ```
 
+## Khmer Numerals
+
+Convert Arabic numerals to their Khmer representation with the `HasKhmerNumberConversion` trait:
+
+```php
+use Asorasoft\Chhankitek\Traits\HasKhmerNumberConversion;
+
+class SomeController
+{
+    use HasKhmerNumberConversion;
+
+    public function index()
+    {
+        $this->convertToKhmerNumber(2569); // ២៥៦៩
+        $this->convertToKhmerNumber('2025-05-11'); // ២០២៥-០៥-១១
+    }
+}
+```
+
 ## Caching
 
 The Chhankitek package implements caching to improve performance when converting dates to lunar format. When you convert a date using the package, the result is cached for one year (365 days) to minimize computational overhead for frequently accessed dates.
@@ -79,13 +99,13 @@ The Chhankitek package implements caching to improve performance when converting
 - Cache duration: 365 days (60 * 60 * 24 * 365 seconds)
 - The package leverages Laravel's cache system, so it will use whatever cache driver you've configured for your application
 
-### Testing
+## Testing
 
 ```bash
 composer test
 ```
 
-### Changelog
+## Changelog
 
 Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes.
 
@@ -93,7 +113,7 @@ Please see [CHANGELOG](CHANGELOG.md) for more information about recent changes.
 
 Please see [CONTRIBUTING](CONTRIBUTING.md) for details.
 
-### Security
+## Security
 
 If you discover any security related issues, please email mabhelitc@gmail.com instead of using the issue tracker.
 
