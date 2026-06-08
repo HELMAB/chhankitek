@@ -352,11 +352,12 @@ final class Chhankitek
         $lunarMonths = (new Constant)->lunarMonths;
         $date = CarbonImmutable::createFromFormat('!d/m/Y', "1/1/{$gregorianYear}", 'Asia/Phnom_Penh');
 
-        return $this->cache->remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
+        $cached = $this->cache->remember("chhakitek_visakha_bochea_{$date}", 60 * 60 * 24 * 365, function () use ($date, $lunarMonths) {
             for ($i = 0; $i < 365; $i++) {
                 $lunarDate = $this->findLunarDate($date);
                 if ($lunarDate->getMonth() === $lunarMonths['ពិសាខ'] && $lunarDate->getDay() === 14) {
-                    return $lunarDate->getEpochMoved();
+                    // Store as a string to avoid __PHP_Incomplete_Class on deserialization.
+                    return $lunarDate->getEpochMoved()->toIso8601String();
                 }
 
                 $date = $date->addDay();
@@ -364,6 +365,8 @@ final class Chhankitek
 
             throw new VisakhabocheaException('Cannot find Visakhabochea day.');
         });
+
+        return CarbonImmutable::parse($cached, 'Asia/Phnom_Penh');
     }
 
     /**
@@ -603,7 +606,7 @@ final class Chhankitek
 
         $khmerMonth = $lunarMonths['បុស្ស'];
 
-        return $this->cache->remember('chhakitek_lunar_date_'.$target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
+        $cached = $this->cache->remember('chhakitek_lunar_date_'.$target->format('Y-m-d'), 60 * 60 * 24 * 365, function () use ($target, $epochDateTime, $khmerMonth) {
             // Move epoch close to the target year
             if ($target->greaterThan($epochDateTime)) {
                 while (true) {
@@ -644,8 +647,12 @@ final class Chhankitek
                 $daysBetween -= $daysInMonth;
             }
 
-            return new LunarDate((int) $daysBetween, $khmerMonth, $target);
+            // Store only scalar primitives so deserialization never produces
+            // __PHP_Incomplete_Class when the autoloader has not yet run.
+            return ['day' => (int) $daysBetween, 'month' => $khmerMonth];
         });
+
+        return new LunarDate($cached['day'], $cached['month'], $target);
     }
 
     /**

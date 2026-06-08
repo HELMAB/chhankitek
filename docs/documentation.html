@@ -4,8 +4,18 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+    <!-- Language preference (set early to avoid a flash of untranslated content) -->
+    <script>
+        (function () {
+            var lang = localStorage.getItem('chhankitek.lang') || 'km';
+            document.documentElement.lang = lang;
+            document.documentElement.classList.add('i18n-pending');
+        })();
+    </script>
+    <style>html.i18n-pending body { visibility: hidden; }</style>
+
     <!-- Primary Meta Tags -->
-    <title>Documentation — Chhankitek | API Reference &amp; Usage Guide</title>
+    <title data-i18n="doc.title">Documentation — Chhankitek | API Reference &amp; Usage Guide</title>
     <meta name="title" content="Documentation — Chhankitek | API Reference &amp; Usage Guide">
     <meta name="description" content="Complete documentation for the Chhankitek PHP package. Convert Gregorian dates to the Khmer Lunar calendar, use traits, helpers, pure PHP, and access Buddhist Era, zodiac years, and moon phases.">
     <meta name="keywords" content="chhankitek documentation, khmer calendar api, php calendar docs, buddhist era conversion, lunar date php, pure php, laravel package documentation">
@@ -123,10 +133,14 @@
                     <span class="font-mono text-sm font-semibold uppercase">Chhankitek</span>
                 </a>
                 <div class="hidden md:flex items-center gap-8" role="menubar">
-                    <a href="index.html" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">Home</a>
-                    <a href="index.html#features" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">Features</a>
-                    <a href="documentation.html" class="text-sm font-medium text-neutral-900 border-b-2 border-accent" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="index.html" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem" data-i18n="nav.home">Home</a>
+                    <a href="index.html#features" class="text-sm text-neutral-600 hover:text-neutral-900" role="menuitem" data-i18n="nav.features">Features</a>
+                    <a href="documentation.html" class="text-sm font-medium text-neutral-900 border-b-2 border-accent" role="menuitem" aria-current="page" data-i18n="nav.documentation">Documentation</a>
                     <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-neutral-600 hover:text-neutral-900" role="menuitem">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+                    <div class="flex items-center border border-neutral-300 font-mono text-[11px]" role="group" data-i18n-attr="aria-label:lang.aria" aria-label="Select language">
+                        <button type="button" data-lang-btn="km" class="px-2.5 py-1">ខ្មែរ</button>
+                        <button type="button" data-lang-btn="en" class="px-2.5 py-1">EN</button>
+                    </div>
                 </div>
                 <button id="mobile-menu-button" class="md:hidden p-2 text-neutral-700" aria-expanded="false" aria-controls="mobile-menu" aria-label="Toggle menu">
                     <i data-lucide="menu" class="h-6 w-6" aria-hidden="true"></i>
@@ -134,14 +148,26 @@
             </div>
             <div id="mobile-menu" class="hidden md:hidden border-t border-neutral-200 py-3" role="menu">
                 <div class="flex flex-col">
-                    <a href="index.html" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem">Home</a>
-                    <a href="index.html#features" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem">Features</a>
-                    <a href="documentation.html" class="text-sm font-medium text-neutral-900 py-2.5 border-b border-neutral-100" role="menuitem" aria-current="page">Documentation</a>
+                    <a href="index.html" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem" data-i18n="nav.home">Home</a>
+                    <a href="index.html#features" class="text-sm text-neutral-700 py-2.5 border-b border-neutral-100" role="menuitem" data-i18n="nav.features">Features</a>
+                    <a href="documentation.html" class="text-sm font-medium text-neutral-900 py-2.5 border-b border-neutral-100" role="menuitem" aria-current="page" data-i18n="nav.documentation">Documentation</a>
                     <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="inline-flex items-center gap-1 text-sm text-neutral-700 py-2.5" role="menuitem">GitHub <i data-lucide="arrow-up-right" class="h-4 w-4"></i></a>
+                    <div class="flex items-center border border-neutral-300 font-mono text-[11px] mt-3 self-start" role="group" data-i18n-attr="aria-label:lang.aria" aria-label="Select language">
+                        <button type="button" data-lang-btn="km" class="px-2.5 py-1.5">ខ្មែរ</button>
+                        <button type="button" data-lang-btn="en" class="px-2.5 py-1.5">EN</button>
+                    </div>
                 </div>
             </div>
         </div>
     </nav>
+
+    <!-- AI translation notice (shown only for Khmer) -->
+    <div id="ai-translation-notice" class="hidden bg-accent/15 border-b border-neutral-200" role="status">
+        <div class="max-w-6xl mx-auto px-6 py-2 flex items-center justify-center gap-2 text-center">
+            <i data-lucide="languages" class="h-4 w-4 text-neutral-600 shrink-0" aria-hidden="true"></i>
+            <p class="text-xs text-neutral-700" data-i18n="ai.notice">This Khmer text was translated by AI and may contain errors.</p>
+        </div>
+    </div>
 
     <!-- Hero -->
     <section class="relative isolate overflow-hidden border-b border-neutral-200">
@@ -149,10 +175,10 @@
         <div class="relative z-10 max-w-6xl mx-auto px-6 py-16 md:py-20">
             <div class="flex items-center gap-2 mb-6">
                 <span class="inline-block w-2 h-2 bg-accent"></span>
-                <span class="font-mono text-xs uppercase text-neutral-500">Reference &amp; usage guide</span>
+                <span class="font-mono text-xs uppercase text-neutral-500" data-i18n="doc.hero.kicker">Reference &amp; usage guide</span>
             </div>
-            <h1 class="font-serif text-5xl md:text-7xl leading-[0.95]">Documentation</h1>
-            <p class="mt-5 max-w-2xl text-lg text-neutral-600 leading-relaxed">
+            <h1 class="font-serif text-5xl md:text-7xl leading-[0.95]" data-i18n="doc.hero.h1">Documentation</h1>
+            <p class="mt-5 max-w-2xl text-lg text-neutral-600 leading-relaxed" data-i18n="doc.hero.lead">
                 Everything you need to integrate Khmer Lunar calendar conversions into your PHP or Laravel application.
             </p>
         </div>
@@ -162,7 +188,7 @@
     <div class="max-w-6xl mx-auto px-6 py-12 md:py-16">
         <!-- Mobile sidebar toggle -->
         <button id="sidebar-toggle" class="lg:hidden mb-6 w-full border border-neutral-300 px-4 py-3 font-mono text-xs uppercase flex items-center justify-between" aria-expanded="false" aria-controls="sidebar-content">
-            <span>Contents</span>
+            <span data-i18n="doc.toc.title">Contents</span>
             <i data-lucide="chevron-down" class="h-4 w-4" aria-hidden="true"></i>
         </button>
 
@@ -170,18 +196,18 @@
             <!-- Sidebar -->
             <aside class="lg:col-span-3" role="complementary" aria-label="Table of contents">
                 <div id="sidebar-content" class="hidden lg:block lg:sticky lg:top-24">
-                    <h2 class="font-mono text-xs uppercase text-neutral-500 mb-4">Contents</h2>
+                    <h2 class="font-mono text-xs uppercase text-neutral-500 mb-4" data-i18n="doc.toc.title">Contents</h2>
                     <nav class="flex flex-col border-l border-neutral-200" aria-label="Documentation sections">
-                        <a href="#installation" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Installation</a>
-                        <a href="#basic-usage" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Basic Usage</a>
-                        <a href="#pure-php" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Pure PHP Usage</a>
-                        <a href="#available-methods" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Available Methods</a>
-                        <a href="#caching" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Caching</a>
-                        <a href="#requirements" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Requirements</a>
-                        <a href="#examples" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Examples</a>
-                        <a href="#understanding" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Understanding the Calendar</a>
-                        <a href="#api-reference" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">API Reference</a>
-                        <a href="#contributing" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5">Contributing</a>
+                        <a href="#installation" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.installation">Installation</a>
+                        <a href="#basic-usage" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.basic">Basic Usage</a>
+                        <a href="#pure-php" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.pure">Pure PHP Usage</a>
+                        <a href="#available-methods" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.methods">Available Methods</a>
+                        <a href="#caching" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.caching">Caching</a>
+                        <a href="#requirements" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.requirements">Requirements</a>
+                        <a href="#examples" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.examples">Examples</a>
+                        <a href="#understanding" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.understanding">Understanding the Calendar</a>
+                        <a href="#api-reference" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.api">API Reference</a>
+                        <a href="#contributing" class="text-sm text-neutral-600 hover:text-neutral-900 hover:border-neutral-900 border-l-2 border-transparent -ml-px pl-4 py-1.5" data-i18n="doc.toc.contributing">Contributing</a>
                     </nav>
                 </div>
             </aside>
@@ -190,24 +216,24 @@
             <div class="lg:col-span-9">
                 <!-- Installation -->
                 <section id="installation" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Installation</h2>
-                    <p class="text-neutral-600 leading-relaxed mb-5">Install the package via Composer:</p>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.install.h2">Installation</h2>
+                    <p class="text-neutral-600 leading-relaxed mb-5" data-i18n="doc.install.p1">Install the package via Composer:</p>
                     <div class="relative bg-neutral-900 mb-5" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-bash !bg-neutral-900 !p-0 !text-neutral-100">composer require asorasoft/chhankitek</code></pre>
                         </div>
                     </div>
-                    <p class="text-neutral-600 leading-relaxed">
+                    <p class="text-neutral-600 leading-relaxed" data-i18n-html="doc.install.p2">
                         The only runtime dependency is <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">nesbot/carbon</code>, so the package works in <strong class="font-medium text-neutral-900">any PHP project</strong> — Laravel is optional. Inside a Laravel application it automatically registers its service provider, so no additional configuration is needed.
                     </p>
                 </section>
 
                 <!-- Basic Usage -->
                 <section id="basic-usage" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Basic Usage</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.basic.h2">Basic Usage</h2>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Using the Trait</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-4">In your Laravel controller, use the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">HasChhankitek</code> trait:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.basic.trait.h3">Using the Trait</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.basic.trait.p">In your Laravel controller, use the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">HasChhankitek</code> trait:</p>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">use Asorasoft\Chhankitek\Traits\HasChhankitek;
@@ -230,8 +256,8 @@ class YourController extends Controller
                         </div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Using the Helper Function</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-4">Alternatively, use the global <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">toLunarDate</code> helper:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.basic.helper.h3">Using the Helper Function</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.basic.helper.p">Alternatively, use the global <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">toLunarDate</code> helper:</p>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">use Carbon\CarbonImmutable;
@@ -245,15 +271,15 @@ echo $lunarDate->toString();</code></pre>
                     </div>
 
                     <div class="border-l-2 border-accent pl-5 py-1">
-                        <p class="font-mono text-xs uppercase text-neutral-500 mb-1">Important</p>
-                        <p class="text-sm text-neutral-600 leading-relaxed">Always use <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">CarbonImmutable</code> (not <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">Carbon</code>) and set the timezone to <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">'Asia/Phnom_Penh'</code>.</p>
+                        <p class="font-mono text-xs uppercase text-neutral-500 mb-1" data-i18n="doc.basic.important.label">Important</p>
+                        <p class="text-sm text-neutral-600 leading-relaxed" data-i18n-html="doc.basic.important.p">Always use <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">CarbonImmutable</code> (not <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">Carbon</code>) and set the timezone to <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">'Asia/Phnom_Penh'</code>.</p>
                     </div>
                 </section>
 
                 <!-- Pure PHP Usage -->
                 <section id="pure-php" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Pure PHP Usage (without Laravel)</h2>
-                    <p class="text-neutral-600 leading-relaxed mb-4">
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.pure.h2">Pure PHP Usage (without Laravel)</h2>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.pure.p1">
                         Laravel is <strong class="font-medium text-neutral-900">not</strong> required. Instantiate <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">Chhankitek</code> directly and read the lunar date from the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">formatKhmerDate</code> property:
                     </p>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
@@ -271,7 +297,7 @@ echo $lunarDate->toString();
 // ថ្ងៃច័ន្ទ ៤ រោច ខែបឋមាសាឍ ឆ្នាំឆ្លូវ ត្រីស័ក ពុទ្ធសករាជ ២៥៦៥</code></pre>
                         </div>
                     </div>
-                    <p class="text-neutral-600 leading-relaxed mb-4">The <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">toLunarDate()</code> helper is also available outside Laravel:</p>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.pure.p2">The <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">toLunarDate()</code> helper is also available outside Laravel:</p>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate = toLunarDate(
@@ -280,19 +306,19 @@ echo $lunarDate->toString();
                         </div>
                     </div>
                     <div class="border-l-2 border-accent pl-5 py-1">
-                        <p class="text-sm text-neutral-600 leading-relaxed">Without a Laravel application, conversions automatically use a framework-free in-memory cache. See <a href="#caching" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">Caching</a> to plug in your own cache store.</p>
+                        <p class="text-sm text-neutral-600 leading-relaxed" data-i18n-html="doc.pure.note">Without a Laravel application, conversions automatically use a framework-free in-memory cache. See <a href="#caching" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">Caching</a> to plug in your own cache store.</p>
                     </div>
                 </section>
 
                 <!-- Available Methods -->
                 <section id="available-methods" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Available Methods</h2>
-                    <p class="text-neutral-600 leading-relaxed mb-8">The <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">KhmerLunarDate</code> object provides the following methods:</p>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.methods.h2">Available Methods</h2>
+                    <p class="text-neutral-600 leading-relaxed mb-8" data-i18n-html="doc.methods.intro">The <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">KhmerLunarDate</code> object provides the following methods:</p>
 
                     <div class="border-t border-neutral-200">
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getDayOfWeek()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the Khmer day of the week.</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.dayOfWeek.desc">Returns the Khmer day of the week.</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getDayOfWeek(); // អាទិត្យ, ច័ន្ទ, អង្គារ, ពុធ, ព្រហស្បតិ៍, សុក្រ, សៅរ៍</code></pre>
@@ -302,7 +328,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getLunarDay()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the lunar day with moon status (កើត waxing, រោច waning).</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.lunarDay.desc">Returns the lunar day with moon status (កើត waxing, រោច waning).</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getLunarDay(); // ១កើត, ២កើត, ១៤រោច, etc.</code></pre>
@@ -312,7 +338,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getLunarMonth()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the Khmer lunar month name.</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.lunarMonth.desc">Returns the Khmer lunar month name.</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getLunarMonth(); // ចេត្រ, ពិសាខ, ជេស្ឋ, អាសាឍ, etc.</code></pre>
@@ -322,7 +348,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getLunarZodiac()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the animal year (Khmer zodiac).</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.lunarZodiac.desc">Returns the animal year (Khmer zodiac).</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getLunarZodiac(); // ជូត, ឆ្លូវ, ខាល, ថោះ, រោង, ម្សាញ់, ...</code></pre>
@@ -332,7 +358,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getLunarEra()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the era year (10-year cycle).</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.lunarEra.desc">Returns the era year (10-year cycle).</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getLunarEra(); // ត្រីស័ក, ចត្វាស័ក, បញ្ចស័ក, etc.</code></pre>
@@ -342,7 +368,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">getLunarYear()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the Buddhist Era year in Khmer numerals.</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.lunarYear.desc">Returns the Buddhist Era year in Khmer numerals.</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->getLunarYear(); // ២៥៦៥, ២៥៦៦, etc.</code></pre>
@@ -352,7 +378,7 @@ echo $lunarDate->toString();
 
                         <div class="border-b border-neutral-200 py-6">
                             <h4 class="font-mono text-sm font-medium mb-1">toString()</h4>
-                            <p class="text-sm text-neutral-600 mb-3">Returns the complete lunar date as a formatted string.</p>
+                            <p class="text-sm text-neutral-600 mb-3" data-i18n="doc.methods.toString.desc">Returns the complete lunar date as a formatted string.</p>
                             <div class="relative bg-neutral-900" data-copy>
                                 <div class="overflow-x-auto">
                                     <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$lunarDate->toString();
@@ -365,17 +391,17 @@ echo $lunarDate->toString();
 
                 <!-- Caching -->
                 <section id="caching" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Caching</h2>
-                    <p class="text-neutral-600 leading-relaxed mb-4">
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.caching.h2">Caching</h2>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.caching.p1">
                         Converted dates are cached for 365 days to minimize computational overhead. The cache is <strong class="font-medium text-neutral-900">swappable</strong> via the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">CacheRepository</code> interface, so it works the same with or without Laravel:
                     </p>
                     <ul class="space-y-3 text-neutral-600 leading-relaxed mb-6">
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">Inside Laravel</strong> — automatically uses Laravel's cache system (<code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">LaravelCache</code>), respecting your configured driver (Redis, Memcached, file, etc.). No setup required.</span></li>
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">Pure PHP</strong> — falls back to an in-memory cache (<code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">ArrayCache</code>) that de-duplicates lookups within a single request or script run.</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.caching.li1"><strong class="font-medium text-neutral-900">Inside Laravel</strong> — automatically uses Laravel's cache system (<code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">LaravelCache</code>), respecting your configured driver (Redis, Memcached, file, etc.). No setup required.</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.caching.li2"><strong class="font-medium text-neutral-900">Pure PHP</strong> — falls back to an in-memory cache (<code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">ArrayCache</code>) that de-duplicates lookups within a single request or script run.</span></li>
                     </ul>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Providing your own cache</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-4">Pass any implementation of <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">Asorasoft\Chhankitek\Cache\CacheRepository</code> as the second constructor argument:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.caching.own.h3">Providing your own cache</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n-html="doc.caching.own.p">Pass any implementation of <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">Asorasoft\Chhankitek\Cache\CacheRepository</code> as the second constructor argument:</p>
                     <div class="relative bg-neutral-900" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">use Asorasoft\Chhankitek\Cache\ArrayCache;
@@ -408,7 +434,7 @@ final class Psr16Cache implements CacheRepository
 
                 <!-- Requirements -->
                 <section id="requirements" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Requirements</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.req.h2">Requirements</h2>
                     <div class="border-t border-neutral-200">
                         <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-neutral-200 py-4">
                             <span class="font-mono text-xs uppercase text-neutral-500 sm:w-40 shrink-0">PHP</span>
@@ -416,20 +442,20 @@ final class Psr16Cache implements CacheRepository
                         </div>
                         <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-neutral-200 py-4">
                             <span class="font-mono text-xs uppercase text-neutral-500 sm:w-40 shrink-0">Carbon</span>
-                            <span class="text-neutral-700">nesbot/carbon ^2.0 | ^3.0 — the only required dependency</span>
+                            <span class="text-neutral-700" data-i18n="doc.req.carbon">nesbot/carbon ^2.0 | ^3.0 — the only required dependency</span>
                         </div>
                         <div class="flex flex-col sm:flex-row sm:items-baseline gap-1 sm:gap-6 border-b border-neutral-200 py-4">
                             <span class="font-mono text-xs uppercase text-neutral-500 sm:w-40 shrink-0">Laravel</span>
-                            <span class="text-neutral-700">^10.0 | ^11.0 | ^12.0 | ^13.0 (optional) — enables the facade, service provider, and persistent cache</span>
+                            <span class="text-neutral-700" data-i18n="doc.req.laravel">^10.0 | ^11.0 | ^12.0 | ^13.0 (optional) — enables the facade, service provider, and persistent cache</span>
                         </div>
                     </div>
                 </section>
 
                 <!-- Examples -->
                 <section id="examples" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Examples</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.examples.h2">Examples</h2>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Example 1 — Convert current date</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.examples.e1.h3">Example 1 — Convert current date</h3>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$today = toLunarDate(
@@ -443,7 +469,7 @@ echo "Year: " . $today->getLunarYear();</code></pre>
                         </div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Example 2 — Convert specific date</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.examples.e2.h3">Example 2 — Convert specific date</h3>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">$date = CarbonImmutable::createFromFormat(
@@ -456,7 +482,7 @@ echo $lunarDate->toString();</code></pre>
                         </div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Example 3 — Display in a Blade template</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.examples.e3.h3">Example 3 — Display in a Blade template</h3>
                     <div class="relative bg-neutral-900 mb-6" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">// In Controller
@@ -477,7 +503,7 @@ public function index()
                         </div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Example 4 — Using in an API</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.examples.e4.h3">Example 4 — Using in an API</h3>
                     <div class="relative bg-neutral-900" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">Route::get('/api/lunar-date', function (Request $request) {
@@ -507,10 +533,10 @@ public function index()
 
                 <!-- Understanding the Calendar -->
                 <section id="understanding" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Understanding the Khmer Calendar</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.understand.h2">Understanding the Khmer Calendar</h2>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Lunar Months</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-5">The Khmer lunar calendar has 12 standard months. In leap years, an additional month (បឋមាសាឍ) is added:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.understand.months.h3">Lunar Months</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-5" data-i18n="doc.understand.months.p">The Khmer lunar calendar has 12 standard months. In leap years, an additional month (បឋមាសាឍ) is added:</p>
                     <div class="grid grid-cols-2 sm:grid-cols-3 border-t border-l border-neutral-200 mb-6">
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">មិគសិរ <span class="text-neutral-400">Mikasar</span></div>
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">បុស្ស <span class="text-neutral-400">Boss</span></div>
@@ -526,14 +552,14 @@ public function index()
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">កត្តិក <span class="text-neutral-400">Kadek</span></div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Lunar Days</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-4">Each lunar month is divided into two phases:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.understand.days.h3">Lunar Days</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n="doc.understand.days.p">Each lunar month is divided into two phases:</p>
                     <ul class="space-y-3 text-neutral-600 leading-relaxed mb-6">
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">កើត (Kaet):</strong> Waxing moon (days 1–15)</span></li>
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">រោច (Roch):</strong> Waning moon (days 1–15)</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.understand.days.li1"><strong class="font-medium text-neutral-900">កើត (Kaet):</strong> Waxing moon (days 1–15)</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.understand.days.li2"><strong class="font-medium text-neutral-900">រោច (Roch):</strong> Waning moon (days 1–15)</span></li>
                     </ul>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Zodiac Animals (12-year cycle)</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.understand.zodiac.h3">Zodiac Animals (12-year cycle)</h3>
                     <div class="grid grid-cols-2 sm:grid-cols-4 border-t border-l border-neutral-200 mb-6">
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">ជូត <span class="text-neutral-400">Rat</span></div>
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">ឆ្លូវ <span class="text-neutral-400">Ox</span></div>
@@ -549,65 +575,65 @@ public function index()
                         <div class="border-r border-b border-neutral-200 px-4 py-3 text-sm text-neutral-700">កុរ <span class="text-neutral-400">Pig</span></div>
                     </div>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Leap Years</h3>
-                    <p class="text-neutral-600 leading-relaxed mb-4">The Khmer calendar has two types of leap years:</p>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.understand.leap.h3">Leap Years</h3>
+                    <p class="text-neutral-600 leading-relaxed mb-4" data-i18n="doc.understand.leap.p">The Khmer calendar has two types of leap years:</p>
                     <ul class="space-y-3 text-neutral-600 leading-relaxed">
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">Leap Month Year (Adhikameas):</strong> An extra 13th month (បឋមាសាឍ) is added, making the year 384 days long.</span></li>
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">Leap Day Year:</strong> An extra day is added to the month of ជេស្ឋ, making the year 355 days long.</span></li>
-                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span><strong class="font-medium text-neutral-900">Regular Year:</strong> 354 days with 12 months.</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.understand.leap.li1"><strong class="font-medium text-neutral-900">Leap Month Year (Adhikameas):</strong> An extra 13th month (បឋមាសាឍ) is added, making the year 384 days long.</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.understand.leap.li2"><strong class="font-medium text-neutral-900">Leap Day Year:</strong> An extra day is added to the month of ជេស្ឋ, making the year 355 days long.</span></li>
+                        <li class="flex gap-3"><span class="text-accent shrink-0">—</span> <span data-i18n-html="doc.understand.leap.li3"><strong class="font-medium text-neutral-900">Regular Year:</strong> 354 days with 12 months.</span></li>
                     </ul>
 
                     <div class="border-l-2 border-accent pl-5 py-1 mt-6">
-                        <p class="text-sm text-neutral-600 leading-relaxed"><strong class="font-medium text-neutral-900">Learn more:</strong> Visit <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">Khmer Calendar</a> for detailed information about the system.</p>
+                        <p class="text-sm text-neutral-600 leading-relaxed" data-i18n-html="doc.understand.learn"><strong class="font-medium text-neutral-900">Learn more:</strong> Visit <a href="https://khmer-calendar.tovnah.com/calendar" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">Khmer Calendar</a> for detailed information about the system.</p>
                     </div>
                 </section>
 
                 <!-- API Reference -->
                 <section id="api-reference" class="scroll-mt-24 pb-14 mb-14 border-b border-neutral-200">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">API Reference</h2>
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.api.h2">API Reference</h2>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Chhankitek Class</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.api.class.h3">Chhankitek Class</h3>
                     <div class="relative bg-neutral-900 mb-3" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">new Chhankitek(CarbonImmutable $target, ?CacheRepository $cache = null)</code></pre>
                         </div>
                     </div>
-                    <p class="text-neutral-600 leading-relaxed mb-6">Framework-free entry point. The resulting lunar date is on the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">formatKhmerDate</code> property. The optional <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">CacheRepository</code> defaults to Laravel's cache when an application is bound, otherwise an in-memory cache.</p>
+                    <p class="text-neutral-600 leading-relaxed mb-6" data-i18n-html="doc.api.class.p">Framework-free entry point. The resulting lunar date is on the <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">formatKhmerDate</code> property. The optional <code class="font-mono text-[0.85em] bg-neutral-100 px-1.5 py-0.5">CacheRepository</code> defaults to Laravel's cache when an application is bound, otherwise an in-memory cache.</p>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">HasChhankitek Trait</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.api.trait.h3">HasChhankitek Trait</h3>
                     <div class="relative bg-neutral-900 mb-3" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">chhankitek(CarbonImmutable $target, ?CacheRepository $cache = null): KhmerLunarDate</code></pre>
                         </div>
                     </div>
-                    <p class="text-neutral-600 leading-relaxed mb-6">Converts a Gregorian date to Khmer lunar date format.</p>
+                    <p class="text-neutral-600 leading-relaxed mb-6" data-i18n="doc.api.trait.p">Converts a Gregorian date to Khmer lunar date format.</p>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-3">Helper Function</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-3" data-i18n="doc.api.helper.h3">Helper Function</h3>
                     <div class="relative bg-neutral-900 mb-3" data-copy>
                         <div class="overflow-x-auto">
                             <pre class="p-5 text-sm leading-relaxed"><code class="language-php !bg-neutral-900 !p-0 !text-neutral-100">toLunarDate(CarbonImmutable $target, ?CacheRepository $cache = null): KhmerLunarDate</code></pre>
                         </div>
                     </div>
-                    <p class="text-neutral-600 leading-relaxed mb-8">Global helper function for date conversion.</p>
+                    <p class="text-neutral-600 leading-relaxed mb-8" data-i18n="doc.api.helper.p">Global helper function for date conversion.</p>
 
-                    <h3 class="font-serif text-2xl mt-8 mb-4">KhmerLunarDate Methods</h3>
+                    <h3 class="font-serif text-2xl mt-8 mb-4" data-i18n="doc.api.methods.h3">KhmerLunarDate Methods</h3>
                     <div class="overflow-x-auto border-t border-neutral-200">
                         <table class="min-w-full text-sm">
                             <thead>
                                 <tr class="border-b border-neutral-200 text-left">
-                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3 pr-6">Method</th>
-                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3 pr-6">Returns</th>
-                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3">Description</th>
+                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3 pr-6" data-i18n="doc.api.th.method">Method</th>
+                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3 pr-6" data-i18n="doc.api.th.returns">Returns</th>
+                                    <th class="font-mono text-xs uppercase text-neutral-500 font-normal py-3" data-i18n="doc.api.th.desc">Description</th>
                                 </tr>
                             </thead>
                             <tbody class="text-neutral-700">
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getDayOfWeek()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Khmer day of week</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarDay()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Lunar day with moon status</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarMonth()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Khmer lunar month name</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarZodiac()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Animal year (zodiac)</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarEra()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Era year (10-year cycle)</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarYear()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Buddhist Era year (Khmer numerals)</td></tr>
-                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">toString()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3">Complete formatted date string</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getDayOfWeek()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.dayOfWeek">Khmer day of week</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarDay()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.lunarDay">Lunar day with moon status</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarMonth()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.lunarMonth">Khmer lunar month name</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarZodiac()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.lunarZodiac">Animal year (zodiac)</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarEra()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.lunarEra">Era year (10-year cycle)</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">getLunarYear()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.lunarYear">Buddhist Era year (Khmer numerals)</td></tr>
+                                <tr class="border-b border-neutral-200"><td class="font-mono py-3 pr-6 whitespace-nowrap">toString()</td><td class="py-3 pr-6 text-neutral-500">string</td><td class="py-3" data-i18n="doc.api.row.toString">Complete formatted date string</td></tr>
                             </tbody>
                         </table>
                     </div>
@@ -615,13 +641,13 @@ public function index()
 
                 <!-- Contributing -->
                 <section id="contributing" class="scroll-mt-24">
-                    <h2 class="font-serif text-3xl md:text-4xl mb-5">Contributing</h2>
-                    <p class="text-neutral-600 leading-relaxed mb-3">
+                    <h2 class="font-serif text-3xl md:text-4xl mb-5" data-i18n="doc.contrib.h2">Contributing</h2>
+                    <p class="text-neutral-600 leading-relaxed mb-3" data-i18n-html="doc.contrib.p1">
                         Contributions are welcome. Please see the
                         <a href="https://github.com/HELMAB/chhankitek/blob/master/CONTRIBUTING.md" target="_blank" rel="noopener noreferrer" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">CONTRIBUTING.md</a>
                         file for details.
                     </p>
-                    <p class="text-neutral-600 leading-relaxed">
+                    <p class="text-neutral-600 leading-relaxed" data-i18n-html="doc.contrib.p2">
                         Found a security issue? Please email
                         <a href="mailto:mabhelitc@gmail.com" class="font-medium text-neutral-900 border-b border-neutral-300 hover:border-neutral-900">mabhelitc@gmail.com</a>
                         instead of using the issue tracker.
@@ -638,17 +664,17 @@ public function index()
             <div class="flex flex-col sm:flex-row justify-between gap-4">
                 <div>
                     <span class="font-mono text-sm font-semibold uppercase text-white">Chhankitek</span>
-                    <p class="text-sm mt-2">PHP package for Khmer Lunar calendar conversions.</p>
+                    <p class="text-sm mt-2" data-i18n="doc.ftr.tagline">PHP package for Khmer Lunar calendar conversions.</p>
                 </div>
                 <div class="flex flex-wrap gap-x-6 gap-y-2 text-sm">
-                    <a href="index.html" class="hover:text-white">Home</a>
+                    <a href="index.html" class="hover:text-white" data-i18n="nav.home">Home</a>
                     <a href="https://github.com/HELMAB/chhankitek" target="_blank" rel="noopener noreferrer" class="hover:text-white">GitHub</a>
                     <a href="https://packagist.org/packages/asorasoft/chhankitek" target="_blank" rel="noopener noreferrer" class="hover:text-white">Packagist</a>
-                    <a href="https://github.com/HELMAB/chhankitek/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="hover:text-white">Changelog</a>
+                    <a href="https://github.com/HELMAB/chhankitek/blob/master/CHANGELOG.md" target="_blank" rel="noopener noreferrer" class="hover:text-white" data-i18n="ftr.changelog">Changelog</a>
                 </div>
             </div>
             <div class="border-t border-neutral-800 mt-8 pt-6 text-sm">
-                <p>&copy; 2024 Chhankitek. Released under the MIT License.</p>
+                <p data-i18n="ftr.copyright">&copy; 2024 Chhankitek. Released under the MIT License.</p>
             </div>
         </div>
     </footer>
@@ -658,6 +684,7 @@ public function index()
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/php.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.9.0/languages/bash.min.js"></script>
     <script src="https://unpkg.com/lucide@latest"></script>
+    <script src="i18n.js"></script>
     <script>
         lucide.createIcons();
         hljs.highlightAll();
