@@ -2,7 +2,7 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
-## 2.0.5 - 2026-09-02
+## 2.2.2 - 2026-09-02
 
 ### Fixes
 
