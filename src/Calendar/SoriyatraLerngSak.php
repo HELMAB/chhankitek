@@ -334,16 +334,20 @@ final class SoriyatraLerngSak
             fn (NewYearDaySotins $sotin) => $sotin->getAngsar() === 0
         ));
 
-        if (count($sotinNewYear) === 1) {
-            $libda = $sotinNewYear[0]->getLibda();
-            $minutes = (24 * 60) - ($libda * 24);
-
-            return new TimeOfNewYear(
-                (int) floor($minutes / 60),
-                $minutes % 60
-            );
+        if ($sotinNewYear === []) {
+            throw new TimeOfNewYearException('Wrong calculation on new years hour. No sotin with angsar = 0');
         }
 
-        throw new TimeOfNewYearException('Wrong calculation on new years hour. No sotin with angsar = 0');
+        // The sun advances a little under one angsar per sotin, so when it lands exactly
+        // on the boundary (libda = 0) the following sotin is still inside angsar 0 and two
+        // sotins match. The crossing is the first of them; the second is already past it.
+        $libda = $sotinNewYear[0]->getLibda();
+        $minutes = (24 * 60) - ($libda * 24);
+
+        // A libda of 0 yields 24:00, i.e. midnight ending the sotin day.
+        return new TimeOfNewYear(
+            (int) floor($minutes / 60),
+            $minutes % 60
+        );
     }
 }

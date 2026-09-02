@@ -2,6 +2,14 @@
 
 All notable changes to `chhankitek` will be documented in this file
 
+## 2.0.5 - 2026-09-02
+
+### Fixes
+
+- Fix `getKhmerNewYearDateTime()` computing the Khmer New Year one day early when the 17 April epoch and Lerng Sak fall in different lunar months. The day offset assumed a fixed 30-day lunar month; it is now derived from the real month lengths, so 29-day months no longer shift the result (fixes #30 — 2026 now correctly returns 14 April)
+- Parse the Moha Songkran time as `Asia/Phnom_Penh` local time instead of converting from the process default timezone, which could shift the clock and roll the epoch to 18 April
+- Handle the Angsar boundary in `SoriyatraLerngSak::getTimeOfNewYear()` where a libda of 0 makes two consecutive sotins match; the crossing is now taken from the first of them instead of throwing
+
 ## 2.0.4 - 2026-06-08
 
 ### Pure PHP support & swappable cache
