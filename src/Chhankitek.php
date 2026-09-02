@@ -677,12 +677,16 @@ final class Chhankitek
 
         $timeOfNewYear = $info->getTimeOfNewYear();
         $minutes = sprintf('%02d', $timeOfNewYear->getMinute());
-        $hour = $timeOfNewYear->getHour();
+        $hour = sprintf('%02d', $timeOfNewYear->getHour());
 
+        // The Soriyatra time is already Phnom Penh local time, so it has to be parsed
+        // as such. Parsing it in the process default timezone and converting afterwards
+        // would shift the clock and, for a late enough hour, roll the epoch to 18 April.
         $epochLerngSak = CarbonImmutable::createFromFormat(
             'Y-m-d H:i',
-            "$gregorianYear-04-17 $hour:$minutes"
-        )->setTimezone('Asia/Phnom_Penh');
+            "$gregorianYear-04-17 $hour:$minutes",
+            'Asia/Phnom_Penh'
+        );
 
         $lunarDate = $this->findLunarDate($epochLerngSak);
         $lunarDay = $lunarDate->getDay();
@@ -692,10 +696,81 @@ final class Chhankitek
         $lunarLerngSakDay = $lunarLerngSak->getDay();
         $lunarLerngSakMonth = $lunarLerngSak->getMonth();
 
-        $diffFromEpoch = ((($lunarMonth - 4) * 30) + $lunarDay)
-            - ((($lunarLerngSakMonth - 4) * 30) + $lunarLerngSakDay);
+        // Count the real days between the Lerng Sak lunar date and the lunar date of
+        // the 17 April epoch. Lunar months are 29 or 30 days long, so assuming a fixed
+        // 30 shifts the result by a day whenever the two fall in different months.
+        $beYear = $this->getMaybeBEYear($epochLerngSak);
+
+        $diffFromEpoch = $this->diffInLunarDays(
+            $lunarLerngSakMonth,
+            $lunarLerngSakDay,
+            $lunarMonth,
+            $lunarDay,
+            $beYear
+        );
 
         return $epochLerngSak->subDays($diffFromEpoch + $numberNewYearDay - 1);
+    }
+
+    /**
+     * Count the days from one lunar date to another within the same Khmer year.
+     *
+     * Month lengths alternate between 29 and 30 days, so the distance is measured by
+     * walking the real months rather than assuming a fixed length. The two dates are
+     * expected to be at most a couple of months apart; the result is negative when the
+     * second date precedes the first.
+     *
+     * @param  int  $fromMonth  Khmer month index of the first date
+     * @param  int  $fromDay  Zero-based day within $fromMonth
+     * @param  int  $toMonth  Khmer month index of the second date
+     * @param  int  $toDay  Zero-based day within $toMonth
+     * @param  int  $beYear  Buddhist Era year both dates belong to
+     *
+     * @throws InvalidKhmerMonthException When the months are too far apart to relate.
+     */
+    private function diffInLunarDays(int $fromMonth, int $fromDay, int $toMonth, int $toDay, int $beYear): int
+    {
+        $forward = $this->daysBetweenLunarMonths($fromMonth, $toMonth, $beYear);
+
+        if ($forward !== null) {
+            return $forward + $toDay - $fromDay;
+        }
+
+        $backward = $this->daysBetweenLunarMonths($toMonth, $fromMonth, $beYear);
+
+        if ($backward !== null) {
+            return -($backward + $fromDay - $toDay);
+        }
+
+        throw new InvalidKhmerMonthException(
+            "Khmer months $fromMonth and $toMonth are not adjacent in BE year $beYear."
+        );
+    }
+
+    /**
+     * Total days spanned by walking forward from one Khmer month to another.
+     *
+     * Returns null when $toMonth is not reached within the search limit, which lets the
+     * caller retry in the opposite direction instead of wrapping around a whole year.
+     *
+     * @throws InvalidKhmerMonthException
+     */
+    private function daysBetweenLunarMonths(int $fromMonth, int $toMonth, int $beYear): ?int
+    {
+        $days = 0;
+        $month = $fromMonth;
+
+        // Both dates sit within days of 17 April, so they never span more than two months.
+        for ($step = 0; $step < 3; $step++) {
+            if ($month === $toMonth) {
+                return $days;
+            }
+
+            $days += $this->getNumberOfDayInKhmerMonth($month, $beYear);
+            $month = $this->nextMonthOf($month, $beYear);
+        }
+
+        return null;
     }
 
     /**
